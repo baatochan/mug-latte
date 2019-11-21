@@ -77,7 +77,30 @@ Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Jav
 
 ### Zewnętrzne biblioteki
 
+### API
+### Komunikacja z serwerem
+### Środowisko deweloperskie
+Projekt realizowany był z użyciem komputera wyposażonego w procesor Intel Pentium G3258@4.4GHz, 16GB pamięci RAM DDR3-1333 oraz kartę graficzną AMD Pitcairn XT na karcie Radeon HD 7870 z 2 GB pamięci pracujący pod kontrolą systemu operacyjnego Microsoft Windows 10 Pro w wersji 1903 (Build 18362.476).
 
+Główny telefon wykorzystany do projektu to OnePlus 5T posiadający układ Snapdragon 835 i 6GB pamięci operacyjnej działający pod kontrolą systemu Android w wersji 9 Pie z nakładką OxygenOS w wersji 9.0.9.
+
+Program kompilowany był z użyciem Kotlina w wersji 1.3.60 do kodu bajtowego dla JVM w wersji 1.6. Proces budowania był sterowany przez narzędzie Gradle w wersji 5.4.1 z wtyczką do Androida (Android Gradle Plugin) w wersji 3.5.1. Kod edytowany był w środowisku deweloperskim (IDE) Android Studio w wersji 3.5.2.
+
+Najniższa wspierana przez aplikację wersja systemu Android to 5.0 Lollipop. Oprogramowanie było kompilowane używając SDK w wersji 29, odpowiadającej najnowszej wersji Androida 10.
+
+Aplikacja została przetestowana również na następujących urządzeniach:
+
+* OnePlus One - Android 9 Pie
+* <!-- tel julci -->
+* <!-- tel klucza -->
+* Samsung Galaxy Tab 8.4 Pro - Android 7.1.2 (tablet)
+* Nexus 5X - Android 10 (maszyna wirtualna)
+* Nexus 4 - Android 5.0 Lollipop (maszyna wirtualna)
+
+Na każdym z wymienionych urządzeń aplikacja działała w pełni poprawnie.
+
+### Kontrola wersji
+### System budowania
 
 
 
@@ -93,3 +116,5 @@ Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Jav
 
 # Dokumentacja
 * https://gs.statcounter.com/os-market-share/mobile/worldwide (@Platforma)
+
+<!-- kapt.incremental.apt=true https://stackoverflow.com/questions/57670510/how-to-get-rid-of-incremental-annotation-processing-requested-warning -->
