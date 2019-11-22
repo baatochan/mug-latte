@@ -38,6 +38,7 @@ Program ten miał być pisany wykorzystując najlepsze wzorce projektowe oraz od
 Rozdział 1 stanowi wstęp do problemu. Rozdział 2 bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to co zostało zrealizowane. Rozdział 3 przedstawia technologie wybrane do stworzenia programu. Rozdział 4 opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział 5 został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale 6 zamieszono podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy.
 
 ## Opis koncepcji
+### Aplikacja mobilna
 Pomysł na aplikację powstał obserwując inne aplikacje użytkowe, jak te wymienione we wstępie. Głównie była ona bazowana na dwóch aplikacjach - aplikacji do wyszukiwania publicznych toalet (Flush) oraz publicznych sieci Wi-Fi (WiFi Map). W obu przypadkach głównym punktem wokół kręci się cała idea jest mapa z społecznie zbieranymi danymi przez użytkowników, którzy w założeniu sami dbają o poprawność i aktualność danych.
 
 Tutaj też głównym miejscem miał być widok mapy umożliwiający w przyjazny dla użytkownika sposób przeglądanie danych. Dodatkowo dane miały być możliwe do wyświetlenia w kwestii listy, sortowanej rosnąco odległością od użytkownika.
@@ -50,7 +51,11 @@ W aplikacji miał być dostępny widok szczegółowy danego miejsca umożliwiaj�
 
 Klient miał oczywiście pozwalać również na edycje już istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nie istniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji, oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
 
+### Serwer
+
 Do działania aplikacja potrzebowała by również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji na połączenie się z nim oraz wykorzystując odpowiednią warstwę abstrakcji, by w przyszłości było możliwe stworzenie klientów na inne platformy (klient webowy, na system iOS, itp.)
+
+### Zakres realizacji
 
 Oczywiście powyższy opis konceptu przekracza to co było planowane w zakresie tej pracy, oraz przekracza to co udało się zrealizować. W trakcie realizacji pracy udało się stworzyć następujące funkcjonalności:
 
@@ -76,39 +81,86 @@ Wybór platformy w dużej mierze uwarunkował wybór języka programowania. Istn
 Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Javą. Mimo pewnego wcześniejszego doświadczenia autora pracy z Javą wybrany został język Kotlin, który jest traktowany przez Google jako przyszłość dla tej platformy, aby ułatwić w przyszłości rozwój tej aplikacji i poznać nieznaną dotąd dla siebie technologię.
 
 ### Zewnętrzne biblioteki
+Przy budowie projektu wykorzystano kilka zewnętrznych bibliotek, z których większość wchodzi w skład Android Framework, czyli oficjalnych bibliotek wymaganych do tworzenia aplikacji na tą platformę.
+
+Podstawową użytą biblioteką jest biblioteka języka Kotlin, pozwalająca na pisanie kodu w tym języku oraz biblioteka Core z pakietu AndroidX, czyli główna biblioteka wymagana przez system, implementująca podstawowe definicje takich elementów jak aktywności, czy widoki programu. Większość widoków w aplikacji stworzono wykorzystując ConstraintLayout, którego podstawowa definicja znajduje się w bibliotece o tej samej nazwie.
+
+Przy tworzeniu wykorzystano również bibliotekę AppCompat, która pozwoliła na modyfikacje paska akcji na górze widoku aplikacji i implementację mechanizmu wyszukiwania miejsc.
+
+Do wsparcia przy budowie nawigacji pomiędzy ekranami programu wykorzystano bibliotekę o nazwie Navigation, ponieważ jest to zalecona metoda tworzenia przejść przez Google. Z tego samego powodu wykorzystano bibliotekę Lifecycle do lepszego wsparcia zarządzania życiem poszczególnych elementów aplikacji.
+
+W programie zaimplementowano bazę danych w technologii SQLite wykorzystując bibliotekę Room, która pozwala w prosty sposób tworzyć bazy danych do aplikacji na platformę Android.
+
+Do obsługi map oraz lokalizacji wykorzystano biblioteki Google Maps Services, ponieważ jest to oficjalnie wspierana biblioteka do tych zastosowań.
+
+<!-- biblioteka do neta -->
+
+Jedyną użytą biblioteką nie wchodzącą w skład Android Framework, jest biblioteka Timber, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
 
 ### API
 ### Komunikacja z serwerem
 ### Środowisko deweloperskie
-Projekt realizowany był z użyciem komputera wyposażonego w procesor Intel Pentium G3258@4.4GHz, 16GB pamięci RAM DDR3-1333 oraz kartę graficzną AMD Pitcairn XT na karcie Radeon HD 7870 z 2 GB pamięci pracujący pod kontrolą systemu operacyjnego Microsoft Windows 10 Pro w wersji 1903 (Build 18362.476).
+Projekt realizowany był z użyciem komputera wyposażonego w procesor Intel Pentium G3258@4.4GHz, 16GB pamięci RAM DDR3-1333 oraz kartę graficzną AMD Pitcairn XT na karcie Radeon HD 7870 z 2 GB pamięci, pracujący pod kontrolą systemu operacyjnego Microsoft Windows 10 Pro w wersji 1903 (Build 18362.476).
 
 Główny telefon wykorzystany do projektu to OnePlus 5T posiadający układ Snapdragon 835 i 6GB pamięci operacyjnej działający pod kontrolą systemu Android w wersji 9 Pie z nakładką OxygenOS w wersji 9.0.9.
 
-Program kompilowany był z użyciem Kotlina w wersji 1.3.60 do kodu bajtowego dla JVM w wersji 1.6. Proces budowania był sterowany przez narzędzie Gradle w wersji 5.4.1 z wtyczką do Androida (Android Gradle Plugin) w wersji 3.5.1. Kod edytowany był w środowisku deweloperskim (IDE) Android Studio w wersji 3.5.2.
+Program kompilowany był z użyciem Kotlina w wersji 1.3.60 do kodu bajtowego zgodnego z JVM w wersji 1.6. Proces budowania był sterowany przez narzędzie Gradle w wersji 5.4.1 z wtyczką do Androida (Android Gradle Plugin) w wersji 3.5.1. Kod edytowany był w środowisku deweloperskim (IDE) Android Studio w wersji 3.5.2.
 
 Najniższa wspierana przez aplikację wersja systemu Android to 5.0 Lollipop. Oprogramowanie było kompilowane używając SDK w wersji 29, odpowiadającej najnowszej wersji Androida 10.
 
 Aplikacja została przetestowana również na następujących urządzeniach:
 
 * OnePlus One - Android 9 Pie
-* <!-- tel julci -->
-* <!-- tel klucza -->
-* Samsung Galaxy Tab 8.4 Pro - Android 7.1.2 (tablet)
+* Xiaomi Redmi Note 5A Prime - Android 7.1.2 Nougat
+* Nokia 8 - Android 9 Pie
+* Samsung Galaxy Tab 8.4 Pro - Android 7.1.2 Nougat (tablet)
 * Nexus 5X - Android 10 (maszyna wirtualna)
 * Nexus 4 - Android 5.0 Lollipop (maszyna wirtualna)
 
 Na każdym z wymienionych urządzeń aplikacja działała w pełni poprawnie.
 
 ### Kontrola wersji
+W większości projektów informatycznych narzędzia systemu kontroli wersji pomagają zachować porządek i ułatwiają nad nim pracę. Z tego też powodu ten projekt również wykorzystywał narzędzie tego rodzaju - Git.
+
+Repozytorium Git wykorzystywane było głownie, aby lepiej zorganizować zmiany i łatwiej się w nich odnajdywać. Pozwalało na jednoczesną pracę nad kilkoma funkcjonalnościami jednocześnie, zachowując uporządkowaną historię zmian. Dodatkowo zabezpieczało ono sprawnie działający kod, pozwalając na cofnięcie niechcianych zmian w każdej chwili używając jednej komendy. System ten zapewniał też swojego rodzaju kopię zapasową projektu, ponieważ poza lokalnym komputerem repozytorium trzymane było również na serwerze GitHub w formie prywatnego projektu.
+
 ### System budowania
+Do automatyzacji procesu budowania wykorzystano narzędzie Gradle. Pozwalało ono po sprecyzowaniu podstawowych ustawień na w pełni automatyczne tworzenie pliku apk gotowego do instalacji na urządzeniu.
 
+W przypadku projektów na platformę Android konfiguracja gradle, podzielona jest na dwa osobne pliki - konfiguracja do całego projektu oraz poszczególnego modułu. Mimo, że projekt posiadał tylko jeden moduł, zachowany został ten podział, ponieważ uważany jest on za dobrą praktykę.
 
+W pliku z konfiguracją na cały projekt podane zostały zdalne repozytoria, z których Gradle pobierał wymagane dependencje oraz zdefiniowane zostało użycie narzędzi wymaganych do zbudowania aplikacji na system Android.
 
+W pliku konfiguracyjnym modułu programu znajdowały się podstawowe ustawienia.
 
+```
+compileSdkVersion 29
+dataBinding {
+	enabled = true
+}
+androidExtensions {
+	experimental = true
+}
+buildToolsVersion "29.0.2"
+defaultConfig {
+	applicationId "test.mug.espresso"
+	minSdkVersion 21
+	targetSdkVersion 29
+	versionCode 2
+	versionName "0.1.1"
+	testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+}
+```
 
+Zdefiniowana została wersje systemu Android, użyta do zbudowania binarki, minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem, a definicją widoku oraz aktywowano eksperymentalne funkcjonalności Android Framework.
 
+Ustalona została nazwa kodowa programu oraz jego wersja. Konwencja systemu Android zaleca stosowanie odwrotności domeny przeznaczonej dla danej aplikacji, jako nazwy kodowej. Z uwagi, że do projektu nie została zarejestrowana jeszcze żadna domena, na czas realizacji pracy zdecydowano się użyć domeny test, która przeznaczona jest do użycia w testowaniu oprogramowania i gwarantuje pewność, że nigdy nie nastąpi konflikt z żadną istniejącą domeną, ponieważ zablokowana jest możliwość jej rejestracji.
 
+### Testy jednostkowe
+Do projektu podłączono biblioteki JUnit umożliwiające pisanie lokalnych testów jednostkowych oraz testów wykonywanych na fizycznym urządzeniu. Niestety z uwagi na ograniczenia czasowe do aplikacji nie powstały żadne testy.
 
+## Opis implementacji
+### Struktura
 
 
 
