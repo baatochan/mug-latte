@@ -161,12 +161,90 @@ Do projektu podłączono biblioteki JUnit umożliwiające pisanie lokalnych test
 
 ## Opis implementacji
 ### Struktura
+#### Przepływ danych
+Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze.
+
+![Schemat architektury](architecture.png)
+
+Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe by aktualizować zawartość bazy. Dostęp do repozytorium wykonywany jest z poziomu klas typu ViewModel, w których starano się zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi, tak aby kodu w klasach aktywności i fragmentów było jak najmniej, zostawiając tam tylko kod odpowiedzialny za obsługę interfejsu użytkownika. ViewModel odświeża dane wyświetlane na ekranie korzystając ze zmiennych LiveData i technologii data binding.
+
+Schemat ten ma swoje odbicie w układzie plików z folderze zawierającym kod źródłowy.
+
+```
+├── EspressoApplication.kt
+├── mainView
+│   ├── DataViewModel.kt
+│   ├── ListViewFragment.kt
+│   ├── MainActivity.kt
+│   └── MapViewFragment.kt
+├── detailView
+│   ├── DetailViewFragment.kt
+│   └── DetailViewModel.kt
+├── addEditView
+│   ├── AddViewFragment.kt
+│   └── AddViewModel.kt
+├── domain
+│   ├── PowerMug.kt
+│   └── PowerMugWithDistance.kt
+├── repository
+│   └── PowerMugRepository.kt
+├── database
+│   ├── DbPowerMug.kt
+│   ├── PowerMugDatabase.kt
+│   └── PowerMugDatabaseDao.kt
+<!-- NETWORK -->
+├── BindingAdapters.kt
+└── Utils.kt
+```
+_Pliki są wyświetlone w ręcznie ustalonej kolejności_
+
+Aplikacja składa się z jednej aktywności, której jedynym zadaniem jest załadowanie odpowiedniego fragmentu.
+
+Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiej dwóch głownych fragmentów - MapView i ListView, które posiadają jeden wspólny.
+
+Klasy reprezentujące struktury używane przez ViewModel zostały wydzielone do folderu `domain`. W kolejnych folderach pogrupowane są klasy wykorzystywane przez repozytorium, bazę danych i obsługę sieci.
+
+Na samym końcu znajdują się dwa zbiorcze pliki zawierające pomocnicze wolne funkcje (nie będące częścią żadnej klasy).
+
+#### Widoki i nawigacja
+Aplikacja posiada jedną aktywność i cztery widoki, w tym dwa główne. Aktywność przy tworzeniu aktywuje szablon nawigacji (znajdujący się w `res/navigation/`), który pomaga w bezproblemowym zarządzaniu przechodzeniem pomiędzy fragmentami.
+
+![Diagram nawigacji pomiędzy fragmentami](navigation.png)
+
+Głównym i domyślnym widokiem jest widok mapy. Uruchamia się on zaraz po starcie aplikacji. Umożliwia przeglądanie danych w postaci punktów na mapie zajmującej cały ekran. Kliknięcie na punkt powoduje wyświetlenie szczegółów danego miejsca.
+
+Drugim głównym widokiem jest widok pozwalający na wyświetlenie miejsc w formie sortowanej listy. Przejście do niego jest możliwe z głównego ekranu za pomocą przycisku na dole. Kliknięcie pozycji reprezentującej konkretne miejsce powoduje wyświetlenie się szczegółów.
+
+Oba widoki główne posiadają przycisk do dodania nowego miejsca, który przenosi do widoku dodawania. Po dodaniu następuje przejście do ekranu mapy. Ekran ze szczegółami poza wyświetlaniem dodatkowych informacji o miejscu pozwala na usunięcie miejsca z bazy. Po usunięciu następuje przejście do ekranu mapy.
+
+Android oferuje dwa rodzaje przejść pomiędzy ekranami - te co opisałem wyżej to przejścia w przód, które wykonywane są poprzez interakcje użytkownika z aplikacją. Drugim typem przejść są przejścia w tył wykonywane przez użycie przycisku wstecz. Tego typu przejścia powracają do poprzedniego ekranu. Aby nawigacja w aplikacji działała poprawnie i intuicyjnie dla użytkownika wszystkie przejścia "w przód" powracające do ekranu mapy powodują wyczyszczenie kolejki wcześniejszych widoków, aby kliknięcie przycisku wstecz na widoku mapy powodowało opuszczenie aplikacji.
+
+### Uruchomienie aplikacji i załadowanie mapy
+Pierwszym krokiem po uruchomieniu aplikacji jest wykonanie się kodu z klasy Aplikacji. Kod tam znajdujący się należy ograniczyć do minimum i w tym projekcie znajduje się tam jedynie aktywacja zewnętrznej biblioteki pomagającej w tworzeniu logów.
+
+Następnie tworzona jest aktywność, która aktywuje szablon nawigacji ładujący główny widok, którym jest widok mapy.
+
+Podczas tworzenia się widoku mapy następuje załadowanie definicji układu elementów widoku (znajdującej się w `res/layout/`). Dzięki wykorzystaniu data binding już w pliku layout przypisane są odpowiednie metody z ViewModel, które mają się wykonać po kliknięciu w przyciski. Następnie jest tworzona (bądź podłączona, jeśli już istnieje) instancja klasy ViewModel dla tego widoku.
+
+Przy tworzeniu ViewModel, tworzona jest instancja repozytorium. Po stworzeniu repozytorium, zostaje momentalnie zwrócona lista miejsc znajdująca się w bazie i następuje żądanie aktualizacji bazy poprzez połączenie z serwerem. Takie działanie powoduje, że użytkownik od razu po uruchomieniu aplikacji może z niej korzystać, zamiast czekać na pobranie się danych z serwera, które wcale nie musiały ulec zmianie. Po zakończeniu procesu pobierania repozytorium aktualizuje w tle dane w bazie oraz dzięki data binding zmiany te propagują się do wszystkich widoków aplikacji.
+
+Po stworzeniu ViewModel następuje stworzenie obserwatorów zmiennych LiveData w ViewModelu używanych do nawigacji oraz żądanie inicjalizacji mapy do biblioteki Google Maps Services i zapytanie użytkownika o pozwolenie na dostęp do lokalizacji (jeśli wcześniej nie zostało ono udzielone).
+
+Po poprawnej inicjalizacji mapy następuje stworzenie obserwatora listy punktów i wypełnienie mapy punktami. Następuje też przypisanie działania, które ma się wykonać po kliknięciu w dany punkt. Następuje też przejście widoku na aktualną lokalizację użytkownika.
+
+### Wyszukiwanie punktów
+Aplikacja oferuje wyszukiwanie punktów po nazwie lub adresie. Przeszukiwanie dostępne jest z poziomu przycisku znajdującego się na panelu na górze ekranu mapy.
+
+Wyszukiwanie polega na wysłaniu do repozytorium tekstu z pola wyszukiwania i czekaniu na wyniki. Repozytorium odpytuje bazę danych i zwraca do ViewModelu listę znalezionych miejsc.
+
+Po pojawieniu się wyników mapa jest czyszczona i pokazywane są na niej tylko znalezione miejsca oraz widok automatycznie przechodzi na pierwsze znaleziony punkt. W przypadku braku wyników pojawia się stosowny komunikat.
+
+Powrót do wyświetlania wszystkich miejsc jest możliwy wychodząc z wyszukiwania przyciskiem na górnym pasku aplikacji.
+
+### Wyświetlenie listy miejsc
 
 
-
-
-
-# Dokumentacja
+## Dokumentacja
 * https://gs.statcounter.com/os-market-share/mobile/worldwide (@Platforma)
 
 <!-- kapt.incremental.apt=true https://stackoverflow.com/questions/57670510/how-to-get-rid-of-incremental-annotation-processing-requested-warning -->
