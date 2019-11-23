@@ -220,31 +220,73 @@ Oba widoki główne posiadają przycisk do dodania nowego miejsca, który przeno
 Android oferuje dwa rodzaje przejść pomiędzy ekranami - te co opisałem wyżej to przejścia w przód, które wykonywane są poprzez interakcje użytkownika z aplikacją. Drugim typem przejść są przejścia w tył wykonywane przez użycie przycisku wstecz. Tego typu przejścia powracają do poprzedniego ekranu. Aby nawigacja w aplikacji działała poprawnie i intuicyjnie dla użytkownika wszystkie przejścia "w przód" powracające do ekranu mapy powodują wyczyszczenie kolejki wcześniejszych widoków, aby kliknięcie przycisku wstecz na widoku mapy powodowało opuszczenie aplikacji.
 
 ### Uruchomienie aplikacji i załadowanie mapy
-Pierwszym krokiem po uruchomieniu aplikacji jest wykonanie się kodu z klasy Aplikacji. Kod tam znajdujący się należy ograniczyć do minimum i w tym projekcie znajduje się tam jedynie aktywacja zewnętrznej biblioteki pomagającej w tworzeniu logów.
+Pierwszym krokiem po uruchomieniu aplikacji jest wykonanie się kodu z klasy Aplikacji (`EspressoApplication.kt`). Kod tam znajdujący się należy ograniczyć do minimum i w tym projekcie znajduje się tam jedynie aktywacja zewnętrznej biblioteki Timber pomagającej w tworzeniu logów.
 
 Następnie tworzona jest aktywność, która aktywuje szablon nawigacji ładujący główny widok, którym jest widok mapy.
 
-Podczas tworzenia się widoku mapy następuje załadowanie definicji układu elementów widoku (znajdującej się w `res/layout/`). Dzięki wykorzystaniu data binding już w pliku layout przypisane są odpowiednie metody z ViewModel, które mają się wykonać po kliknięciu w przyciski. Następnie jest tworzona (bądź podłączona, jeśli już istnieje) instancja klasy ViewModel dla tego widoku.
+Podczas tworzenia się widoku mapy (metoda `onCreateView()`) następuje załadowanie definicji układu elementów widoku (znajdującej się w `res/layout/`). Dzięki wykorzystaniu data binding już w pliku layout przypisane są odpowiednie metody z ViewModel, które mają się wykonać po kliknięciu w przyciski. Następnie jest tworzona (bądź podłączona, jeśli już istnieje) instancja klasy ViewModel dla tego widoku.
 
 Przy tworzeniu ViewModel, tworzona jest instancja repozytorium. Po stworzeniu repozytorium, zostaje momentalnie zwrócona lista miejsc znajdująca się w bazie i następuje żądanie aktualizacji bazy poprzez połączenie z serwerem. Takie działanie powoduje, że użytkownik od razu po uruchomieniu aplikacji może z niej korzystać, zamiast czekać na pobranie się danych z serwera, które wcale nie musiały ulec zmianie. Po zakończeniu procesu pobierania repozytorium aktualizuje w tle dane w bazie oraz dzięki data binding zmiany te propagują się do wszystkich widoków aplikacji.
 
 Po stworzeniu ViewModel następuje stworzenie obserwatorów zmiennych LiveData w ViewModelu używanych do nawigacji oraz żądanie inicjalizacji mapy do biblioteki Google Maps Services i zapytanie użytkownika o pozwolenie na dostęp do lokalizacji (jeśli wcześniej nie zostało ono udzielone).
 
-Po poprawnej inicjalizacji mapy następuje stworzenie obserwatora listy punktów i wypełnienie mapy punktami. Następuje też przypisanie działania, które ma się wykonać po kliknięciu w dany punkt. Następuje też przejście widoku na aktualną lokalizację użytkownika.
+Po poprawnej inicjalizacji mapy następuje stworzenie obserwatora listy punktów i wypełnienie mapy punktami. Następuje też przypisanie działania, które ma się wykonać po kliknięciu w dany punkt. Widok mapy przechodzi na aktualną pozycję użytkownika.
+
+Obecność elementu mapy zaburza poprawną implementację wzorca projektowego MVVM (Model-View-ViewModel), ponieważ część kodu odpowiedzialnego za obsługę map powinna zostać przeniesiona do ViewModela. Nie udało się tego jednak dokonać podczas realizacji tego projektu.
 
 ### Wyszukiwanie punktów
 Aplikacja oferuje wyszukiwanie punktów po nazwie lub adresie. Przeszukiwanie dostępne jest z poziomu przycisku znajdującego się na panelu na górze ekranu mapy.
 
-Wyszukiwanie polega na wysłaniu do repozytorium tekstu z pola wyszukiwania i czekaniu na wyniki. Repozytorium odpytuje bazę danych i zwraca do ViewModelu listę znalezionych miejsc.
+Przy tworzeniu menu (w trakcie tworzenia widoku) do obiektu wyszukiwania przypisywany jest `queryTextListener`, który zawiera definicje metod, które należy wywołać po zatwierdzeniu wyszukiwania.
+
+Wyszukiwanie polega na wykonaniu `queryTextListener.onQueryTextSubmit(String)`, czyli wysłaniu do repozytorium tekstu z pola wyszukiwania i czekaniu na wyniki. Repozytorium odpytuje bazę danych i zwraca do ViewModelu listę znalezionych miejsc.
 
 Po pojawieniu się wyników mapa jest czyszczona i pokazywane są na niej tylko znalezione miejsca oraz widok automatycznie przechodzi na pierwsze znaleziony punkt. W przypadku braku wyników pojawia się stosowny komunikat.
 
-Powrót do wyświetlania wszystkich miejsc jest możliwy wychodząc z wyszukiwania przyciskiem na górnym pasku aplikacji.
+Powrót do wyświetlania wszystkich miejsc jest możliwy wychodząc z wyszukiwania przyciskiem na górnym pasku aplikacji. Następuje wtedy wywołanie metody `closeListener`, która czyści mapę i ustawia ponownie ustawia obserwatora na domyślną zmienną LiveData z listą miejsc.
+
+### Przejście z użyciem data binding
+Większość przejść w tym projekcie realizowana jest zgodnie z poniższym schematem. Jest to zalecana metoda wykonywania przejść, ponieważ już w definicji układu widoku widać, do czego służy dany przycisk.
+
+```
+private var _navigateToSecondView = MutableLiveData<Boolean>()
+val navigateToSecondView: LiveData<Boolean>
+	get() = _navigateToSecondView
+
+fun goToSecondView() {
+	_navigateToSecondView.value = true
+}
+
+fun wentToSecondView() {
+	_navigateToSecondView.value = false
+}
+```
+
+```
+viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
+			if (it == true) {
+				this.findNavController().navigate(R.id.action_mapViewFragment_to_listViewFragment)
+				viewModel.wentToSecondView()
+			}
+		})
+```
+
+Metoda polega na przypisaniu na kliknięcie w definicji układu widoku metody z ViewModela (w tym wypadku `goToSecondView()`). Metoda ta, zmienia wartość zmiennej LiveData na która ustawiony jest obserwator w widoku, który jeśli zmiana jest zmieniona na `true` wywołuje kontroler nawigacji i wykonuje odpowiednie przejście, po czym ustawia zmienną LiveData (w tym wypadku `_navigateToSecondView`) na `false` wykorzystując drugą metodę (w tym wypadku `wentToSecondView()`). Ustawienie jej bezpośrednio jest niemożliwe, ponieważ jest to zmienna prywatna, a `navigateToSecondView` jest zmienną publiczną, której wartość nie może być modyfikowana - jest to zdefiniowane w ten sposób, aby zachować enkapsulację klasy.
+
+Konieczność wykonania takiego przepływu jet spowodowana faktem, że użycie kontrolera nawigacji jest możliwe tylko z poziomu kodu fragmentu, a nie kodu ViewModela.
 
 ### Wyświetlenie listy miejsc
+Wyświetlenie listy miejsc wymaga przejścia do widoku listy. Przejście z widoku mapy do widoku listy jest użyte jako przykład do opisu przejścia w podrozdziale powyżej.
 
+Nawigacja do tego fragmentu powołuje wywołanie metody `onCreateView()`, która na samym początku ładuje definicję układu widoku oraz przypisuje się do ViewModela (tego samego co map view, więc przechodząc z map view mamy pewność, że on już istnieje).
+
+Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
+
+Zaimplementowany w tym projekcie widok listy wykorzystuje specjalny widok Android Framework o nazwie RecyclerView. Jest to widok przystosowany do wyświetlania bardzo dużych zbiorów danych bez wpływu na pamięć urządzenia. Widok ten zamiast tworzyć jedną długą listę i wyświetlać tylko jej fragment, tworzy listę zawierająco niewiele więcej elementów niż mieści się w jednej chwili na ekranie i wraz z przewijaniem wykorzystuje ponownie obiekty znikające do wyświetlenia nowych obiektów. Do działania jednak wymaga definicji obiektu typu ViewAdapter.
+
+Do stworzenia obiektu ViewAdapter wymagany jest obiekt ViewHolder, który operuje na definicji układu widoku pojedynczego elementu na liście. W tak podstawowej liście jak w tym projekcie, obiekt ten nie definiuje nic poza nazwą używanej definicji układu.
+
+Metoda `onCreateView()` tworzy obiekt typu ViewAdapter i przypisuje go do RecyclerView.
 
 ## Dokumentacja
 * https://gs.statcounter.com/os-market-share/mobile/worldwide (@Platforma)
-
-<!-- kapt.incremental.apt=true https://stackoverflow.com/questions/57670510/how-to-get-rid-of-incremental-annotation-processing-requested-warning -->
