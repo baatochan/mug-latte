@@ -161,6 +161,9 @@ Do projektu podłączono biblioteki JUnit umożliwiające pisanie lokalnych test
 
 ## Opis implementacji
 ### Struktura
+#### Podział plików w projekcie
+
+
 #### Przepływ danych
 Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze.
 
@@ -307,6 +310,15 @@ Po obsłużeniu zapytania repozytorium zwraca `Boolean`, czy udało się usuwani
 Gdy usuwanie się uda następuje przejscie do widoku mapy, w razie niepowodzenia pokazany zostaje komunikat i znika pasek postępu. Po obsłużeniu tej zmiany UI zmienna jest przywracana do stanu `UNSET`.
 
 ### Dodawanie/edycja obiektu
+Aby wykonać dodanie, bądź edycję obiektu konieczne jest przejście do fragmentu `addViewFragment`. Dodanie jest możliwe z obu głównych widoków, natomiast edycja z widoku szczegółów. Wywołanie nawigacji wymaga podania Id zmienianego miejsca. Jeśli przejście następuje w celu stworzenia nowego obiektu podawany jest parametr `-1`. Jest to specjalnie zarezerwowany Id, który nigdy nie może pojawić się jako poprawny Id w bazie danych.
+
+Stworzenie widoku wygląda bardzo podobnie do widoku szczegółów. Jeśli podanym argumentem jest -1, zamiast poprawnego obiektu przekazywany jest `null`. Następuje żądanie inicjalizacji map i dostępu do lokalizacji użytkownika. Następnie tworzony jest pusty obiekt w ViewModelu i uzupełniany aktualną lokalizacją użytkownika. Na mapie w tym miejscu pojawia się też marker.
+
+Jeśli został podany Id poprawnego miejsca ViewModel jest tworzony z tym obiektem i po inicjalizacji map kamera przechodzi do lokalizacji edytowanego miejsca, a pola do edycji parametrów miejsca uzupełniają się aktualnymi wartościami.
+
+Kliknięcie w jakiekolwiek miejsce na mapie powoduje przeniesienie wskaźnika w nowe miejsca.
+
+Zapisanie dodania/edycji miejsca możliwe jest poprzez użycie przycisku na dole ekranu. Wykorzystywany jest podobny schemat, jak przy usuwaniu i przejściu. Wysyłane jest wtedy odpowiednie zapytanie do repozytorium i następuje oczekiwanie na wynik. Przy poprawnej akcji program przechodzi do widoku mapy, przy negatywnym następuje informacja o błędzie.
 
 ### Implementacja repozytorium
 
