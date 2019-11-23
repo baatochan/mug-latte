@@ -278,15 +278,39 @@ Konieczność wykonania takiego przepływu jet spowodowana faktem, że użycie k
 ### Wyświetlenie listy miejsc
 Wyświetlenie listy miejsc wymaga przejścia do widoku listy. Przejście z widoku mapy do widoku listy jest użyte jako przykład do opisu przejścia w podrozdziale powyżej.
 
-Nawigacja do tego fragmentu powołuje wywołanie metody `onCreateView()`, która na samym początku ładuje definicję układu widoku oraz przypisuje się do ViewModela (tego samego co map view, więc przechodząc z map view mamy pewność, że on już istnieje).
-
-Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
-
 Zaimplementowany w tym projekcie widok listy wykorzystuje specjalny widok Android Framework o nazwie RecyclerView. Jest to widok przystosowany do wyświetlania bardzo dużych zbiorów danych bez wpływu na pamięć urządzenia. Widok ten zamiast tworzyć jedną długą listę i wyświetlać tylko jej fragment, tworzy listę zawierająco niewiele więcej elementów niż mieści się w jednej chwili na ekranie i wraz z przewijaniem wykorzystuje ponownie obiekty znikające do wyświetlenia nowych obiektów. Do działania jednak wymaga definicji obiektu typu ViewAdapter.
 
 Do stworzenia obiektu ViewAdapter wymagany jest obiekt ViewHolder, który operuje na definicji układu widoku pojedynczego elementu na liście. W tak podstawowej liście jak w tym projekcie, obiekt ten nie definiuje nic poza nazwą używanej definicji układu.
 
-Metoda `onCreateView()` tworzy obiekt typu ViewAdapter i przypisuje go do RecyclerView.
+Nawigacja do tego fragmentu powołuje wywołanie metody `onCreateView()`, która na samym początku ładuje definicję układu widoku oraz przypisuje się do ViewModela (tego samego co map view, więc przechodząc z map view mamy pewność, że on już istnieje).
 
-## Dokumentacja
+Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
+
+Na samym końcu tworzony jest obiekt typu ViewAdapter i zostaje on przypisany do parametrów RecyclerView.
+
+### Wyświetlenie widoku szczegółów
+Przejście do tego fragmentu jest możliwe po kliknięciu na znacznik na mapie w widoku mapy, bądź pozycje na liście w widoku listy. Przy przejściu następuje przekazanie jednego parametru (Id obiektu), którego szczegóły mają zostać wyświetlone.
+
+Tworzenie widoku rozpoczyna od załadowania definicji układu widoku i uzyskanie dostępu do repozytorium. Następnie wykonywane jest zapytanie do repozytorium o obiekt podając jego Id. Zapytanie nie korzysta z bazy danych, więc wykonywane jest na głównym wątku. Po otrzymaniu obiektu tworzony jest ViewModel wykorzystując do tego wzorzec projektowy fabryki (stworzenie ViewModela z parametrami w konstruktorze wymaga zdefiniowania fabryki).
+
+Następnie tworzeni są obserwatorzy zmiennych używanych do nawigacji, następuje żądanie inicjalizacji mapy oraz uzupełnione zostaje menu w pasku na górze ekranu.
+
+Po inicjalizacji mapy kamera zostaje przeniesiona na marker miejsca.
+
+### Usuwanie obiektu
+Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejscia opisanego w pragrafie <!-- XXX -->.
+
+W momencie wybrania opcji następuje wyświetlenie nieskończonego paska postępu oraz zapytanie do repozytorium o usunięcie obiektu. Z uwagi na wykonywanie zapytania do serwera oraz do lokalnej bazy działanie to musi być wykonane na osobnym wątku.
+
+Po obsłużeniu zapytania repozytorium zwraca `Boolean`, czy udało się usuwanie, czy nie. Bazując na nim ustawiana jest trzystanowa LiveData, której obserwator podejmuje stosowne działanie przy zmianie wartości.
+
+Gdy usuwanie się uda następuje przejscie do widoku mapy, w razie niepowodzenia pokazany zostaje komunikat i znika pasek postępu. Po obsłużeniu tej zmiany UI zmienna jest przywracana do stanu `UNSET`.
+
+### Dodawanie/edycja obiektu
+
+### Implementacja repozytorium
+
+## Opis interfejsu użytkownika
+
+## Literatura
 * https://gs.statcounter.com/os-market-share/mobile/worldwide (@Platforma)
