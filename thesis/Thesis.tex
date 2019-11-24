@@ -139,7 +139,7 @@ Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bard
 
 	W aplikacji miał być dostępny widok szczegółowy danego miejsca umożliwiający podejrzenie dodatkowych informacji o danym miejscu oraz historię ostatnich modyfikacji tego miejsca. Widok dodawania nowego miejsca miał umożliwić podanie wszystkich szczegółów dotyczących tego miejsca oraz miał ułatwiać naszkicowanie planu budynku ręcznie bądź umożliwić wgranie zdjęcia ręcznie wykonanego planu.
 
-	Klient miał oczywiście pozwalać również na edycje już istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nie istniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
+	Klient miał oczywiście pozwalać również na edycje już istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
 
 	\subsection{Serwer}
 
@@ -162,7 +162,7 @@ Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bard
 \section{Wybrane technologie}\label{technology}
 	\subsection{Platforma}
 
-	Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które użytkownikom są potrzebne, gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google oraz iOS od firmy Apple, mając udziały w rynku odpowiednio 77\% i 22\%. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników należy wybrać platformę Android. Dodatkowym aspektem skłaniającym do wyboru tej platformy był fakt posiadania przez autora pracy urządzeń działających pod kontrolą tego systemu.
+	Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które użytkownikom są potrzebne, gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google oraz iOS od firmy Apple, mających udziały w rynku odpowiednio 77\% i 22\% \cite{mobilemarketshare}. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników należy wybrać platformę Android. Dodatkowym aspektem skłaniającym do wyboru tej platformy był fakt posiadania przez autora pracy urządzeń działających pod kontrolą tego systemu.
 
 	\subsection{Język programowania}
 
@@ -429,7 +429,7 @@ fun wentToSecondView() {
 _navigateToSecondView.value = false
 }
 		\end{minted}
-		\label{listing:navigation-viewmodel}
+		\label{listing:navigationviewmodel}
 	\end{listing}
 
 	\begin{listing}[H]
@@ -443,10 +443,10 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 		}
 	})
 		\end{minted}
-		\label{listing:navigation-view}
+		\label{listing:navigationview}
 	\end{listing}
 
-	Metoda polega na przypisaniu na kliknięcie w definicji układu widoku metody z ViewModela (w tym wypadku \texttt{goToSecondView()}). Metoda ta, zmienia wartość zmiennej LiveData (listing \ref{listing:navigation-viewmodel}) na którą ustawiony jest obserwator w widoku (listing \ref{listing:navigation-view}), który aktywuje się jeśli zmienna ma wartość \texttt{true}. Wywołuje on kontroler nawigacji i wykonuje odpowiednie przejście, po czym ustawia zmienną LiveData (w tym wypadku \texttt{\_navigateToSecondView}) na \texttt{false} wykorzystując drugą metodę (w tym wypadku \texttt{wentToSecondView()}). Ustawienie jej bezpośrednio jest niemożliwe, ponieważ jest to zmienna prywatna, a \texttt{navigateToSecondView} jest zmienną publiczną, której wartość nie może być modyfikowana - jest to zdefiniowane w ten sposób, aby zachować enkapsulację klasy.
+	Metoda polega na przypisaniu na kliknięcie w definicji układu widoku metody z ViewModela (w tym wypadku \texttt{goToSecondView()}). Metoda ta, zmienia wartość zmiennej LiveData (listing \ref{listing:navigationviewmodel}) na którą ustawiony jest obserwator w widoku (listing \ref{listing:navigationview}), który aktywuje się jeśli zmienna ma wartość \texttt{true}. Wywołuje on kontroler nawigacji i wykonuje odpowiednie przejście, po czym ustawia zmienną LiveData (w tym wypadku \texttt{\_navigateToSecondView}) na \texttt{false} wykorzystując drugą metodę (w tym wypadku \texttt{wentToSecondView()}). Ustawienie jej bezpośrednio jest niemożliwe, ponieważ jest to zmienna prywatna, a \texttt{navigateToSecondView} jest zmienną publiczną, której wartość nie może być modyfikowana - jest to zdefiniowane w ten sposób, aby zachować enkapsulację klasy.
 
 	Konieczność wykonania takiego przepływu jest spowodowana faktem, że użycie kontrolera nawigacji jest możliwe tylko z poziomu kodu fragmentu, a nie kodu ViewModela.
 
@@ -545,10 +545,10 @@ fun List<DbPowerMug>.asDomainModel(): List<PowerMug>
 fun NetworkPowerMug.asDatabaseModel(): DbPowerMug
 fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\end{minted}
-		\label{listing:model-conversion}
+		\label{listing:modelconversion}
 	\end{listing}
 
-	Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas (listing \ref{listing:model-conversion}).
+	Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas (listing \ref{listing:modelconversion}).
 
 \section{Opis interfejsu użytkownika}\label{ui}
 	\subsection{Ekrany główne}
@@ -557,10 +557,10 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\centering
 		\includegraphics[width = \textwidth]{screenshot-main}
 		\caption{Dwa główne widoki programu}
-		\label{fig:screenshot-main}
+		\label{fig:screenshotmain}
 	\end{figure}
 
-	Aplikacja posiada dwa główne ekrany - widok mapy i widok listy. Ich wygląd został przedstawiony na Ryc. \ref{fig:screenshot-main}. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
+	Aplikacja posiada dwa główne ekrany - widok mapy i widok listy. Ich wygląd został przedstawiony na Ryc. \ref{fig:screenshotmain}. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
 
 	Na widoku mapy cały ekran zajęty jest przez fragment Google Maps, wyświetlający wszystkie punkty w formie markerów w odpowiednich miejscach geograficznych. Kliknięcie na dany marker przenosi do ekranu ze szczegółami o konkretnym miejscu. Na górnym pasku poza nazwą aplikacji wyświetlany jest przycisk uruchamiający tryb wyszukiwania.
 
@@ -572,7 +572,7 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\centering
 		\includegraphics[width = \textwidth]{screenshot-search}
 		\caption{Wygląd trybu wyszukiwania miejsc}
-		\label{fig:screenshot-search}
+		\label{fig:screenshotsearch}
 	\end{figure}
 
 	Wyszukiwanie markerów na mapie odbywa się w widoku mapy. Po kliknięciu na ikonę wyszukiwania pojawia się pasek, gdzie należy wpisać szukany ciąg znaków. Miejsca przeszukiwane są po nazwie i adresie. Wyszukiwanie zatwierdzane jest za pomocą przycisku na klawiaturze ekranowej.
@@ -581,7 +581,7 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 
 	Opuszczenie wyszukiwania i powrót do wszystkich miejsc następuje poprzez kliknięcie w przycisk X na pasku szukania.
 
-	Ryc. \ref{fig:screenshot-search} przedstawia po kolei: pasek wyszukiwania, pasek uzupełniony szukaną frazą oraz błąd, gdy nie znaleziono żadnych wyników.
+	Ryc. \ref{fig:screenshotsearch} przedstawia po kolei: pasek wyszukiwania, pasek uzupełniony szukaną frazą oraz błąd, gdy nie znaleziono żadnych wyników.
 
 	\subsection{Tryb edycji i dodawania obiektów}
 
@@ -589,7 +589,7 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\centering
 		\includegraphics[width = \textwidth]{screenshot-addedit}
 		\caption{Możliwy wygląd ekranu dodawania/edycji punktu na mapie}
-		\label{fig:screenshot-addedit}
+		\label{fig:screenshotaddedit}
 	\end{figure}
 
 	Widok dodawania i edycji to jeden widok. W przypadku dodawania widok nie zawiera żadnych danych o miejscu, a marker na mapie wyświetla się na aktualnej lokalizacji użytkownika. W przypadku edycji widok wypełnia się aktualnym informacjami o miejscu.
@@ -598,9 +598,9 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 
 	Zapisanie danych jest możliwe po kliknięciu przycisku w prawym dolnym rogu. Przy zapisywaniu danych pojawia się nieskończony pasek postępu, który znika po zakończeniu procesu dodawania. Przy niepowodzeniu następuje wyświetlenie stosownego komunikatu, natomiast po poprawnym dodaniu aplikacja wraca do głównego ekranu mapy.
 
-	Wyjście z ekranu bez zapisywania zmian jest możliwe używając sprzętowe klawisza "cofnij" lub przycisku na górnej belce widoku.
+	Wyjście z ekranu bez zapisywania zmian jest możliwe używając sprzętowego klawisza "cofnij" lub przycisku na górnej belce widoku.
 
-	Ryc. \ref{fig:screenshot-addedit} przedstawia po kolei: widok po otwarciu trybu dodawania, widok trybu edycji, pasek postępu przy zapisywaniu zmian oraz komunikat o błędzie przy zapisywaniu.
+	Ryc. \ref{fig:screenshotaddedit} przedstawia po kolei: widok po otwarciu trybu dodawania, widok trybu edycji, pasek postępu przy zapisywaniu zmian oraz komunikat o błędzie przy zapisywaniu.
 
 	\subsection{Widok szczegółowy i usuwanie miejsc}
 
@@ -608,7 +608,7 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\centering
 		\includegraphics[width = \textwidth]{screenshot-detail}
 		\caption{Ekran szczegółów wraz z błędem usuwania}
-		\label{fig:screenshot-detail}
+		\label{fig:screenshotdetail}
 	\end{figure}
 
 	Fragment ze szczegółami niewiele różni się wyglądem od trybu edycji. Nie oferuje on jednak możliwości zmiany żadnych informacji.
@@ -617,7 +617,7 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 
 	Z tego widoku możliwe jest również przejście do widoku edycji korzystając z przycisku w prawym dolnym rogu. Wyjście, czyli powrót do widoku mapy lub listy jest możliwe używając sprzętowego przycisku, bądź przycisku na górnym pasku.
 
-	Ryc. \red{fig:screenshot-detail} przedstawia po kolei: widok szczegółów, menu widoku szczegółowego oraz błąd przy usuwaniu miejsca.
+	Ryc. \ref{fig:screenshotdetail} przedstawia po kolei: widok szczegółów, menu widoku szczegółowego oraz błąd przy usuwaniu miejsca.
 
 \section{Podsumowanie}\label{summary}
 
