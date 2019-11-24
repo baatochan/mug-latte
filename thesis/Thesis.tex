@@ -462,9 +462,18 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 
 	Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
 
-	Do obliczenia odległości pomiędzy lokalizacją użytkownika, a punktem wykorzystywany jest następujący wzór, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej \cite{haversineformulawiki}.
+	Do obliczenia odległości pomiędzy lokalizacją użytkownika, a punktem wykorzystywany jest wzór \ref{eq:1}, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej \cite{haversineformulawiki}.
 
-	<!-- wzor -->
+	\begin{equation}
+d = 2r\arcsin(\sqrt{\sin^2(\frac{\varphi_1-\varphi_2}{2})+\cos(\varphi_1)\cos(\varphi_2)\sin^2(\frac{\lambda_1-\lambda_2}{2})}),\label{eq:1}
+	\end{equation}
+	gdzie:
+	\begin{itemize}
+		\item $ d $: odległość, pomiędzy dwoma punktami (w kilometrach);
+		\item $ \varphi_1, \varphi_2 $: szerokość geograficzna punktu 1 i punktu 2 (w radianach);
+		\item $ \lambda_1, \lambda_2 $: wysokość geograficzna punktu 1 i punktu 2 (w radianach);
+		\item $ r $: uśredniony promień kuli ziemnskiej (w kilomentrach).
+	\end{itemize}
 
 	Na samym końcu tworzony jest obiekt typu ViewAdapter i zostaje on przypisany do parametrów RecyclerView.
 
@@ -505,7 +514,7 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 	Model repozytorium w tym projekcie pełni funkcję warstwy abstrakcji pomiędzy zapytaniami do serwera i bazy oraz powoduje skupienie całego kodu odpowiedzialnego za te operacje w jednym miejscu. Repozytorium jest zaimplementowane w formie wzorca projektowego typu Singleton, zapewniającego, że w trakcie życia aplikacji będzie istniał tylko jeden obiekt repozytorium i bazy danych.
 
 	\begin{listing}[H]
-		\caption{Publiczny interfejs repozyterium}
+		\caption{Publiczny interfejs repozytorium}
 		\begin{minted}[tabsize=4,breaklines]{java}
 val powerMugs: LiveData<List<PowerMug>>
 
@@ -551,6 +560,9 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 	Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas (listing \ref{listing:modelconversion}).
 
 \section{Opis interfejsu użytkownika}\label{ui}
+
+Program posiada zaimplementowany interfejs użytkownika w dwóch językach - angielskim i polskim. W tej pracy wszystkie zdjęcia ukazują interfejs polski, aby zachować zgodność językową z językiem dokumentu.
+
 	\subsection{Ekrany główne}
 
 	\begin{figure}[H]
@@ -620,6 +632,14 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 	Ryc. \ref{fig:screenshotdetail} przedstawia po kolei: widok szczegółów, menu widoku szczegółowego oraz błąd przy usuwaniu miejsca.
 
 \section{Podsumowanie}\label{summary}
+
+W ramach pracy dyplomowej udało się zaimplementować podstawowe funkcjonalności opisane w koncepcie aplikacji, umożliwiającego korzystanie z niej w założonych celach. Korzystając z programu da się oczywiście odczuć, że to nie jest jeszcze finalna wersja, jednak podstawowy zasób funkcji jest już dostępny. W pracy opisano metody realizacji każdej z tej funkcjonalności, na poziomie koncepcyjnym, jak i bardziej szczegółowym poziomie kodu.
+
+Duża część czasu tworzenia tej pracy została poświęcona na zapoznanie się z językiem Kotlin oraz Android Framework. Podchodząc do realizacji pracy autor nie miał żadnego doświadczenia w obu tych dziedzinach, więc potrzebna była nauka od zera. Wykonanie tej pracy dało jej autorowi solidny zasób podstawowej znajomości tych technologii oraz poszerzyło jego umiejętności w programowaniu ogółem.
+
+Wykorzystanie gotowych bibliotek wchodzących w skład frameworku danej platformy nie powinno wymagać żadnych wyjaśnień, ponieważ naturalnie domyślna implementacja dla danej platformy jest z reguły najbardziej optymalna do ogólnych zastosowań. W projekcie wykorzystano natomiast dwie zewnętrzne biblioteki - Timber i Moshi. Wykorzystanie biblioteki Timber było spowodowane chęcią zachowania bardziej przejrzystego kodu, ponieważ w zakresie, w którym ona została wykorzystana w projekcie spowodowało ona bardziej czytelny kod odpowiedzialny za korzystanie z logów systemowych. Biblioteka Moshi natomiast zaoszczędziła autorowi pracy sporo czasu wymaganego na ręczną implementacje metod konwersji JSON na reprezentacje modelu danych i odwrotnie. Wykorzystanie zewnętrznej biblioteki gwarantuje, że dana funkcjonalność będzie poprawnie zaimplementowana i pozwala na skupienie się na implementacji funkcjonalności na wyższym poziomie. Dodatkowo zewnętrzna biblioteka została przez wiele osób już przetestowana i sprawdzona.
+
+Dalszy rozwój projektu powinien skupić się na implementacji kolejnych funkcjonalności opisanych w rozdziale \ref{concept}, głównie na implementacji obsługi kont użytkownika oraz poprawieniu dość ascetycznego interfejsu użytkownika. Warto by również przeanalizować, jakie dokładnie dane powinny być przechowywane na temat poszczególnych punktów na mapie oraz poszerzona powinna zostać integracja z usługą Google Maps Services. Rozwój ten wymaga oczywiście pewnej dozy współpracy na poziomie planowania pomiędzy osobami odpowiedzialnymi za rozwój aplikacji, jak i serwera internetowego.
 
 \printbibliography[heading=bibintoc,title={Literatura}]
 
