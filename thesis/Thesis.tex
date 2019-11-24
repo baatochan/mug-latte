@@ -124,7 +124,7 @@ Celem tej pracy było przygotowanie aplikacji na urządzenia z systemem Android 
 
 Program ten miał być pisany wykorzystując najlepsze wzorce projektowe oraz odpowiednią warstwę abstrakcji, tak by jego dalszy rozwój był łatwy, nawet dla innej osoby. Dodatkowo miało to umożliwić łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości byłaby taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia aplikacji podobnego typu.
 
-Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszono podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy.
+Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszono podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych w pracy rycin i listingów.
 
 \section{Opis koncepcji}\label{concept}
 	\subsection{Aplikacja mobilna}
@@ -247,8 +247,6 @@ Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bard
 
 	W pliku z konfiguracją na cały projekt podane zostały zdalne repozytoria, z których Gradle pobierał wymagane dependencje oraz zdefiniowane zostało użycie narzędzi wymaganych do zbudowania aplikacji na system Android.
 
-	W pliku konfiguracyjnym modułu programu znajdowały się podstawowe ustawienia (listing \ref{listing:gradle}).
-
 	\begin{listing}[H]
 		\caption{Konfiguracja narzędzia do budowy Gradle}
 		\begin{minted}[tabsize=4,breaklines]{js}
@@ -271,6 +269,8 @@ defaultConfig {
 		\end{minted}
 		\label{listing:gradle}
 	\end{listing}
+
+	W pliku konfiguracyjnym modułu programu znajdowały się podstawowe ustawienia (listing \ref{listing:gradle}).
 
 	Zdefiniowana została wersje systemu Android, użyta do zbudowania binarki, minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem, a definicją widoku oraz aktywowano eksperymentalne funkcjonalności Android Framework.
 
@@ -309,8 +309,6 @@ defaultConfig {
 
 		\subsubsection{Przepływ danych}
 
-		Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze.
-
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width = \textwidth]{architecture}
@@ -318,9 +316,9 @@ defaultConfig {
 			\label{fig:architecture}
 		\end{figure}
 
-		Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe by aktualizować zawartość bazy. Dostęp do repozytorium wykonywany jest z poziomu klas typu ViewModel, w których starano się zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi, tak aby kodu w klasach aktywności i fragmentów było jak najmniej, zostawiając tam tylko kod odpowiedzialny za obsługę interfejsu użytkownika. ViewModel odświeża dane wyświetlane na ekranie korzystając ze zmiennych LiveData i technologii data binding.
+		Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze. Została ona przedstawiona na Ryc. \ref{fig:architecture}.
 
-		Schemat ten ma swoje odbicie w układzie plików z folderze zawierającym kod źródłowy.
+		Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe by aktualizować zawartość bazy. Dostęp do repozytorium wykonywany jest z poziomu klas typu ViewModel, w których starano się zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi, tak aby kodu w klasach aktywności i fragmentów było jak najmniej, zostawiając tam tylko kod odpowiedzialny za obsługę interfejsu użytkownika. ViewModel odświeża dane wyświetlane na ekranie korzystając ze zmiennych LiveData i technologii data binding.
 
 		\begin{listing}[H]
 			\caption{Lista plików z kodem źródłowym (\textit{Pliki są wyświetlone w ręcznie ustalonej kolejności})}
@@ -355,6 +353,8 @@ defaultConfig {
 			\label{listing:files}
 		\end{listing}
 
+		Schemat ten ma swoje odbicie w układzie plików z folderze zawierającym kod źródłowy (listing \ref{listing:files}).
+
 		Aplikacja składa się z jednej aktywności, której jedynym zadaniem jest załadowanie odpowiedniego fragmentu.
 
 		Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiem dwóch głównych fragmentów - MapView i ListView, które posiadają jeden wspólny obiekt tego typu.
@@ -365,14 +365,14 @@ defaultConfig {
 
 		\subsubsection{Widoki i nawigacja}
 
-		Aplikacja posiada jedną aktywność i cztery widoki, w tym dwa główne. Aktywność przy tworzeniu aktywuje szablon nawigacji (znajdujący się w \texttt{res/navigation/}), który pomaga w bezproblemowym zarządzaniu przechodzeniem pomiędzy fragmentami.
-
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width = \textwidth]{navigation}
 			\caption{Diagram nawigacji pomiędzy fragmentami}
 			\label{fig:navigation}
 		\end{figure}
+
+		Aplikacja posiada jedną aktywność i cztery widoki, w tym dwa główne. Aktywność przy tworzeniu aktywuje szablon nawigacji (znajdujący się w \texttt{res/navigation/}), który pomaga w bezproblemowym zarządzaniu przechodzeniem pomiędzy fragmentami. Schematyczny diagram tego szablonu został przedstawiony na Ryc. \ref{fig:navigation}.
 
 		Głównym i domyślnym widokiem jest widok mapy. Uruchamia się on zaraz po starcie aplikacji. Umożliwia przeglądanie danych w postaci punktów na mapie zajmującej cały ekran. Kliknięcie na punkt powoduje wyświetlenie szczegółów danego miejsca.
 
@@ -410,7 +410,7 @@ defaultConfig {
 
 	Powrót do wyświetlania wszystkich miejsc jest możliwy wychodząc z wyszukiwania przyciskiem na górnym pasku aplikacji. Następuje wtedy wywołanie metody \texttt{closeListener}, która czyści mapę i ustawia ponownie ustawia obserwatora na domyślną zmienną LiveData z listą miejsc.
 
-	\subsection{Przejście z użyciem data binding}
+	\subsection{Przejście z użyciem data binding}\label{navigation}
 
 	Większość przejść w tym projekcie realizowana jest zgodnie z poniższym schematem. Jest to zalecana metoda wykonywania przejść, ponieważ już w definicji układu widoku widać, do czego służy dany przycisk.
 
@@ -429,7 +429,7 @@ fun wentToSecondView() {
 _navigateToSecondView.value = false
 }
 		\end{minted}
-		\label{listing:gradle}
+		\label{listing:navigation-viewmodel}
 	\end{listing}
 
 	\begin{listing}[H]
@@ -437,15 +437,16 @@ _navigateToSecondView.value = false
 		\begin{minted}[tabsize=4,breaklines]{java}
 viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 		if (it == true) {
-			this.findNavController().navigate(R.id.action_mapViewFragment_to_listViewFragment)
+			this.findNavController()
+				.navigate(R.id.action_mapViewFragment_to_listViewFragment)
 			viewModel.wentToSecondView()
 		}
 	})
 		\end{minted}
-		\label{listing:gradle}
+		\label{listing:navigation-view}
 	\end{listing}
 
-	Metoda polega na przypisaniu na kliknięcie w definicji układu widoku metody z ViewModela (w tym wypadku \texttt{goToSecondView()}). Metoda ta, zmienia wartość zmiennej LiveData na która ustawiony jest obserwator w widoku, który jeśli zmiana jest zmieniona na \texttt{true} wywołuje kontroler nawigacji i wykonuje odpowiednie przejście, po czym ustawia zmienną LiveData (w tym wypadku \texttt{\_navigateToSecondView}) na \texttt{false} wykorzystując drugą metodę (w tym wypadku \texttt{wentToSecondView()}). Ustawienie jej bezpośrednio jest niemożliwe, ponieważ jest to zmienna prywatna, a \texttt{navigateToSecondView} jest zmienną publiczną, której wartość nie może być modyfikowana - jest to zdefiniowane w ten sposób, aby zachować enkapsulację klasy.
+	Metoda polega na przypisaniu na kliknięcie w definicji układu widoku metody z ViewModela (w tym wypadku \texttt{goToSecondView()}). Metoda ta, zmienia wartość zmiennej LiveData (listing \ref{listing:navigation-viewmodel}) na którą ustawiony jest obserwator w widoku (listing \ref{listing:navigation-view}), który aktywuje się jeśli zmienna ma wartość \texttt{true}. Wywołuje on kontroler nawigacji i wykonuje odpowiednie przejście, po czym ustawia zmienną LiveData (w tym wypadku \texttt{\_navigateToSecondView}) na \texttt{false} wykorzystując drugą metodę (w tym wypadku \texttt{wentToSecondView()}). Ustawienie jej bezpośrednio jest niemożliwe, ponieważ jest to zmienna prywatna, a \texttt{navigateToSecondView} jest zmienną publiczną, której wartość nie może być modyfikowana - jest to zdefiniowane w ten sposób, aby zachować enkapsulację klasy.
 
 	Konieczność wykonania takiego przepływu jest spowodowana faktem, że użycie kontrolera nawigacji jest możliwe tylko z poziomu kodu fragmentu, a nie kodu ViewModela.
 
@@ -479,7 +480,7 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 
 	\subsection{Usuwanie obiektu}
 
-	Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejścia opisanego w paragrafie <!-- XXX -->.
+	Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejścia opisanego w roździale \ref{navigation}.
 
 	W momencie wybrania opcji następuje wyświetlenie nieskończonego paska postępu oraz zapytanie do repozytorium o usunięcie obiektu. Z uwagi na wykonywanie zapytania do serwera oraz do lokalnej bazy działanie to musi być wykonane na osobnym wątku.
 
@@ -503,10 +504,8 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 
 	Model repozytorium w tym projekcie pełni funkcję warstwy abstrakcji pomiędzy zapytaniami do serwera i bazy oraz powoduje skupienie całego kodu odpowiedzialnego za te operacje w jednym miejscu. Repozytorium jest zaimplementowane w formie wzorca projektowego typu Singleton, zapewniającego, że w trakcie życia aplikacji będzie istniał tylko jeden obiekt repozytorium i bazy danych.
 
-	Użycie repozytorium sprowadza się do wywołania jednej z publicznych metod jego interfejsu z dowolnego miejsca aplikacji.
-
 	\begin{listing}[H]
-		\caption{Kod obserwatora potrzebny do przejścia}
+		\caption{Publiczny interfejs repozyterium}
 		\begin{minted}[tabsize=4,breaklines]{java}
 val powerMugs: LiveData<List<PowerMug>>
 
@@ -520,8 +519,10 @@ fun search(query: String): LiveData<List<PowerMug>>
 
 fun returnPlace(key: Long): PowerMug?
 		\end{minted}
-		\label{listing:gradle}
+		\label{listing:repository}
 	\end{listing}
+
+	Użycie repozytorium sprowadza się do wywołania jednej z publicznych metod jego interfejsu z dowolnego miejsca aplikacji. Metody wypisane są w listingu \ref{listing:repository}.
 
 	Użycie metod typu \texttt{suspend} konieczne jest z poziomu współprogramów (ang. coroutines), aby zapobiec blokowaniu wątku głównego programu odpowiedzialnego za wyświetlanie elementów interfejsu użytkownika.
 
@@ -532,7 +533,7 @@ fun returnPlace(key: Long): PowerMug?
 	Mimo, że program w każdym miejscu wykorzystuje bardzo podobną definicje klasy poszczególnego punktu na mapie, zdecydowano się rozdzielić ich definicje na 3 osobne - definicję dla logiki programu (domenową - \texttt{PowerMug}), do bazy danych (\texttt{DbPowerMug}) i do zapytań sieciowych (\texttt{NetworkPowerMug} oraz \texttt{EphemeralNetworkPowerMug}). Tego typu rozdzielenie nie było konieczne, jednak powoduje, że kod aplikacji staje się bardziej elastyczny i modyfikacja np. modelu bazy nie powoduje konieczności wprowadzenia modyfikacji w kodzie całej aplikacji.
 
 	\begin{listing}[H]
-		\caption{Kod obserwatora potrzebny do przejścia}
+		\caption{Metody używane do konwersji pomiędzy modelami obiektów}
 		\begin{minted}[tabsize=4,breaklines]{java}
 fun PowerMug.asDbModel(): DbPowerMug
 fun PowerMug.asNetworkModel(): NetworkPowerMug
@@ -544,10 +545,10 @@ fun List<DbPowerMug>.asDomainModel(): List<PowerMug>
 fun NetworkPowerMug.asDatabaseModel(): DbPowerMug
 fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\end{minted}
-		\label{listing:gradle}
+		\label{listing:model-conversion}
 	\end{listing}
 
-	Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas.
+	Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas (listing \ref{listing:model-conversion}).
 
 \section{Opis interfejsu użytkownika}\label{ui}
 	\subsection{Ekrany główne}
@@ -559,7 +560,7 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\label{fig:screenshot-main}
 	\end{figure}
 
-	Aplikacja posiada dwa główne ekrany - widok mapy i widok listy. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
+	Aplikacja posiada dwa główne ekrany - widok mapy i widok listy. Ich wygląd został przedstawiony na Ryc. \ref{fig:screenshot-main}. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
 
 	Na widoku mapy cały ekran zajęty jest przez fragment Google Maps, wyświetlający wszystkie punkty w formie markerów w odpowiednich miejscach geograficznych. Kliknięcie na dany marker przenosi do ekranu ze szczegółami o konkretnym miejscu. Na górnym pasku poza nazwą aplikacji wyświetlany jest przycisk uruchamiający tryb wyszukiwania.
 
@@ -580,6 +581,8 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 
 	Opuszczenie wyszukiwania i powrót do wszystkich miejsc następuje poprzez kliknięcie w przycisk X na pasku szukania.
 
+	Ryc. \ref{fig:screenshot-search} przedstawia po kolei: pasek wyszukiwania, pasek uzupełniony szukaną frazą oraz błąd, gdy nie znaleziono żadnych wyników.
+
 	\subsection{Tryb edycji i dodawania obiektów}
 
 	\begin{figure}[H]
@@ -597,6 +600,8 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 
 	Wyjście z ekranu bez zapisywania zmian jest możliwe używając sprzętowe klawisza "cofnij" lub przycisku na górnej belce widoku.
 
+	Ryc. \ref{fig:screenshot-addedit} przedstawia po kolei: widok po otwarciu trybu dodawania, widok trybu edycji, pasek postępu przy zapisywaniu zmian oraz komunikat o błędzie przy zapisywaniu.
+
 	\subsection{Widok szczegółowy i usuwanie miejsc}
 
 	\begin{figure}[H]
@@ -611,6 +616,8 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 	Usunięcie miejsca jest możliwe z poziomu pozycji w menu na górnym pasku aplikacji. Po wywołaniu usuwania miejsca, tak jak w przypadku dodawania wyświetla się okrągły pasek postępu. Niepowodzenie jest sygnalizowane odpowiednim komunikatem, a sukces przejściem do głównego ekranu mapy.
 
 	Z tego widoku możliwe jest również przejście do widoku edycji korzystając z przycisku w prawym dolnym rogu. Wyjście, czyli powrót do widoku mapy lub listy jest możliwe używając sprzętowego przycisku, bądź przycisku na górnym pasku.
+
+	Ryc. \red{fig:screenshot-detail} przedstawia po kolei: widok szczegółów, menu widoku szczegółowego oraz błąd przy usuwaniu miejsca.
 
 \section{Podsumowanie}\label{summary}
 
