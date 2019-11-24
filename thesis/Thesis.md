@@ -41,17 +41,17 @@ Pomysł na aplikację powstał obserwując inne aplikacje użytkowe, jak te wymi
 
 Tutaj też głównym miejscem miał być widok mapy umożliwiający w przyjazny dla użytkownika sposób przeglądanie danych. Dodatkowo dane miały być możliwe do wyświetlenia w kwestii listy, sortowanej rosnąco odległością od użytkownika.
 
-Aby zmniejszyć obciążenie urządzenia oraz umożliwić pracę na dużej bazie danych klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika oraz te znajdujące się w zakresie widoku mapy, przeglądanej przez użytkownika. Z uwagi, że aplikacja prezentuje rzadko zmieniające się dane zmniejszenie zapytań do serwera miało być wykorzystane przez zapewnienie metody na buforowanie wyników zapytań na urządzeniu na jakiś czas, bądź do sytuacji gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Aplikacja miała również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie na urządzeniu, aby umożliwić dostęp do danych w trybie offline.
+Aby zmniejszyć obciążenie urządzenia oraz umożliwić pracę na dużej bazie danych klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika oraz te znajdujące się w zakresie widoku mapy, przeglądanej przez użytkownika. Z uwagi, że aplikacja prezentuje rzadko zmieniające się dane zmniejszenie zapytań do serwera miało być wykorzystane przez zapewnienie metody na buforowanie wyników zapytań na urządzeniu na jakiś czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Aplikacja miała również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie na urządzeniu, aby umożliwić dostęp do danych w trybie offline.
 
-Baza miała przechowywać podstawowe dane o miejscu, jak jego lokalizacja, czy nazwa oraz bardziej specyficzne dla tego zastosowania dane, jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi gniazdkami na planie budynku (co np. w przypadku restauracji ułatwiło by klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi). Planowana była też szersza integracja z Google Maps, aby miejsca w aplikacji można było przypisać do punktów POI (_Points of interests_) znajdujących się w tym serwisie.
+Baza miała przechowywać podstawowe dane o miejscu, jak jego lokalizacja czy nazwa oraz bardziej specyficzne dla tego zastosowania dane, jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi gniazdkami na planie budynku (co np. w przypadku restauracji ułatwiłoby klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi). Planowana była też szersza integracja z Google Maps, aby miejsca w aplikacji można było przypisać do punktów POI (_Points of interests_) znajdujących się w tym serwisie.
 
 W aplikacji miał być dostępny widok szczegółowy danego miejsca umożliwiający podejrzenie dodatkowych informacji o danym miejscu oraz historię ostatnich modyfikacji tego miejsca. Widok dodawania nowego miejsca miał umożliwić podanie wszystkich szczegółów dotyczących tego miejsca oraz miał ułatwiać naszkicowanie planu budynku ręcznie bądź umożliwić wgranie zdjęcia ręcznie wykonanego planu.
 
-Klient miał oczywiście pozwalać również na edycje już istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nie istniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji, oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
+Klient miał oczywiście pozwalać również na edycje już istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nie istniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
 
 ### Serwer
 
-Do działania aplikacja potrzebowała by również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji na połączenie się z nim oraz wykorzystując odpowiednią warstwę abstrakcji, by w przyszłości było możliwe stworzenie klientów na inne platformy (klient webowy, na system iOS, itp.)
+Do działania aplikacja potrzebowałaby również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji na połączenie się z nim oraz wykorzystując odpowiednią warstwę abstrakcji, by w przyszłości było możliwe stworzenie klientów na inne platformy (klient webowy, na system iOS, itp.)
 
 ### Zakres realizacji
 
@@ -67,13 +67,13 @@ Jest to całkiem solidny zakres podstawowych funkcji umożliwiający na używani
 
 ## Wybrane technologie
 ### Platforma
-Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które użytkownikom są potrzebne gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google, oraz iOS od firmy Apple, mając udziały w rynku odpowiednio 77% i 22%. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników należy wybrać platformę Android. Dodatkowym aspektem skłaniającym do wyboru tej platformy był fakt posiadania przez autora pracy urządzeń działających pod kontrolą tego systemu.
+Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które użytkownikom są potrzebne, gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google oraz iOS od firmy Apple, mając udziały w rynku odpowiednio 77% i 22%. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników należy wybrać platformę Android. Dodatkowym aspektem skłaniającym do wyboru tej platformy był fakt posiadania przez autora pracy urządzeń działających pod kontrolą tego systemu.
 
 ### Język programowania
 Wybór platformy w dużej mierze uwarunkował wybór języka programowania. Istnieją oczywiście różne metody by pisać na Androida w wielu różnych językach (np. COBOL), jednak oficjalnie wspierane są następujące języki:
 * Kotlin - nowy język, działający w JVM i będący w pełni interoperacyjny z Javą; od niedawna zalecany jako główny język dla nowych aplikacji przez Google
 * Java - standardowy język, w którym od dawna powstają aplikację na tą platformę
-* C++ - istnieje możliwość wykorzystania bibliotek napisanych w C++ za pomocą NDK udostępnionego przez Google, przydatne przy oprogramowaniu dla którego kluczowa jest wydajność, czyli np. gier
+* C++ - istnieje możliwość wykorzystania bibliotek napisanych w C++ za pomocą NDK udostępnionego przez Google, przydatne przy oprogramowaniu, dla którego kluczowa jest wydajność, czyli np. gier
 * HTML+CSS+JS - częściowo wspierane jest tworzenie nowoczesnych stron internetowych zachowujących się jako aplikacje wykorzystując PWA
 
 Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Javą. Mimo pewnego wcześniejszego doświadczenia autora pracy z Javą wybrany został język Kotlin, który jest traktowany przez Google jako przyszłość dla tej platformy, aby ułatwić w przyszłości rozwój tej aplikacji i poznać nieznaną dotąd dla siebie technologię.
@@ -81,7 +81,7 @@ Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Jav
 ### Zewnętrzne biblioteki
 Przy budowie projektu wykorzystano kilka zewnętrznych bibliotek, z których większość wchodzi w skład Android Framework, czyli oficjalnych bibliotek wymaganych do tworzenia aplikacji na tą platformę.
 
-Podstawową użytą biblioteką jest biblioteka języka Kotlin, pozwalająca na pisanie kodu w tym języku oraz biblioteka Core z pakietu AndroidX, czyli główna biblioteka wymagana przez system, implementująca podstawowe definicje takich elementów jak aktywności, czy widoki programu. Większość widoków w aplikacji stworzono wykorzystując ConstraintLayout, którego podstawowa definicja znajduje się w bibliotece o tej samej nazwie.
+Podstawową użytą biblioteką jest biblioteka języka Kotlin, pozwalająca na pisanie kodu w tym języku oraz biblioteka Core z pakietu AndroidX, czyli główna biblioteka wymagana przez system, implementująca podstawowe definicje takich elementów jak aktywności czy widoki programu. Większość widoków w aplikacji stworzono wykorzystując ConstraintLayout, którego podstawowa definicja znajduje się w bibliotece o tej samej nazwie.
 
 Przy tworzeniu wykorzystano również bibliotekę AppCompat, która pozwoliła na modyfikacje paska akcji na górze widoku aplikacji i implementację mechanizmu wyszukiwania miejsc.
 
@@ -93,7 +93,7 @@ Do obsługi map oraz lokalizacji wykorzystano biblioteki Google Maps Services, p
 
 Obsługa połączenia z serwerem została zaimplementowana z pomocą biblioteki Retrofit, która pomaga w obsłudze zapytań HTTP wraz z biblioteką Moshi, która służy do automatyzacji parsowania modelu programistycznego do JSON i w drugą stronę. Biblioteka Moshi jest pierwszą użytą w projekcie biblioteką nie wchodzącą w skład Android Framework.
 
-Z poza Android Framework wykorzystano jeszcze jedną bibliotekę - Timber, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
+Spoza Android Framework wykorzystano jeszcze jedną bibliotekę - Timber, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
 
 ### Komunikacja z serwerem
 Aplikacja do kontaktu z serwerem wykorzystuje jego publiczne API oparte o zapytania HTTP i architekturę typu REST. Serwer nie posiada jeszcze domeny, więc aby się z nim połączyć konieczne jest uruchomienie go w sieci lokalnej i zmiana kodu aplikacji mobilnej podając jej poprawny adres działającego serwera. Serwer jednak nie był tematem tej pracy i został stworzony przez inną osobę.
@@ -134,7 +134,7 @@ Repozytorium Git wykorzystywane było głownie, aby lepiej zorganizować zmiany 
 ### System budowania
 Do automatyzacji procesu budowania wykorzystano narzędzie Gradle. Pozwalało ono po sprecyzowaniu podstawowych ustawień na w pełni automatyczne tworzenie pliku apk gotowego do instalacji na urządzeniu.
 
-W przypadku projektów na platformę Android konfiguracja gradle, podzielona jest na dwa osobne pliki - konfiguracja do całego projektu oraz poszczególnego modułu. Mimo, że projekt posiadał tylko jeden moduł, zachowany został ten podział, ponieważ uważany jest on za dobrą praktykę.
+W przypadku projektów na platformę Android konfiguracja Gradle, podzielona jest na dwa osobne pliki - konfiguracja do całego projektu oraz poszczególnego modułu. Mimo, że projekt posiadał tylko jeden moduł, zachowany został ten podział, ponieważ uważany jest on za dobrą praktykę.
 
 W pliku z konfiguracją na cały projekt podane zostały zdalne repozytoria, z których Gradle pobierał wymagane dependencje oraz zdefiniowane zostało użycie narzędzi wymaganych do zbudowania aplikacji na system Android.
 
@@ -161,7 +161,7 @@ defaultConfig {
 
 Zdefiniowana została wersje systemu Android, użyta do zbudowania binarki, minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem, a definicją widoku oraz aktywowano eksperymentalne funkcjonalności Android Framework.
 
-Ustalona została nazwa kodowa programu oraz jego wersja. Konwencja systemu Android zaleca stosowanie odwrotności domeny przeznaczonej dla danej aplikacji, jako nazwy kodowej. Z uwagi, że do projektu nie została zarejestrowana jeszcze żadna domena, na czas realizacji pracy zdecydowano się użyć domeny test, która przeznaczona jest do użycia w testowaniu oprogramowania i gwarantuje pewność, że nigdy nie nastąpi konflikt z żadną istniejącą domeną, ponieważ zablokowana jest możliwość jej rejestracji.
+Ustalona została nazwa kodowa programu oraz jego wersja. Konwencja systemu Android jako nazwy kodowej zaleca stosowanie odwrotności domeny przeznaczonej dla danej aplikacji. Z uwagi, że do projektu nie została zarejestrowana jeszcze żadna domena, na czas realizacji pracy zdecydowano się użyć domeny test, która przeznaczona jest do użycia w testowaniu oprogramowania i gwarantuje pewność, że nigdy nie nastąpi konflikt z żadną istniejącą domeną, ponieważ zablokowana jest możliwość jej rejestracji.
 
 ### Testy jednostkowe
 Do projektu podłączono biblioteki JUnit umożliwiające pisanie lokalnych testów jednostkowych oraz testów wykonywanych na fizycznym urządzeniu. Niestety z uwagi na ograniczenia czasowe do aplikacji nie powstały żadne testy.
@@ -227,7 +227,7 @@ _Pliki są wyświetlone w ręcznie ustalonej kolejności_
 
 Aplikacja składa się z jednej aktywności, której jedynym zadaniem jest załadowanie odpowiedniego fragmentu.
 
-Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiej dwóch głownych fragmentów - MapView i ListView, które posiadają jeden wspólny obiekt tego typu.
+Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiem dwóch głównych fragmentów - MapView i ListView, które posiadają jeden wspólny obiekt tego typu.
 
 Klasy reprezentujące struktury używane przez ViewModel zostały wydzielone do folderu `domain`. W kolejnych folderach pogrupowane są klasy wykorzystywane przez repozytorium, bazę danych i obsługę sieci.
 
@@ -300,7 +300,7 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 
 Metoda polega na przypisaniu na kliknięcie w definicji układu widoku metody z ViewModela (w tym wypadku `goToSecondView()`). Metoda ta, zmienia wartość zmiennej LiveData na która ustawiony jest obserwator w widoku, który jeśli zmiana jest zmieniona na `true` wywołuje kontroler nawigacji i wykonuje odpowiednie przejście, po czym ustawia zmienną LiveData (w tym wypadku `_navigateToSecondView`) na `false` wykorzystując drugą metodę (w tym wypadku `wentToSecondView()`). Ustawienie jej bezpośrednio jest niemożliwe, ponieważ jest to zmienna prywatna, a `navigateToSecondView` jest zmienną publiczną, której wartość nie może być modyfikowana - jest to zdefiniowane w ten sposób, aby zachować enkapsulację klasy.
 
-Konieczność wykonania takiego przepływu jet spowodowana faktem, że użycie kontrolera nawigacji jest możliwe tylko z poziomu kodu fragmentu, a nie kodu ViewModela.
+Konieczność wykonania takiego przepływu jest spowodowana faktem, że użycie kontrolera nawigacji jest możliwe tylko z poziomu kodu fragmentu, a nie kodu ViewModela.
 
 ### Wyświetlenie listy miejsc
 Wyświetlenie listy miejsc wymaga przejścia do widoku listy. Przejście z widoku mapy do widoku listy jest użyte jako przykład do opisu przejścia w podrozdziale powyżej.
@@ -320,7 +320,7 @@ Do obliczenia odległości pomiędzy lokalizacją użytkownika, a punktem wykorz
 Na samym końcu tworzony jest obiekt typu ViewAdapter i zostaje on przypisany do parametrów RecyclerView.
 
 ### Wyświetlenie widoku szczegółów
-Przejście do tego fragmentu jest możliwe po kliknięciu na znacznik na mapie w widoku mapy, bądź pozycje na liście w widoku listy. Przy przejściu następuje przekazanie jednego parametru (Id obiektu), którego szczegóły mają zostać wyświetlone.
+Przejście do tego fragmentu jest możliwe po kliknięciu na znacznik na mapie w widoku mapy bądź pozycje na liście w widoku listy. Przy przejściu następuje przekazanie jednego parametru (Id obiektu), którego szczegóły mają zostać wyświetlone.
 
 Tworzenie widoku rozpoczyna od załadowania definicji układu widoku i uzyskanie dostępu do repozytorium. Następnie wykonywane jest zapytanie do repozytorium o obiekt podając jego Id. Zapytanie nie korzysta z bazy danych, więc wykonywane jest na głównym wątku. Po otrzymaniu obiektu tworzony jest ViewModel wykorzystując do tego wzorzec projektowy fabryki (stworzenie ViewModela z parametrami w konstruktorze wymaga zdefiniowania fabryki).
 
@@ -329,7 +329,7 @@ Następnie tworzeni są obserwatorzy zmiennych używanych do nawigacji, następu
 Po inicjalizacji mapy kamera zostaje przeniesiona na marker miejsca.
 
 ### Usuwanie obiektu
-Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejścia opisanego w pragrafie <!-- XXX -->.
+Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejścia opisanego w paragrafie <!-- XXX -->.
 
 W momencie wybrania opcji następuje wyświetlenie nieskończonego paska postępu oraz zapytanie do repozytorium o usunięcie obiektu. Z uwagi na wykonywanie zapytania do serwera oraz do lokalnej bazy działanie to musi być wykonane na osobnym wątku.
 
@@ -338,7 +338,7 @@ Po obsłużeniu zapytania repozytorium zwraca `Boolean`, czy udało się usuwani
 Gdy usuwanie się uda następuje przejście do widoku mapy, w razie niepowodzenia pokazany zostaje komunikat i znika pasek postępu. Po obsłużeniu tej zmiany UI zmienna jest przywracana do stanu `UNSET`.
 
 ### Dodawanie/edycja obiektu
-Aby wykonać dodanie, bądź edycję obiektu konieczne jest przejście do fragmentu `addViewFragment`. Dodanie jest możliwe z obu głównych widoków, natomiast edycja z widoku szczegółów. Wywołanie nawigacji wymaga podania Id zmienianego miejsca. Jeśli przejście następuje w celu stworzenia nowego obiektu podawany jest parametr `-1`. Jest to specjalnie zarezerwowany Id, który nigdy nie może pojawić się jako poprawny Id w bazie danych.
+Aby wykonać dodanie bądź edycję obiektu konieczne jest przejście do fragmentu `addViewFragment`. Dodanie jest możliwe z obu głównych widoków, natomiast edycja z widoku szczegółów. Wywołanie nawigacji wymaga podania Id zmienianego miejsca. Jeśli przejście następuje w celu stworzenia nowego obiektu podawany jest parametr `-1`. Jest to specjalnie zarezerwowany Id, który nigdy nie może pojawić się jako poprawny Id w bazie danych.
 
 Stworzenie widoku wygląda bardzo podobnie do widoku szczegółów. Jeśli podanym argumentem jest -1, zamiast poprawnego obiektu przekazywany jest `null`. Następuje żądanie inicjalizacji map i dostępu do lokalizacji użytkownika. Następnie tworzony jest pusty obiekt w ViewModelu i uzupełniany aktualną lokalizacją użytkownika. Na mapie w tym miejscu pojawia się też marker.
 
@@ -369,7 +369,7 @@ fun returnPlace(key: Long): PowerMug?
 
 Użycie metod typu `suspend` konieczne jest z poziomu współprogramów (ang. coroutines), aby zapobiec blokowaniu wątku głównego programu odpowiedzialnego za wyświetlanie elementów interfejsu użytkownika.
 
-Wszystkie metody działające we współprogramach mają podobny schemat działania - najpierw konkretne działanie jest wykonywane na serwerze, po czym w przypadku powodzenia zmiana zapisywana jest w lokalnej bazie danych, z której korzysta program. Zwracany obiekt typu `Boolean` informuje o sukcesie, bądź niepowodzeniu danej akcji.
+Wszystkie metody działające we współprogramach mają podobny schemat działania - najpierw konkretne działanie jest wykonywane na serwerze, po czym w przypadku powodzenia zmiana zapisywana jest w lokalnej bazie danych, z której korzysta program. Zwracany obiekt typu `Boolean` informuje o sukcesie bądź niepowodzeniu danej akcji.
 
 ### Przechowywanie obiektów
 Mimo, że program w każdym miejscu wykorzystuje bardzo podobną definicje klasy poszczególnego punktu na mapie, zdecydowano się rozdzielić ich definicje na 3 osobne - definicję dla logiki programu (domenową - `PowerMug`), do bazy danych (`DbPowerMug`) i do zapytań sieciowych (`NetworkPowerMug` oraz `EphemeralNetworkPowerMug`). Tego typu rozdzielenie nie było konieczne, jednak powoduje, że kod aplikacji staje się bardziej elastyczny i modyfikacja np. modelu bazy nie powoduje konieczności wprowadzenia modyfikacji w kodzie całej aplikacji.
@@ -403,7 +403,7 @@ W formie listy cały ekran jest zajęty przez przewijaną listę miejsc, posorto
 
 Wyszukiwanie markerów na mapie odbywa się w widoku mapy. Po kliknięciu na ikonę wyszukiwania pojawia się pasek, gdzie należy wpisać szukany ciąg znaków. Miejsca przeszukiwane są po nazwie i adresie. Wyszukiwanie zatwierdzane jest za pomocą przycisku na klawiaturze ekranowej.
 
-W przypadku nie znalezienia żadnych wyników wyświetla się komunikat o błędzie, natomiast w przypadku powodzenia mapa ograniczy wyświetlane markery do tych spełniających kryteria wyszukiwania, a kamera przenosi się na pierwsze spełniające zapytanie miejsce.
+W przypadku nieznalezienia żadnych wyników wyświetla się komunikat o błędzie, natomiast w przypadku powodzenia mapa ograniczy wyświetlane markery do tych spełniających kryteria wyszukiwania, a kamera przenosi się na pierwsze spełniające zapytanie miejsce.
 
 Opuszczenie wyszukiwania i powrót do wszystkich miejsc następuje poprzez kliknięcie w przycisk X na pasku szukania.
 
@@ -421,7 +421,7 @@ Wyjście z ekranu bez zapisywania zmian jest możliwe używając sprzętowe klaw
 ### Widok szczegółowy i usuwanie miejsc
 ![Ekran szczegółów wraz z błędem usuwania](screenshot-detail.png)
 
-Fragment ze szczegółami nie wiele różni się wyglądem od trybu edycji. Nie oferuje on jednak możliwości zmiany żadnych informacji.
+Fragment ze szczegółami niewiele różni się wyglądem od trybu edycji. Nie oferuje on jednak możliwości zmiany żadnych informacji.
 
 Usunięcie miejsca jest możliwe z poziomu pozycji w menu na górnym pasku aplikacji. Po wywołaniu usuwania miejsca, tak jak w przypadku dodawania wyświetla się okrągły pasek postępu. Niepowodzenie jest sygnalizowane odpowiednim komunikatem, a sukces przejściem do głównego ekranu mapy.
 
