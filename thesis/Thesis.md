@@ -401,13 +401,31 @@ W formie listy cały ekran jest zajęty przez przewijaną listę miejsc, posorto
 ### Wyszukiwanie punktów
 ![Wygląd trybu wyszukiwania miejsc](screenshot-search.png)
 
-### Widok szczegółowy i usuwanie miejsc
-![Ekran szczegółów wraz z błędem usuwania](screenshot-detail.png)
+Wyszukiwanie markerów na mapie odbywa się w widoku mapy. Po kliknięciu na ikonę wyszukiwania pojawia się pasek, gdzie należy wpisać szukany ciąg znaków. Miejsca przeszukiwane są po nazwie i adresie. Wyszukiwanie zatwierdzane jest za pomocą przycisku na klawiaturze ekranowej.
+
+W przypadku nie znalezienia żadnych wyników wyświetla się komunikat o błędzie, natomiast w przypadku powodzenia mapa ograniczy wyświetlane markery do tych spełniających kryteria wyszukiwania, a kamera przenosi się na pierwsze spełniające zapytanie miejsce.
+
+Opuszczenie wyszukiwania i powrót do wszystkich miejsc następuje poprzez kliknięcie w przycisk X na pasku szukania.
 
 ### Tryb edycji i dodawania obiektów
 ![Możliwy wygląd ekranu dodawania/edycji punktu na mapie](screenshot-addedit.png)
 
+Widok dodawania i edycji to jeden widok. W przypadku dodawania widok nie zawiera żadnych danych o miejscu, a marker na mapie wyświetla się na aktualnej lokalizacji użytkownika. W przypadku edycji widok wypełnia się aktualnym informacjami o miejscu.
 
+Zmiana pozycji markera odbywa się poprzez kliknięcie na nową lokalizację na mapie.
+
+Zapisanie danych jest możliwe po kliknięciu przycisku w prawym dolnym rogu. Przy zapisywaniu danych pojawia się nieskończony pasek postępu, który znika po zakończeniu procesu dodawania. Przy niepowodzeniu następuje wyświetlenie stosownego komunikatu, natomiast po poprawnym dodaniu aplikacja wraca do głównego ekranu mapy.
+
+Wyjście z ekranu bez zapisywania zmian jest możliwe używając sprzętowe klawisza "cofnij" lub przycisku na górnej belce widoku.
+
+### Widok szczegółowy i usuwanie miejsc
+![Ekran szczegółów wraz z błędem usuwania](screenshot-detail.png)
+
+Fragment ze szczegółami nie wiele różni się wyglądem od trybu edycji. Nie oferuje on jednak możliwości zmiany żadnych informacji.
+
+Usunięcie miejsca jest możliwe z poziomu pozycji w menu na górnym pasku aplikacji. Po wywołaniu usuwania miejsca, tak jak w przypadku dodawania wyświetla się okrągły pasek postępu. Niepowodzenie jest sygnalizowane odpowiednim komunikatem, a sukces przejściem do głównego ekranu mapy.
+
+Z tego widoku możliwe jest również przejście do widoku edycji korzystając z przycisku w prawym dolnym rogu. Wyjście, czyli powrót do widoku mapy lub listy jest możliwe używając sprzętowego przycisku, bądź przycisku na górnym pasku.
 
 ## Literatura
 * https://gs.statcounter.com/os-market-share/mobile/worldwide (@Platforma)
