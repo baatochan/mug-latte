@@ -189,7 +189,7 @@ Główny podział kodu znajduje się w katalogu `app/src/main`:
 #### Przepływ danych
 Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze.
 
-![Schemat architektury](architecture.png)
+![Schemat architektury](img/architecture.png)
 
 Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe by aktualizować zawartość bazy. Dostęp do repozytorium wykonywany jest z poziomu klas typu ViewModel, w których starano się zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi, tak aby kodu w klasach aktywności i fragmentów było jak najmniej, zostawiając tam tylko kod odpowiedzialny za obsługę interfejsu użytkownika. ViewModel odświeża dane wyświetlane na ekranie korzystając ze zmiennych LiveData i technologii data binding.
 
@@ -236,7 +236,7 @@ Na samym końcu znajdują się dwa zbiorcze pliki zawierające pomocnicze wolne 
 #### Widoki i nawigacja
 Aplikacja posiada jedną aktywność i cztery widoki, w tym dwa główne. Aktywność przy tworzeniu aktywuje szablon nawigacji (znajdujący się w `res/navigation/`), który pomaga w bezproblemowym zarządzaniu przechodzeniem pomiędzy fragmentami.
 
-![Diagram nawigacji pomiędzy fragmentami](navigation.png)
+![Diagram nawigacji pomiędzy fragmentami](img/navigation.png)
 
 Głównym i domyślnym widokiem jest widok mapy. Uruchamia się on zaraz po starcie aplikacji. Umożliwia przeglądanie danych w postaci punktów na mapie zajmującej cały ekran. Kliknięcie na punkt powoduje wyświetlenie szczegółów danego miejsca.
 
@@ -390,7 +390,7 @@ Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano spe
 
 ## Opis interfejsu użytkownika
 ### Ekrany główne
-![Dwa główne widoki programu](screenshot-main.png)
+![Dwa główne widoki programu](img/screenshot-main.png)
 
 Aplikacja posiada dwa główne ekrany - widok mapy i widok listy. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
 
@@ -399,7 +399,7 @@ Na widoku mapy cały ekran zajęty jest przez fragment Google Maps, wyświetlaj�
 W formie listy cały ekran jest zajęty przez przewijaną listę miejsc, posortowaną rosnąco odległością od aktualnej lokalizacji użytkownika. Kliknięcie na dowolną pozycję na liście powoduje przeniesienie do ekranu ze szczegółami o tym miejscu.
 
 ### Wyszukiwanie punktów
-![Wygląd trybu wyszukiwania miejsc](screenshot-search.png)
+![Wygląd trybu wyszukiwania miejsc](img/screenshot-search.png)
 
 Wyszukiwanie markerów na mapie odbywa się w widoku mapy. Po kliknięciu na ikonę wyszukiwania pojawia się pasek, gdzie należy wpisać szukany ciąg znaków. Miejsca przeszukiwane są po nazwie i adresie. Wyszukiwanie zatwierdzane jest za pomocą przycisku na klawiaturze ekranowej.
 
@@ -408,7 +408,7 @@ W przypadku nieznalezienia żadnych wyników wyświetla się komunikat o błędz
 Opuszczenie wyszukiwania i powrót do wszystkich miejsc następuje poprzez kliknięcie w przycisk X na pasku szukania.
 
 ### Tryb edycji i dodawania obiektów
-![Możliwy wygląd ekranu dodawania/edycji punktu na mapie](screenshot-addedit.png)
+![Możliwy wygląd ekranu dodawania/edycji punktu na mapie](img/screenshot-addedit.png)
 
 Widok dodawania i edycji to jeden widok. W przypadku dodawania widok nie zawiera żadnych danych o miejscu, a marker na mapie wyświetla się na aktualnej lokalizacji użytkownika. W przypadku edycji widok wypełnia się aktualnym informacjami o miejscu.
 
@@ -419,7 +419,7 @@ Zapisanie danych jest możliwe po kliknięciu przycisku w prawym dolnym rogu. Pr
 Wyjście z ekranu bez zapisywania zmian jest możliwe używając sprzętowe klawisza "cofnij" lub przycisku na górnej belce widoku.
 
 ### Widok szczegółowy i usuwanie miejsc
-![Ekran szczegółów wraz z błędem usuwania](screenshot-detail.png)
+![Ekran szczegółów wraz z błędem usuwania](img/screenshot-detail.png)
 
 Fragment ze szczegółami niewiele różni się wyglądem od trybu edycji. Nie oferuje on jednak możliwości zmiany żadnych informacji.
 
