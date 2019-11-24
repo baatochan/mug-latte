@@ -329,13 +329,13 @@ Następnie tworzeni są obserwatorzy zmiennych używanych do nawigacji, następu
 Po inicjalizacji mapy kamera zostaje przeniesiona na marker miejsca.
 
 ### Usuwanie obiektu
-Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejscia opisanego w pragrafie <!-- XXX -->.
+Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejścia opisanego w pragrafie <!-- XXX -->.
 
 W momencie wybrania opcji następuje wyświetlenie nieskończonego paska postępu oraz zapytanie do repozytorium o usunięcie obiektu. Z uwagi na wykonywanie zapytania do serwera oraz do lokalnej bazy działanie to musi być wykonane na osobnym wątku.
 
 Po obsłużeniu zapytania repozytorium zwraca `Boolean`, czy udało się usuwanie, czy nie. Bazując na nim ustawiana jest trzystanowa LiveData, której obserwator podejmuje stosowne działanie przy zmianie wartości.
 
-Gdy usuwanie się uda następuje przejscie do widoku mapy, w razie niepowodzenia pokazany zostaje komunikat i znika pasek postępu. Po obsłużeniu tej zmiany UI zmienna jest przywracana do stanu `UNSET`.
+Gdy usuwanie się uda następuje przejście do widoku mapy, w razie niepowodzenia pokazany zostaje komunikat i znika pasek postępu. Po obsłużeniu tej zmiany UI zmienna jest przywracana do stanu `UNSET`.
 
 ### Dodawanie/edycja obiektu
 Aby wykonać dodanie, bądź edycję obiektu konieczne jest przejście do fragmentu `addViewFragment`. Dodanie jest możliwe z obu głównych widoków, natomiast edycja z widoku szczegółów. Wywołanie nawigacji wymaga podania Id zmienianego miejsca. Jeśli przejście następuje w celu stworzenia nowego obiektu podawany jest parametr `-1`. Jest to specjalnie zarezerwowany Id, który nigdy nie może pojawić się jako poprawny Id w bazie danych.
@@ -349,8 +349,65 @@ Kliknięcie w jakiekolwiek miejsce na mapie powoduje przeniesienie wskaźnika w 
 Zapisanie dodania/edycji miejsca możliwe jest poprzez użycie przycisku na dole ekranu. Wykorzystywany jest podobny schemat, jak przy usuwaniu i przejściu. Wysyłane jest wtedy odpowiednie zapytanie do repozytorium i następuje oczekiwanie na wynik. Przy poprawnej akcji program przechodzi do widoku mapy, przy negatywnym następuje informacja o błędzie.
 
 ### Implementacja repozytorium
+Model repozytorium w tym projekcie pełni funkcję warstwy abstrakcji pomiędzy zapytaniami do serwera i bazy oraz powoduje skupienie całego kodu odpowiedzialnego za te operacje w jednym miejscu. Repozytorium jest zaimplementowane w formie wzorca projektowego typu Singleton, zapewniającego, że w trakcie życia aplikacji będzie istniał tylko jeden obiekt repozytorium i bazy danych.
+
+Użycie repozytorium sprowadza się do wywołania jednej z publicznych metod jego interfejsu z dowolnego miejsca aplikacji.
+
+```
+val powerMugs: LiveData<List<PowerMug>>
+
+suspend fun refreshCache()
+
+suspend fun updatePlace(powerMug: PowerMug): Boolean
+suspend fun insertPlace(powerMug: PowerMug): Boolean
+suspend fun deletePlace(powerMug: PowerMug): Boolean
+
+fun search(query: String): LiveData<List<PowerMug>>
+
+fun returnPlace(key: Long): PowerMug?
+```
+
+Użycie metod typu `suspend` konieczne jest z poziomu współprogramów (ang. coroutines), aby zapobiec blokowaniu wątku głównego programu odpowiedzialnego za wyświetlanie elementów interfejsu użytkownika.
+
+Wszystkie metody działające we współprogramach mają podobny schemat działania - najpierw konkretne działanie jest wykonywane na serwerze, po czym w przypadku powodzenia zmiana zapisywana jest w lokalnej bazie danych, z której korzysta program. Zwracany obiekt typu `Boolean` informuje o sukcesie, bądź niepowodzeniu danej akcji.
+
+### Przechowywanie obiektów
+Mimo, że program w każdym miejscu wykorzystuje bardzo podobną definicje klasy poszczególnego punktu na mapie, zdecydowano się rozdzielić ich definicje na 3 osobne - definicję dla logiki programu (domenową - `PowerMug`), do bazy danych (`DbPowerMug`) i do zapytań sieciowych (`NetworkPowerMug` oraz `EphemeralNetworkPowerMug`). Tego typu rozdzielenie nie było konieczne, jednak powoduje, że kod aplikacji staje się bardziej elastyczny i modyfikacja np. modelu bazy nie powoduje konieczności wprowadzenia modyfikacji w kodzie całej aplikacji.
+
+```
+fun PowerMug.asDbModel(): DbPowerMug
+fun PowerMug.asNetworkModel(): NetworkPowerMug
+fun PowerMug.asEphemeralNetworkModel(): EphemeralNetworkPowerMug
+
+fun DbPowerMug.asDomainModel(): PowerMug
+fun List<DbPowerMug>.asDomainModel(): List<PowerMug>
+
+fun NetworkPowerMug.asDatabaseModel(): DbPowerMug
+fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
+```
+
+Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas.
 
 ## Opis interfejsu użytkownika
+### Ekrany główne
+![Dwa główne widoki programu](screenshot-main.png)
+
+Aplikacja posiada dwa główne ekrany - widok mapy i widok listy. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
+
+Na widoku mapy cały ekran zajęty jest przez fragment Google Maps, wyświetlający wszystkie punkty w formie markerów w odpowiednich miejscach geograficznych. Kliknięcie na dany marker przenosi do ekranu ze szczegółami o konkretnym miejscu. Na górnym pasku poza nazwą aplikacji wyświetlany jest przycisk uruchamiający tryb wyszukiwania.
+
+W formie listy cały ekran jest zajęty przez przewijaną listę miejsc, posortowaną rosnąco odległością od aktualnej lokalizacji użytkownika. Kliknięcie na dowolną pozycję na liście powoduje przeniesienie do ekranu ze szczegółami o tym miejscu.
+
+### Wyszukiwanie punktów
+![Wygląd trybu wyszukiwania miejsc](screenshot-search.png)
+
+### Widok szczegółowy i usuwanie miejsc
+![Ekran szczegółów wraz z błędem usuwania](screenshot-detail.png)
+
+### Tryb edycji i dodawania obiektów
+![Możliwy wygląd ekranu dodawania/edycji punktu na mapie](screenshot-addedit.png)
+
+
 
 ## Literatura
 * https://gs.statcounter.com/os-market-share/mobile/worldwide (@Platforma)
