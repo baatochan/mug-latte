@@ -461,7 +461,7 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 
 	Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
 
-	Do obliczenia odległości pomiędzy lokalizacją użytkownika, a punktem wykorzystywany jest następujący wzór, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej.
+	Do obliczenia odległości pomiędzy lokalizacją użytkownika, a punktem wykorzystywany jest następujący wzór, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej \cite{haversineformulawiki}.
 
 	<!-- wzor -->
 
