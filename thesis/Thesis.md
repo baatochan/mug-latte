@@ -26,8 +26,6 @@ PROWADZĄCY PRACĘ: Dr inż. Paweł Trajdos, W4/K2
 Literatura  
 <!--Indeks rycin/listingów-->
 
-<!--(jezyk, zewnętrzne biblioteki, api (application programming interface), metoda komunikacji z serwerem, środowisko, kontrola wersji, system budowania)-->
-
 ## Wstęp
 W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich jest wyposażona, najczęściej w stałe, połączenie z Internetem. Pozwoliło to na wykształcenie się na rynku wielu aplikacji, których celem jest pomoc użytkownikowi w znalezieniu konkretnych informacji, w tym również geolokalizacyjnych. Istnieje wiele aplikacji oferujących dostęp do map, ułatwiających znajdywanie firm, wyświetlających aktualne położenie autobusów komunikacji miejskiej czy umożliwiających zlokalizowanie publicznych toalet w okolicy.
 
@@ -93,12 +91,21 @@ W programie zaimplementowano bazę danych w technologii SQLite wykorzystując bi
 
 Do obsługi map oraz lokalizacji wykorzystano biblioteki Google Maps Services, ponieważ jest to oficjalnie wspierana biblioteka do tych zastosowań.
 
-<!-- biblioteka do neta -->
+Obsługa połączenia z serwerem została zaimplementowana z pomocą biblioteki Retrofit, która pomaga w obsłudze zapytań HTTP wraz z biblioteką Moshi, która służy do automatyzacji parsowania modelu programistycznego do JSON i w drugą stronę. Biblioteka Moshi jest pierwszą użytą w projekcie biblioteką nie wchodzącą w skład Android Framework.
 
-Jedyną użytą biblioteką nie wchodzącą w skład Android Framework, jest biblioteka Timber, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
+Z poza Android Framework wykorzystano jeszcze jedną bibliotekę - Timber, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
 
-### API
 ### Komunikacja z serwerem
+Aplikacja do kontaktu z serwerem wykorzystuje jego publiczne API oparte o zapytania HTTP i architekturę typu REST. Serwer nie posiada jeszcze domeny, więc aby się z nim połączyć konieczne jest uruchomienie go w sieci lokalnej i zmiana kodu aplikacji mobilnej podając jej poprawny adres działającego serwera. Serwer jednak nie był tematem tej pracy i został stworzony przez inną osobę.
+
+Aplikacja implementuje następujące zapytania do serwera:
+* pobranie wszystkich punktów z bazy danych - zapytanie typu GET, które zwraca listę punktów;
+* dodanie nowego punktu - zapytanie typu PUT, które w ciele przyjmuje obiekt z wszystkimi polami, bez Id, zwraca dodany obiekt do bazy danych z poprawnym Id;
+* edycja istniejącego punktu - zapytanie typu PATCH, które przyjmuje zmieniony obiekt i go zwraca;
+* usunięcie punktu - zapytanie typu DELETE, które przyjmuje obiekt do usunięcia i zwraca pustą odpowiedź z kodem HTTP 200.
+
+Wszystkie zapytania wykorzystują to samu URI, jednak różnią się typem i zawartością ciała.
+
 ### Środowisko deweloperskie
 Projekt realizowany był z użyciem komputera wyposażonego w procesor Intel Pentium G3258@4.4GHz, 16GB pamięci RAM DDR3-1333 oraz kartę graficzną AMD Pitcairn XT na karcie Radeon HD 7870 z 2 GB pamięci, pracujący pod kontrolą systemu operacyjnego Microsoft Windows 10 Pro w wersji 1903 (Build 18362.476).
 
@@ -162,7 +169,22 @@ Do projektu podłączono biblioteki JUnit umożliwiające pisanie lokalnych test
 ## Opis implementacji
 ### Struktura
 #### Podział plików w projekcie
+Nawet prosty projekt na platformę Android posiada dość skomplikowaną strukturę plików i wymaga chwili do zapoznania się z nią. Aplikacje na ten system pisane są w formie modułowej, jednak ten projekt posiada tylko jeden moduł o nazwie `app`.
 
+W głównym folderze projektu znajduje się kilka plików konfiguracyjnych dla narzędzia Gradle, które służy do automatyzacji procesu budowania.
+
+Folder `.idea` zawiera pliki konfiguracyjne środowiska IDE - Android Studio.
+
+Wszystkie pliki w folderze `app` to pliki należące do tego modułu, folder `app/src` zawiera 5 pod folderów, które w główny sposób dzielą kod aplikacji:
+* `main` zawiera kod wspólny dla wszystkich metod budowania,
+* `debug` to kod przeznaczony do budowania w tym trybie,
+* `release` to kod przeznaczony do użycia przy budowaniu w trybie release, w tym projekcie te dwa powyższe foldery są używane do przechowywania osobnych plików z kluczem API do Google Maps,
+* `test` i `androidTest` to foldery wykorzystywane przez testy jednostkowe.
+
+Główny podział kodu znajduje się w katalogu `app/src/main`:
+* folder `java` zawiera kod pisany w języku Java lub Kotlin (w tym projekcie tylko Kotlin), struktura pod folderów odpowiada nazwie kodowej aplikacji,
+* folder `res` zawierający zasoby zapisane w formacie XML, gdzie najważniejsze to pliki definicji układu widoków (`res/layout`) oraz definicje menu (`res/menu`),
+* `AndroidManifest.xml`, informujący system Android o strukturze tej aplikacji.
 
 #### Przepływ danych
 Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze.
@@ -195,7 +217,9 @@ Schemat ten ma swoje odbicie w układzie plików z folderze zawierającym kod ź
 │   ├── DbPowerMug.kt
 │   ├── PowerMugDatabase.kt
 │   └── PowerMugDatabaseDao.kt
-<!-- NETWORK -->
+├── network
+│   ├── NetworkPowerMug.kt
+│   └── ServerApiService.kt
 ├── BindingAdapters.kt
 └── Utils.kt
 ```
@@ -203,7 +227,7 @@ _Pliki są wyświetlone w ręcznie ustalonej kolejności_
 
 Aplikacja składa się z jednej aktywności, której jedynym zadaniem jest załadowanie odpowiedniego fragmentu.
 
-Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiej dwóch głownych fragmentów - MapView i ListView, które posiadają jeden wspólny.
+Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiej dwóch głownych fragmentów - MapView i ListView, które posiadają jeden wspólny obiekt tego typu.
 
 Klasy reprezentujące struktury używane przez ViewModel zostały wydzielone do folderu `domain`. W kolejnych folderach pogrupowane są klasy wykorzystywane przez repozytorium, bazę danych i obsługę sieci.
 
@@ -289,6 +313,10 @@ Nawigacja do tego fragmentu powołuje wywołanie metody `onCreateView()`, która
 
 Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
 
+Do obliczenia odległości pomiędzy lokalizacją użytkownika, a punktem wykorzystywany jest następujący wzór, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej.
+
+<!-- wzor -->
+
 Na samym końcu tworzony jest obiekt typu ViewAdapter i zostaje on przypisany do parametrów RecyclerView.
 
 ### Wyświetlenie widoku szczegółów
@@ -326,3 +354,4 @@ Zapisanie dodania/edycji miejsca możliwe jest poprzez użycie przycisku na dole
 
 ## Literatura
 * https://gs.statcounter.com/os-market-share/mobile/worldwide (@Platforma)
+* https://en.wikipedia.org/wiki/Haversine_formula (wzór)
