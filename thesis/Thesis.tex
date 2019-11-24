@@ -122,32 +122,32 @@ W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich 
 
 Celem tej pracy było przygotowanie aplikacji na urządzenia z systemem Android umożliwiającej użytkownikom na łatwiejsze znajdywanie miejsc użyteczności publicznej, gdzie goście mają dostęp do energii elektrycznej, np. restauracji, w której można usiąść przy stoliku z laptopem i podłączyć się do prądu. Aplikacja miała być klientem do niezależnie rozwijanego serwera z bazą danych i oferować możliwość wyświetlania zebranych w niej danych oraz umożliwiać operowanie na nich w przystępny i szybki dla użytkownika sposób.
 
-Program ten miał być pisany wykorzystując najlepsze wzorce projektowe oraz odpowiednią warstwę abstrakcji, tak by jego dalszy rozwój był łatwy, nawet dla innej osoby. Dodatkowo miało to umożliwić łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości byłaby taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia aplikacji podobnego typu.
+Program ten miał być pisany, wykorzystując najlepsze wzorce projektowe oraz odpowiednią warstwę abstrakcji, tak by jego dalszy rozwój był łatwy, nawet dla innej osoby. Dodatkowo miało to umożliwić łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości byłaby taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia aplikacji podobnego typu.
 
-Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszono podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych w pracy rycin i listingów.
+Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to, co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszono podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych w pracy rycin i listingów.
 
 \section{Opis koncepcji}\label{concept}
 	\subsection{Aplikacja mobilna}
 
-	Pomysł na aplikację powstał obserwując inne aplikacje użytkowe, jak te wymienione we wstępie. Głównie była ona bazowana na dwóch aplikacjach - aplikacji do wyszukiwania publicznych toalet (Flush) oraz publicznych sieci Wi-Fi (WiFi Map). W obu przypadkach głównym punktem wokół kręci się cała idea jest mapa z społecznie zbieranymi danymi przez użytkowników, którzy w założeniu sami dbają o poprawność i aktualność danych.
+	Pomysł na aplikację powstał obserwując inne aplikacje użytkowe, jak te wymienione we wstępie. Głównie była ona bazowano na dwóch aplikacjach — aplikacji do wyszukiwania publicznych toalet (Flush) oraz publicznych sieci Wi-Fi (WiFi Map). W obu przypadkach głównym punktem wokół kręci się cała idea jest mapa z społecznie zbieranymi danymi przez użytkowników, którzy w założeniu sami dbają o poprawność i aktualność danych.
 
-	Tutaj też głównym miejscem miał być widok mapy umożliwiający w przyjazny dla użytkownika sposób przeglądanie danych. Dodatkowo dane miały być możliwe do wyświetlenia w kwestii listy, sortowanej rosnąco odległością od użytkownika.
+	Tutaj też głównym miejscem miał być widok mapy umożliwiający w łatwy w użytku sposób przeglądanie danych. Dodatkowo dane miały być możliwe do wyświetlenia w kwestii listy, sortowanej rosnąco odległością od użytkownika.
 
-	Aby zmniejszyć obciążenie urządzenia oraz umożliwić pracę na dużej bazie danych klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika oraz te znajdujące się w zakresie widoku mapy, przeglądanej przez użytkownika. Z uwagi, że aplikacja prezentuje rzadko zmieniające się dane zmniejszenie zapytań do serwera miało być wykorzystane przez zapewnienie metody na buforowanie wyników zapytań na urządzeniu na jakiś czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Aplikacja miała również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie na urządzeniu, aby umożliwić dostęp do danych w trybie offline.
+	Aby zmniejszyć obciążenie urządzenia oraz umożliwić pracę na dużej bazie danych klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika, oraz te znajdujące się w zakresie widoku mapy, przeglądanej przez użytkownika. Z uwagi, że aplikacja prezentuje rzadko zmieniające się dane, zmniejszenie zapytań do serwera miało być wykorzystane przez zapewnienie metody na buforowanie wyników zapytań na urządzeniu na jakiś czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Aplikacja miała również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie na urządzeniu, aby umożliwić dostęp do danych w trybie offline.
 
 	Baza miała przechowywać podstawowe dane o miejscu, jak jego lokalizacja czy nazwa oraz bardziej specyficzne dla tego zastosowania dane, jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi gniazdkami na planie budynku (co np. w przypadku restauracji ułatwiłoby klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi). Planowana była też szersza integracja z Google Maps, aby miejsca w aplikacji można było przypisać do punktów POI (\textit{Points of interests}) znajdujących się w tym serwisie.
 
 	W aplikacji miał być dostępny widok szczegółowy danego miejsca umożliwiający podejrzenie dodatkowych informacji o danym miejscu oraz historię ostatnich modyfikacji tego miejsca. Widok dodawania nowego miejsca miał umożliwić podanie wszystkich szczegółów dotyczących tego miejsca oraz miał ułatwiać naszkicowanie planu budynku ręcznie bądź umożliwić wgranie zdjęcia ręcznie wykonanego planu.
 
-	Klient miał oczywiście pozwalać również na edycje już istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
+	Klient miał oczywiście pozwalać również na edycje już istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić, kto dokonuje modyfikacji oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
 
 	\subsection{Serwer}
 
-	Do działania aplikacja potrzebowałaby również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji na połączenie się z nim oraz wykorzystując odpowiednią warstwę abstrakcji, by w przyszłości było możliwe stworzenie klientów na inne platformy (klient webowy, na system iOS, itp.)
+	Do działania aplikacja potrzebowałaby również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji na połączenie się z nim oraz wykorzystując odpowiednią warstwę abstrakcji, by w przyszłości było możliwe stworzenie klientów na inne platformy (klient webowy, na system iOS itp.)
 
 	\subsection{Zakres realizacji}
 
-	Oczywiście powyższy opis konceptu przekracza to co było planowane w zakresie tej pracy, oraz przekracza to co udało się zrealizować. W trakcie realizacji pracy udało się stworzyć następujące funkcjonalności:
+	Oczywiście powyższy opis konceptu przekracza to, co było planowane w zakresie tej pracy, oraz przekracza to, co udało się zrealizować. W trakcie realizacji pracy udało się stworzyć następujące funkcjonalności:
 
 	\begin{itemize}
 		\item Możliwość przeglądania punktów w formie mapy i listy
@@ -162,24 +162,24 @@ Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bard
 \section{Wybrane technologie}\label{technology}
 	\subsection{Platforma}
 
-	Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które użytkownikom są potrzebne, gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google oraz iOS od firmy Apple, mających udziały w rynku odpowiednio 77\% i 22\% \cite{mobilemarketshare}. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników należy wybrać platformę Android. Dodatkowym aspektem skłaniającym do wyboru tej platformy był fakt posiadania przez autora pracy urządzeń działających pod kontrolą tego systemu.
+	Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które użytkownikom są potrzebne, gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google oraz iOS od firmy Apple, mających udziały w rynku odpowiednio 77\% i 22\% \cite{mobilemarketshare}. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników, należy wybrać platformę Android. Dodatkowym aspektem skłaniającym do wyboru tej platformy był fakt posiadania przez autora pracy urządzeń działających pod kontrolą tego systemu.
 
 	\subsection{Język programowania}
 
-	Wybór platformy w dużej mierze uwarunkował wybór języka programowania. Istnieją oczywiście różne metody by pisać na Androida w wielu różnych językach (np. COBOL), jednak oficjalnie wspierane są następujące języki:
+	Wybór platformy w dużej mierze uwarunkował wybór języka programowania. Istnieją oczywiście różne metody, by pisać na Androida w wielu różnych językach (np. COBOL), jednak oficjalnie wspierane są następujące języki:
 
 	\begin{itemize}
-		\item Kotlin - nowy język, działający w JVM i będący w pełni interoperacyjny z Javą; od niedawna zalecany jako główny język dla nowych aplikacji przez Google
-		\item Java - standardowy język, w którym od dawna powstają aplikację na tą platformę
-		\item C++ - istnieje możliwość wykorzystania bibliotek napisanych w C++ za pomocą NDK udostępnionego przez Google, przydatne przy oprogramowaniu, dla którego kluczowa jest wydajność, czyli np. gier
-		\item HTML+CSS+JS - częściowo wspierane jest tworzenie nowoczesnych stron internetowych zachowujących się jako aplikacje wykorzystując PWA
+		\item Kotlin — nowy język, działający w JVM i będący w pełni interoperacyjny z Javą, od niedawna zalecany jako główny język dla nowych aplikacji przez Google;
+		\item Java — standardowy język, w którym od dawna powstają aplikację na tę platformę;
+		\item C++ — istnieje możliwość wykorzystania bibliotek napisanych w C++ za pomocą NDK udostępnionego przez Google, przydatne przy oprogramowaniu, dla którego kluczowa jest wydajność, czyli np. gier;
+		\item HTML+CSS+JS — częściowo wspierane jest tworzenie nowoczesnych stron internetowych zachowujących się jako aplikacje wykorzystując PWA.
 	\end{itemize}
 
 	Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Javą. Mimo pewnego wcześniejszego doświadczenia autora pracy z Javą wybrany został język Kotlin, który jest traktowany przez Google jako przyszłość dla tej platformy, aby ułatwić w przyszłości rozwój tej aplikacji i poznać nieznaną dotąd dla siebie technologię.
 
 	\subsection{Zewnętrzne biblioteki}
 
-	Przy budowie projektu wykorzystano kilka zewnętrznych bibliotek, z których większość wchodzi w skład Android Framework, czyli oficjalnych bibliotek wymaganych do tworzenia aplikacji na tą platformę.
+	Przy budowie projektu wykorzystano kilka zewnętrznych bibliotek, z których większość wchodzi w skład Android Framework, czyli oficjalnych bibliotek wymaganych do tworzenia aplikacji na tę platformę.
 
 	Podstawową użytą biblioteką jest biblioteka języka Kotlin, pozwalająca na pisanie kodu w tym języku oraz biblioteka Core z pakietu AndroidX, czyli główna biblioteka wymagana przez system, implementująca podstawowe definicje takich elementów jak aktywności czy widoki programu. Większość widoków w aplikacji stworzono wykorzystując ConstraintLayout, którego podstawowa definicja znajduje się w bibliotece o tej samej nazwie.
 
@@ -191,9 +191,9 @@ Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bard
 
 	Do obsługi map oraz lokalizacji wykorzystano biblioteki Google Maps Services, ponieważ jest to oficjalnie wspierana biblioteka do tych zastosowań.
 
-	Obsługa połączenia z serwerem została zaimplementowana z pomocą biblioteki Retrofit, która pomaga w obsłudze zapytań HTTP wraz z biblioteką Moshi, która służy do automatyzacji parsowania modelu programistycznego do JSON i w drugą stronę. Biblioteka Moshi jest pierwszą użytą w projekcie biblioteką nie wchodzącą w skład Android Framework.
+	Obsługa połączenia z serwerem została zaimplementowana z pomocą biblioteki Retrofit, która pomaga w obsłudze zapytań HTTP wraz z biblioteką Moshi, która służy do automatyzacji parsowania modelu programistycznego do JSON i w drugą stronę. Biblioteka Moshi jest pierwszą użytą w projekcie biblioteką niewchodzącą w skład Android Framework.
 
-	Spoza Android Framework wykorzystano jeszcze jedną bibliotekę - Timber, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
+	Spoza Android Framework wykorzystano jeszcze jedną bibliotekę — Timber, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
 
 	\subsection{Komunikacja z serwerem}
 
@@ -202,10 +202,10 @@ Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bard
 	Aplikacja implementuje następujące zapytania do serwera:
 
 	\begin{itemize}
-		\item pobranie wszystkich punktów z bazy danych - zapytanie typu GET, które zwraca listę punktów;
-		\item dodanie nowego punktu - zapytanie typu PUT, które w ciele przyjmuje obiekt z wszystkimi polami, bez Id, zwraca dodany obiekt do bazy danych z poprawnym Id;
-		\item edycja istniejącego punktu - zapytanie typu PATCH, które przyjmuje zmieniony obiekt i go zwraca;
-		\item usunięcie punktu - zapytanie typu DELETE, które przyjmuje obiekt do usunięcia i zwraca pustą odpowiedź z kodem HTTP 200.
+		\item pobranie wszystkich punktów z bazy danych — zapytanie typu GET, które zwraca listę punktów;
+		\item dodanie nowego punktu — zapytanie typu PUT, które w ciele przyjmuje obiekt z wszystkimi polami, bez Id, zwraca dodany obiekt do bazy danych z poprawnym Id;
+		\item edycja istniejącego punktu — zapytanie typu PATCH, które przyjmuje zmieniony obiekt i go zwraca;
+		\item usunięcie punktu — zapytanie typu DELETE, które przyjmuje obiekt do usunięcia i zwraca pustą odpowiedź z kodem HTTP 200.
 	\end{itemize}
 
 	Wszystkie zapytania wykorzystują to samu URI, jednak różnią się typem i zawartością ciała.
@@ -223,27 +223,27 @@ Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bard
 	Aplikacja została przetestowana również na następujących urządzeniach:
 
 	\begin{itemize}
-		\item OnePlus One - Android 9 Pie
-		\item Xiaomi Redmi Note 5A Prime - Android 7.1.2 Nougat
-		\item Nokia 8 - Android 9 Pie
-		\item Samsung Galaxy Tab 8.4 Pro - Android 7.1.2 Nougat (tablet)
-		\item Nexus 5X - Android 10 (maszyna wirtualna)
-		\item Nexus 4 - Android 5.0 Lollipop (maszyna wirtualna)
+		\item OnePlus One — Android 9 Pie
+		\item Xiaomi Redmi Note 5A Prime — Android 7.1.2 Nougat
+		\item Nokia 8 — Android 9 Pie
+		\item Samsung Galaxy Tab 8.4 Pro — Android 7.1.2 Nougat (tablet)
+		\item Nexus 5X — Android 10 (maszyna wirtualna)
+		\item Nexus 4 — Android 5.0 Lollipop (maszyna wirtualna)
 	\end{itemize}
 
 	Na każdym z wymienionych urządzeń aplikacja działała w pełni poprawnie.
 
 	\subsection{Kontrola wersji}
 
-	W większości projektów informatycznych narzędzia systemu kontroli wersji pomagają zachować porządek i ułatwiają nad nim pracę. Z tego też powodu ten projekt również wykorzystywał narzędzie tego rodzaju - Git.
+	W większości projektów informatycznych narzędzia systemu kontroli wersji pomagają zachować porządek i ułatwiają nad nim pracę. Z tego też powodu ten projekt również wykorzystywał narzędzie tego rodzaju — Git.
 
-	Repozytorium Git wykorzystywane było głownie, aby lepiej zorganizować zmiany i łatwiej się w nich odnajdywać. Pozwalało na jednoczesną pracę nad kilkoma funkcjonalnościami jednocześnie, zachowując uporządkowaną historię zmian. Dodatkowo zabezpieczało ono sprawnie działający kod, pozwalając na cofnięcie niechcianych zmian w każdej chwili używając jednej komendy. System ten zapewniał też swojego rodzaju kopię zapasową projektu, ponieważ poza lokalnym komputerem repozytorium trzymane było również na serwerze GitHub w formie prywatnego projektu.
+	Repozytorium Git wykorzystywane było głównie, aby lepiej zorganizować zmiany i łatwiej się w nich odnajdywać. Pozwalało na jednoczesną pracę nad kilkoma funkcjonalnościami jednocześnie, zachowując uporządkowaną historię zmian. Dodatkowo zabezpieczało ono sprawnie działający kod, pozwalając na cofnięcie niechcianych zmian w każdej chwili używając jednej komendy. System ten zapewniał też swojego rodzaju kopię zapasową projektu, ponieważ poza lokalnym komputerem repozytorium trzymane było również na serwerze GitHub w formie prywatnego projektu.
 
 	\subsection{System budowania}
 
 	Do automatyzacji procesu budowania wykorzystano narzędzie Gradle. Pozwalało ono po sprecyzowaniu podstawowych ustawień na w pełni automatyczne tworzenie pliku apk gotowego do instalacji na urządzeniu.
 
-	W przypadku projektów na platformę Android konfiguracja Gradle, podzielona jest na dwa osobne pliki - konfiguracja do całego projektu oraz poszczególnego modułu. Mimo, że projekt posiadał tylko jeden moduł, zachowany został ten podział, ponieważ uważany jest on za dobrą praktykę.
+	W przypadku projektów na platformę Android konfiguracja Gradle podzielona jest na dwa osobne pliki — konfiguracja do całego projektu oraz poszczególnego modułu. Mimo, że projekt posiadał tylko jeden moduł, zachowany został ten podział, ponieważ uważany jest on za dobrą praktykę.
 
 	W pliku z konfiguracją na cały projekt podane zostały zdalne repozytoria, z których Gradle pobierał wymagane dependencje oraz zdefiniowane zostało użycie narzędzi wymaganych do zbudowania aplikacji na system Android.
 
@@ -272,7 +272,7 @@ defaultConfig {
 
 	W pliku konfiguracyjnym modułu programu znajdowały się podstawowe ustawienia (listing \ref{listing:gradle}).
 
-	Zdefiniowana została wersje systemu Android, użyta do zbudowania binarki, minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem, a definicją widoku oraz aktywowano eksperymentalne funkcjonalności Android Framework.
+	Zdefiniowana została wersje systemu Android, użyta do zbudowania binarki, minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem a definicją widoku oraz aktywowano eksperymentalne funkcjonalności Android Framework.
 
 	Ustalona została nazwa kodowa programu oraz jego wersja. Konwencja systemu Android jako nazwy kodowej zaleca stosowanie odwrotności domeny przeznaczonej dla danej aplikacji. Z uwagi, że do projektu nie została zarejestrowana jeszcze żadna domena, na czas realizacji pracy zdecydowano się użyć domeny test, która przeznaczona jest do użycia w testowaniu oprogramowania i gwarantuje pewność, że nigdy nie nastąpi konflikt z żadną istniejącą domeną, ponieważ zablokowana jest możliwość jej rejestracji.
 
@@ -284,26 +284,26 @@ defaultConfig {
 	\subsection{Struktura}
 		\subsubsection{Podział plików w projekcie}
 
-		Nawet prosty projekt na platformę Android posiada dość skomplikowaną strukturę plików i wymaga chwili do zapoznania się z nią. Aplikacje na ten system pisane są w formie modułowej, jednak ten projekt posiada tylko jeden moduł o nazwie \texttt{app}.
+		Nawet prosty projekt na platformę Android ma dość skomplikowaną strukturę plików i wymaga chwili do zapoznania się z nią. Aplikacje na ten system pisane są w formie modułowej, jednak ten projekt posiada tylko jeden moduł o nazwie \texttt{app}.
 
 		W głównym folderze projektu znajduje się kilka plików konfiguracyjnych dla narzędzia Gradle, które służy do automatyzacji procesu budowania.
 
-		Folder \texttt{.idea} zawiera pliki konfiguracyjne środowiska IDE - Android Studio.
+		Folder \texttt{.idea/} zawiera pliki konfiguracyjne środowiska IDE — Android Studio.
 
-		Wszystkie pliki w folderze \texttt{app} to pliki należące do tego modułu, folder \texttt{app/src} zawiera 5 pod folderów, które w główny sposób dzielą kod aplikacji:
+		Wszystkie pliki w folderze \texttt{app/} to pliki należące do tego modułu, folder \texttt{app/src/} zawiera 5 pod folderów, które w główny sposób dzielą kod aplikacji:
 
 		\begin{itemize}
-			\item \texttt{main} zawiera kod wspólny dla wszystkich metod budowania,
-			\item \texttt{debug} to kod przeznaczony do budowania w tym trybie,
-			\item \texttt{release} to kod przeznaczony do użycia przy budowaniu w trybie release, w tym projekcie te dwa powyższe foldery są używane do przechowywania osobnych plików z kluczem API do Google Maps,
-			\item \texttt{test} i \texttt{androidTest} to foldery wykorzystywane przez testy jednostkowe.
+			\item \texttt{main/} zawiera kod wspólny dla wszystkich metod budowania,
+			\item \texttt{debug/} to kod przeznaczony do budowania w tym trybie,
+			\item \texttt{release/} to kod przeznaczony do użycia przy budowaniu w trybie release, w tym projekcie te dwa powyższe foldery są używane do przechowywania osobnych plików z kluczem API do Google Maps,
+			\item \texttt{test/} i \texttt{androidTest/} to foldery wykorzystywane przez testy jednostkowe.
 		\end{itemize}
 
-		Główny podział kodu znajduje się w katalogu \texttt{app/src/main}:
+		Główny podział kodu znajduje się w katalogu \texttt{app/src/main/}:
 
 		\begin{itemize}
-			\item folder \texttt{java} zawiera kod pisany w języku Java lub Kotlin (w tym projekcie tylko Kotlin), struktura pod folderów odpowiada nazwie kodowej aplikacji,
-			\item folder \texttt{res} zawierający zasoby zapisane w formacie XML, gdzie najważniejsze to pliki definicji układu widoków (\texttt{res/layout}) oraz definicje menu (\texttt{res/menu}),
+			\item folder \texttt{java/} zawiera kod pisany w języku Java lub Kotlin (w tym projekcie tylko Kotlin), struktura pod folderów odpowiada nazwie kodowej aplikacji,
+			\item folder \texttt{res/} zawierający zasoby zapisane w formacie XML, gdzie najważniejsze to pliki definicji układu widoków (\texttt{res/layout/}) oraz definicje menu (\texttt{res/menu/}),
 			\item \texttt{AndroidManifest.xml}, informujący system Android o strukturze tej aplikacji.
 		\end{itemize}
 
@@ -318,7 +318,7 @@ defaultConfig {
 
 		Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze. Została ona przedstawiona na Ryc. \ref{fig:architecture}.
 
-		Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe by aktualizować zawartość bazy. Dostęp do repozytorium wykonywany jest z poziomu klas typu ViewModel, w których starano się zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi, tak aby kodu w klasach aktywności i fragmentów było jak najmniej, zostawiając tam tylko kod odpowiedzialny za obsługę interfejsu użytkownika. ViewModel odświeża dane wyświetlane na ekranie korzystając ze zmiennych LiveData i technologii data binding.
+		Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe, by aktualizować zawartość bazy. Dostęp do repozytorium wykonywany jest z poziomu klas typu ViewModel, w których starano się zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi, tak aby kodu w klasach aktywności i fragmentów było jak najmniej, zostawiając tam tylko kod odpowiedzialny za obsługę interfejsu użytkownika. ViewModel odświeża dane wyświetlane na ekranie korzystając ze zmiennych LiveData i technologii data binding.
 
 		\begin{listing}[H]
 			\caption{Lista plików z kodem źródłowym (\textit{Pliki są wyświetlone w ręcznie ustalonej kolejności})}
@@ -353,15 +353,16 @@ defaultConfig {
 			\label{listing:files}
 		\end{listing}
 
-		Schemat ten ma swoje odbicie w układzie plików z folderze zawierającym kod źródłowy (listing \ref{listing:files}).
+		Schemat ten ma swoje odbicie w układzie plików z folderu zawierającego kod źródłowy (listing \ref{listing:files}).
 
 		Aplikacja składa się z jednej aktywności, której jedynym zadaniem jest załadowanie odpowiedniego fragmentu.
 
-		Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiem dwóch głównych fragmentów - MapView i ListView, które posiadają jeden wspólny obiekt tego typu.
+		Do każdego fragmentu (widoku) stworzony został odpowiedni ViewModel, z wyjątkiem dwóch głównych fragmentów — MapView i ListView, które posiadają jeden wspólny obiekt tego typu.
 
 		Klasy reprezentujące struktury używane przez ViewModel zostały wydzielone do folderu \texttt{domain}. W kolejnych folderach pogrupowane są klasy wykorzystywane przez repozytorium, bazę danych i obsługę sieci.
 
-		Na samym końcu znajdują się dwa zbiorcze pliki zawierające pomocnicze wolne funkcje (nie będące częścią żadnej klasy).
+		Na samym końcu znajdują się dwa zbiorcze pliki zawierające pomocnicze wolne funkcje (niebędące częścią żadnej klasy).
+
 
 		\subsubsection{Widoki i nawigacja}
 
@@ -374,7 +375,7 @@ defaultConfig {
 
 		Aplikacja posiada jedną aktywność i cztery widoki, w tym dwa główne. Aktywność przy tworzeniu aktywuje szablon nawigacji (znajdujący się w \texttt{res/navigation/}), który pomaga w bezproblemowym zarządzaniu przechodzeniem pomiędzy fragmentami. Schematyczny diagram tego szablonu został przedstawiony na Ryc. \ref{fig:navigation}.
 
-		Głównym i domyślnym widokiem jest widok mapy. Uruchamia się on zaraz po starcie aplikacji. Umożliwia przeglądanie danych w postaci punktów na mapie zajmującej cały ekran. Kliknięcie na punkt powoduje wyświetlenie szczegółów danego miejsca.
+		Głównym i domyślnym widokiem jest widok mapy. Uruchamia się on zaraz po starcie aplikacji. Umożliwia przeglądanie danych w postaci punktów na mapie zajmującej cały ekran. Kliknięcie w punkt powoduje wyświetlenie szczegółów danego miejsca.
 
 		Drugim głównym widokiem jest widok pozwalający na wyświetlenie miejsc w formie sortowanej listy. Przejście do niego jest możliwe z głównego ekranu za pomocą przycisku na dole. Kliknięcie pozycji reprezentującej konkretne miejsce powoduje wyświetlenie się szczegółów.
 
@@ -388,13 +389,13 @@ defaultConfig {
 
 	Następnie tworzona jest aktywność, która aktywuje szablon nawigacji ładujący główny widok, którym jest widok mapy.
 
-	Podczas tworzenia się widoku mapy (metoda \texttt{onCreateView()}) następuje załadowanie definicji układu elementów widoku (znajdującej się w \texttt{res/layout/}). Dzięki wykorzystaniu data binding już w pliku layout przypisane są odpowiednie metody z ViewModel, które mają się wykonać po kliknięciu w przyciski. Następnie jest tworzona (bądź podłączona, jeśli już istnieje) instancja klasy ViewModel dla tego widoku.
+	Podczas tworzenia się widoku mapy (metoda \texttt{onCreateView()}) następuje załadowanie definicji układu elementów widoku (znajdującej się w \texttt{res/layout/}). Dzięki wykorzystaniu data binding już w pliku layout przypisane są odpowiednie metody z ViewModel, które mają się wykonać po kliknięciu przycisków. Następnie jest tworzona (bądź podłączona, jeśli już istnieje) instancja klasy ViewModel dla tego widoku.
 
-	Przy tworzeniu ViewModel, tworzona jest instancja repozytorium. Po stworzeniu repozytorium, zostaje momentalnie zwrócona lista miejsc znajdująca się w bazie i następuje żądanie aktualizacji bazy poprzez połączenie z serwerem. Takie działanie powoduje, że użytkownik od razu po uruchomieniu aplikacji może z niej korzystać, zamiast czekać na pobranie się danych z serwera, które wcale nie musiały ulec zmianie. Po zakończeniu procesu pobierania repozytorium aktualizuje w tle dane w bazie oraz dzięki data binding zmiany te propagują się do wszystkich widoków aplikacji.
+	Przy tworzeniu ViewModel, tworzona jest instancja repozytorium. Po stworzeniu repozytorium zostaje momentalnie zwrócona lista miejsc znajdująca się w bazie i następuje żądanie aktualizacji bazy poprzez połączenie z serwerem. Takie działanie powoduje, że użytkownik od razu po uruchomieniu aplikacji może z niej korzystać, zamiast czekać na pobranie się danych z serwera, które wcale nie musiały ulec zmianie. Po zakończeniu procesu pobierania repozytorium aktualizuje w tle dane w bazie oraz dzięki data binding zmiany te propagują się do wszystkich widoków aplikacji.
 
 	Po stworzeniu ViewModel następuje stworzenie obserwatorów zmiennych LiveData w ViewModelu używanych do nawigacji oraz żądanie inicjalizacji mapy do biblioteki Google Maps Services i zapytanie użytkownika o pozwolenie na dostęp do lokalizacji (jeśli wcześniej nie zostało ono udzielone).
 
-	Po poprawnej inicjalizacji mapy następuje stworzenie obserwatora listy punktów i wypełnienie mapy punktami. Następuje też przypisanie działania, które ma się wykonać po kliknięciu w dany punkt. Widok mapy przechodzi na aktualną pozycję użytkownika.
+	Po poprawnej inicjalizacji mapy następuje stworzenie obserwatora listy punktów i wypełnienie mapy punktami. Następuje też przypisanie działania, które ma się wykonać po kliknięciu na dany punkt. Widok mapy przechodzi na aktualną pozycję użytkownika.
 
 	Obecność elementu mapy zaburza poprawną implementację wzorca projektowego MVVM (Model-View-ViewModel), ponieważ część kodu odpowiedzialnego za obsługę map powinna zostać przeniesiona do ViewModela. Nie udało się tego jednak dokonać podczas realizacji tego projektu.
 
@@ -406,7 +407,7 @@ defaultConfig {
 
 	Wyszukiwanie polega na wykonaniu \texttt{queryTextListener.onQueryTextSubmit(String)}, czyli wysłaniu do repozytorium tekstu z pola wyszukiwania i czekaniu na wyniki. Repozytorium odpytuje bazę danych i zwraca do ViewModelu listę znalezionych miejsc.
 
-	Po pojawieniu się wyników mapa jest czyszczona i pokazywane są na niej tylko znalezione miejsca oraz widok automatycznie przechodzi na pierwsze znaleziony punkt. W przypadku braku wyników pojawia się stosowny komunikat.
+	Po pojawieniu się wyników mapa jest czyszczona i pokazywane są na niej tylko znalezione miejsca, oraz widok automatycznie przechodzi na pierwsze znaleziony punkt. W przypadku braku wyników pojawia się stosowny komunikat.
 
 	Powrót do wyświetlania wszystkich miejsc jest możliwy wychodząc z wyszukiwania przyciskiem na górnym pasku aplikacji. Następuje wtedy wywołanie metody \texttt{closeListener}, która czyści mapę i ustawia ponownie ustawia obserwatora na domyślną zmienną LiveData z listą miejsc.
 
@@ -454,32 +455,32 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 
 	Wyświetlenie listy miejsc wymaga przejścia do widoku listy. Przejście z widoku mapy do widoku listy jest użyte jako przykład do opisu przejścia w podrozdziale powyżej.
 
-	Zaimplementowany w tym projekcie widok listy wykorzystuje specjalny widok Android Framework o nazwie RecyclerView. Jest to widok przystosowany do wyświetlania bardzo dużych zbiorów danych bez wpływu na pamięć urządzenia. Widok ten zamiast tworzyć jedną długą listę i wyświetlać tylko jej fragment, tworzy listę zawierająco niewiele więcej elementów niż mieści się w jednej chwili na ekranie i wraz z przewijaniem wykorzystuje ponownie obiekty znikające do wyświetlenia nowych obiektów. Do działania jednak wymaga definicji obiektu typu ViewAdapter.
+	Zaimplementowany w tym projekcie widok listy wykorzystuje specjalny widok Android Framework o nazwie RecyclerView. Jest to widok przystosowany do wyświetlania bardzo dużych zbiorów danych bez wpływu na pamięć urządzenia. Widok ten, zamiast tworzyć jedną długą listę i wyświetlać tylko jej fragment, tworzy listę zawierająco niewiele więcej elementów niż mieści się w jednej chwili na ekranie i wraz z przewijaniem wykorzystuje ponownie obiekty znikające do wyświetlenia nowych obiektów. Do działania jednak wymaga definicji obiektu typu ViewAdapter.
 
-	Do stworzenia obiektu ViewAdapter wymagany jest obiekt ViewHolder, który operuje na definicji układu widoku pojedynczego elementu na liście. W tak podstawowej liście jak w tym projekcie, obiekt ten nie definiuje nic poza nazwą używanej definicji układu.
+	Do stworzenia obiektu ViewAdapter wymagany jest obiekt ViewHolder, który operuje na definicji układu widoku pojedynczego elementu na liście. W tak podstawowej liście jak w tym projekcie obiekt ten nie definiuje nic poza nazwą używanej definicji układu.
 
 	Nawigacja do tego fragmentu powołuje wywołanie metody \texttt{onCreateView()}, która na samym początku ładuje definicję układu widoku oraz przypisuje się do ViewModela (tego samego co map view, więc przechodząc z map view mamy pewność, że on już istnieje).
 
 	Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
 
-	Do obliczenia odległości pomiędzy lokalizacją użytkownika, a punktem wykorzystywany jest wzór \ref{eq:1}, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej \cite{haversineformulawiki}.
+	Do obliczenia odległości pomiędzy lokalizacją użytkownika a punktem wykorzystywany jest wzór \ref{eq:1}, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej \cite{haversineformulawiki}.
 
 	\begin{equation}
 d = 2r\arcsin(\sqrt{\sin^2(\frac{\varphi_1-\varphi_2}{2})+\cos(\varphi_1)\cos(\varphi_2)\sin^2(\frac{\lambda_1-\lambda_2}{2})}),\label{eq:1}
 	\end{equation}
 	gdzie:
 	\begin{itemize}
-		\item $ d $: odległość, pomiędzy dwoma punktami (w kilometrach);
-		\item $ \varphi_1, \varphi_2 $: szerokość geograficzna punktu 1 i punktu 2 (w radianach);
-		\item $ \lambda_1, \lambda_2 $: wysokość geograficzna punktu 1 i punktu 2 (w radianach);
-		\item $ r $: uśredniony promień kuli ziemnskiej (w kilomentrach).
+		\item $ d $: odległość, pomiędzy dwoma punktami [w kilometrach];
+		\item $ \varphi_1, \varphi_2 $: szerokość geograficzna punktu 1 i punktu 2 [w radianach];
+		\item $ \lambda_1, \lambda_2 $: wysokość geograficzna punktu 1 i punktu 2 [w radianach];
+		\item $ r $: uśredniony promień kuli ziemnskiej [w kilomentrach].
 	\end{itemize}
 
 	Na samym końcu tworzony jest obiekt typu ViewAdapter i zostaje on przypisany do parametrów RecyclerView.
 
 	\subsection{Wyświetlenie widoku szczegółów}
 
-	Przejście do tego fragmentu jest możliwe po kliknięciu na znacznik na mapie w widoku mapy bądź pozycje na liście w widoku listy. Przy przejściu następuje przekazanie jednego parametru (Id obiektu), którego szczegóły mają zostać wyświetlone.
+	Przejście do tego fragmentu jest możliwe po kliknięciu w znacznik na mapie w widoku mapy bądź pozycje na liście w widoku listy. Przy przejściu następuje przekazanie jednego parametru (Id obiektu), którego szczegóły mają zostać wyświetlone.
 
 	Tworzenie widoku rozpoczyna od załadowania definicji układu widoku i uzyskanie dostępu do repozytorium. Następnie wykonywane jest zapytanie do repozytorium o obiekt podając jego Id. Zapytanie nie korzysta z bazy danych, więc wykonywane jest na głównym wątku. Po otrzymaniu obiektu tworzony jest ViewModel wykorzystując do tego wzorzec projektowy fabryki (stworzenie ViewModela z parametrami w konstruktorze wymaga zdefiniowania fabryki).
 
@@ -499,15 +500,15 @@ d = 2r\arcsin(\sqrt{\sin^2(\frac{\varphi_1-\varphi_2}{2})+\cos(\varphi_1)\cos(\v
 
 	\subsection{Dodawanie/edycja obiektu}
 
-	Aby wykonać dodanie bądź edycję obiektu konieczne jest przejście do fragmentu \texttt{addViewFragment}. Dodanie jest możliwe z obu głównych widoków, natomiast edycja z widoku szczegółów. Wywołanie nawigacji wymaga podania Id zmienianego miejsca. Jeśli przejście następuje w celu stworzenia nowego obiektu podawany jest parametr \texttt{-1}. Jest to specjalnie zarezerwowany Id, który nigdy nie może pojawić się jako poprawny Id w bazie danych.
+	Aby wykonać dodanie bądź edycję obiektu konieczne jest przejście do fragmentu \texttt{addViewFragment}. Dodanie jest możliwe z obu głównych widoków, natomiast edycja z widoku szczegółów. Wywołanie nawigacji wymaga podania Id zmienianego miejsca. Jeśli przejście następuje w celu stworzenia nowego obiektu, podawany jest parametr \texttt{-1}. Jest to specjalnie zarezerwowany Id, który nigdy nie może pojawić się jako poprawny Id w bazie danych.
 
 	Stworzenie widoku wygląda bardzo podobnie do widoku szczegółów. Jeśli podanym argumentem jest -1, zamiast poprawnego obiektu przekazywany jest \texttt{null}. Następuje żądanie inicjalizacji map i dostępu do lokalizacji użytkownika. Następnie tworzony jest pusty obiekt w ViewModelu i uzupełniany aktualną lokalizacją użytkownika. Na mapie w tym miejscu pojawia się też marker.
 
-	Jeśli został podany Id poprawnego miejsca ViewModel jest tworzony z tym obiektem i po inicjalizacji map kamera przechodzi do lokalizacji edytowanego miejsca, a pola do edycji parametrów miejsca uzupełniają się aktualnymi wartościami.
+	Jeśli został podany Id poprawnego miejsca ViewModel, jest tworzony z tym obiektem i po inicjalizacji map kamera przechodzi do lokalizacji edytowanego miejsca, a pola do edycji parametrów miejsca uzupełniają się aktualnymi wartościami.
 
-	Kliknięcie w jakiekolwiek miejsce na mapie powoduje przeniesienie wskaźnika w nowe miejsca.
+	Kliknięcie na jakiekolwiek miejsce na mapie powoduje przeniesienie wskaźnika w nowe miejsca.
 
-	Zapisanie dodania/edycji miejsca możliwe jest poprzez użycie przycisku na dole ekranu. Wykorzystywany jest podobny schemat, jak przy usuwaniu i przejściu. Wysyłane jest wtedy odpowiednie zapytanie do repozytorium i następuje oczekiwanie na wynik. Przy poprawnej akcji program przechodzi do widoku mapy, przy negatywnym następuje informacja o błędzie.
+	Zapisanie dodania/edycji miejsca możliwe jest poprzez użycie przycisku na dole ekranu. Wykorzystywany jest podobny schemat jak przy usuwaniu i przejściu. Wysyłane jest wtedy odpowiednie zapytanie do repozytorium i następuje oczekiwanie na wynik. Przy poprawnej akcji program przechodzi do widoku mapy, przy negatywnym następuje informacja o błędzie.
 
 	\subsection{Implementacja repozytorium}
 
@@ -533,13 +534,13 @@ fun returnPlace(key: Long): PowerMug?
 
 	Użycie repozytorium sprowadza się do wywołania jednej z publicznych metod jego interfejsu z dowolnego miejsca aplikacji. Metody wypisane są w listingu \ref{listing:repository}.
 
-	Użycie metod typu \texttt{suspend} konieczne jest z poziomu współprogramów (ang. coroutines), aby zapobiec blokowaniu wątku głównego programu odpowiedzialnego za wyświetlanie elementów interfejsu użytkownika.
+	Użycie metod typu \texttt{suspend} konieczne jest z poziomu współprogramów (\textit{ang.} coroutines), aby zapobiec blokowaniu wątku głównego programu odpowiedzialnego za wyświetlanie elementów interfejsu użytkownika.
 
-	Wszystkie metody działające we współprogramach mają podobny schemat działania - najpierw konkretne działanie jest wykonywane na serwerze, po czym w przypadku powodzenia zmiana zapisywana jest w lokalnej bazie danych, z której korzysta program. Zwracany obiekt typu \texttt{Boolean} informuje o sukcesie bądź niepowodzeniu danej akcji.
+	Wszystkie metody działające we współprogramach mają podobny schemat działania — najpierw konkretne działanie jest wykonywane na serwerze, po czym w przypadku powodzenia zmiana zapisywana jest w lokalnej bazie danych, z której korzysta program. Zwracany obiekt typu \texttt{Boolean} informuje o sukcesie bądź niepowodzeniu danej akcji.
 
 	\subsection{Przechowywanie obiektów}
 
-	Mimo, że program w każdym miejscu wykorzystuje bardzo podobną definicje klasy poszczególnego punktu na mapie, zdecydowano się rozdzielić ich definicje na 3 osobne - definicję dla logiki programu (domenową - \texttt{PowerMug}), do bazy danych (\texttt{DbPowerMug}) i do zapytań sieciowych (\texttt{NetworkPowerMug} oraz \texttt{EphemeralNetworkPowerMug}). Tego typu rozdzielenie nie było konieczne, jednak powoduje, że kod aplikacji staje się bardziej elastyczny i modyfikacja np. modelu bazy nie powoduje konieczności wprowadzenia modyfikacji w kodzie całej aplikacji.
+	Mimo, że program w każdym miejscu wykorzystuje bardzo podobną definicję klasy poszczególnego punktu na mapie, zdecydowano się rozdzielić ich definicje na 3 osobne — definicję dla logiki programu (domenową — \texttt{PowerMug}), do bazy danych (\texttt{DbPowerMug}) i do zapytań sieciowych (\texttt{NetworkPowerMug} oraz \texttt{EphemeralNetworkPowerMug}). Tego typu rozdzielenie nie było konieczne, jednak powoduje, że kod aplikacji staje się bardziej elastyczny i modyfikacja np. modelu bazy nie powoduje konieczności wprowadzenia modyfikacji w kodzie całej aplikacji.
 
 	\begin{listing}[H]
 		\caption{Metody używane do konwersji pomiędzy modelami obiektów}
@@ -557,7 +558,7 @@ fun List<NetworkPowerMug>.asDatabaseModel(): Array<DbPowerMug>
 		\label{listing:modelconversion}
 	\end{listing}
 
-	Aby uprościć zamianę obiektów jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas (listing \ref{listing:modelconversion}).
+	Aby uprościć zamianę obiektów, jednej reprezentacji w drugą przygotowano specjalne metody poszczególnych klas (listing \ref{listing:modelconversion}).
 
 \section{Opis interfejsu użytkownika}\label{ui}
 
@@ -572,11 +573,11 @@ Program posiada zaimplementowany interfejs użytkownika w dwóch językach - ang
 		\label{fig:screenshotmain}
 	\end{figure}
 
-	Aplikacja posiada dwa główne ekrany - widok mapy i widok listy. Ich wygląd został przedstawiony na Ryc. \ref{fig:screenshotmain}. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
+	Aplikacja posiada dwa główne ekrany — widok mapy i widok listy. Ich wygląd został przedstawiony na Ryc. \ref{fig:screenshotmain}. Oba posiadają pasek na dole służący do nawigacji i przełączania pomiędzy nimi. W prawym dolnym rogu każdego z nich znajduje się "pływający" przycisk służący do dodawania nowego obiektu.
 
-	Na widoku mapy cały ekran zajęty jest przez fragment Google Maps, wyświetlający wszystkie punkty w formie markerów w odpowiednich miejscach geograficznych. Kliknięcie na dany marker przenosi do ekranu ze szczegółami o konkretnym miejscu. Na górnym pasku poza nazwą aplikacji wyświetlany jest przycisk uruchamiający tryb wyszukiwania.
+	Na widoku mapy cały ekran zajęty jest przez fragment Google Maps, wyświetlający wszystkie punkty w formie markerów w odpowiednich miejscach geograficznych. Kliknięcie danego markera przenosi do ekranu ze szczegółami o konkretnym miejscu. Na górnym pasku poza nazwą aplikacji wyświetlany jest przycisk uruchamiający tryb wyszukiwania.
 
-	W formie listy cały ekran jest zajęty przez przewijaną listę miejsc, posortowaną rosnąco odległością od aktualnej lokalizacji użytkownika. Kliknięcie na dowolną pozycję na liście powoduje przeniesienie do ekranu ze szczegółami o tym miejscu.
+	W formie listy cały ekran jest zajęty przez przewijaną listę miejsc, posortowaną rosnąco odległością od aktualnej lokalizacji użytkownika. Kliknięcie w dowolną pozycję na liście powoduje przeniesienie do ekranu ze szczegółami o tym miejscu.
 
 	\subsection{Wyszukiwanie punktów}
 
@@ -587,11 +588,11 @@ Program posiada zaimplementowany interfejs użytkownika w dwóch językach - ang
 		\label{fig:screenshotsearch}
 	\end{figure}
 
-	Wyszukiwanie markerów na mapie odbywa się w widoku mapy. Po kliknięciu na ikonę wyszukiwania pojawia się pasek, gdzie należy wpisać szukany ciąg znaków. Miejsca przeszukiwane są po nazwie i adresie. Wyszukiwanie zatwierdzane jest za pomocą przycisku na klawiaturze ekranowej.
+	Wyszukiwanie markerów na mapie odbywa się w widoku mapy. Po kliknięciu ikony wyszukiwania pojawia się pasek, gdzie należy wpisać szukany ciąg znaków. Miejsca przeszukiwane są po nazwie i adresie. Wyszukiwanie zatwierdzane jest za pomocą przycisku na klawiaturze ekranowej.
 
 	W przypadku nieznalezienia żadnych wyników wyświetla się komunikat o błędzie, natomiast w przypadku powodzenia mapa ograniczy wyświetlane markery do tych spełniających kryteria wyszukiwania, a kamera przenosi się na pierwsze spełniające zapytanie miejsce.
 
-	Opuszczenie wyszukiwania i powrót do wszystkich miejsc następuje poprzez kliknięcie w przycisk X na pasku szukania.
+	Opuszczenie wyszukiwania i powrót do wszystkich miejsc następuje poprzez kliknięcie przycisku X na pasku szukania.
 
 	Ryc. \ref{fig:screenshotsearch} przedstawia po kolei: pasek wyszukiwania, pasek uzupełniony szukaną frazą oraz błąd, gdy nie znaleziono żadnych wyników.
 
@@ -606,11 +607,11 @@ Program posiada zaimplementowany interfejs użytkownika w dwóch językach - ang
 
 	Widok dodawania i edycji to jeden widok. W przypadku dodawania widok nie zawiera żadnych danych o miejscu, a marker na mapie wyświetla się na aktualnej lokalizacji użytkownika. W przypadku edycji widok wypełnia się aktualnym informacjami o miejscu.
 
-	Zmiana pozycji markera odbywa się poprzez kliknięcie na nową lokalizację na mapie.
+	Zmiana pozycji markera odbywa się poprzez kliknięcie w nową lokalizację na mapie.
 
 	Zapisanie danych jest możliwe po kliknięciu przycisku w prawym dolnym rogu. Przy zapisywaniu danych pojawia się nieskończony pasek postępu, który znika po zakończeniu procesu dodawania. Przy niepowodzeniu następuje wyświetlenie stosownego komunikatu, natomiast po poprawnym dodaniu aplikacja wraca do głównego ekranu mapy.
 
-	Wyjście z ekranu bez zapisywania zmian jest możliwe używając sprzętowego klawisza "cofnij" lub przycisku na górnej belce widoku.
+	Wyjście z ekranu bez zapisywania zmian jest możliwe, używając sprzętowego klawisza "cofnij" lub przycisku na górnej belce widoku.
 
 	Ryc. \ref{fig:screenshotaddedit} przedstawia po kolei: widok po otwarciu trybu dodawania, widok trybu edycji, pasek postępu przy zapisywaniu zmian oraz komunikat o błędzie przy zapisywaniu.
 
@@ -627,7 +628,7 @@ Program posiada zaimplementowany interfejs użytkownika w dwóch językach - ang
 
 	Usunięcie miejsca jest możliwe z poziomu pozycji w menu na górnym pasku aplikacji. Po wywołaniu usuwania miejsca, tak jak w przypadku dodawania wyświetla się okrągły pasek postępu. Niepowodzenie jest sygnalizowane odpowiednim komunikatem, a sukces przejściem do głównego ekranu mapy.
 
-	Z tego widoku możliwe jest również przejście do widoku edycji korzystając z przycisku w prawym dolnym rogu. Wyjście, czyli powrót do widoku mapy lub listy jest możliwe używając sprzętowego przycisku, bądź przycisku na górnym pasku.
+	Z tego widoku możliwe jest również przejście do widoku edycji, korzystając z przycisku w prawym dolnym rogu. Wyjście, czyli powrót do widoku mapy lub listy jest możliwe używając sprzętowego przycisku, bądź przycisku na górnym pasku.
 
 	Ryc. \ref{fig:screenshotdetail} przedstawia po kolei: widok szczegółów, menu widoku szczegółowego oraz błąd przy usuwaniu miejsca.
 
