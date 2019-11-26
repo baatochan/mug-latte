@@ -116,17 +116,15 @@
 
 \pagestyle{plain}
 
-\section{Wstęp}\label{preface}
+\section{Wstęp}
 
 W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich jest wyposażona w, najczęściej stałe, połączenie z Internetem. Pozwoliło to na wykształcenie się na rynku wielu aplikacji, których celem jest pomoc użytkownikowi w znalezieniu konkretnych informacji, w tym również geolokalizacyjnych. Istnieje wiele serwisów oferujących dostęp do map, ułatwiających znajdywanie firm, wyświetlających aktualne położenie autobusów komunikacji miejskiej czy umożliwiających zlokalizowanie publicznych toalet w okolicy.
 
-% TODO: uzywac czasu terazniejszego badz przyszlego, opracowanie aplikacji
-Celem tej pracy było przygotowanie aplikacji na urządzenia z systemem Android umożliwiającej użytkownikom na łatwiejsze znajdywanie miejsc użyteczności publicznej, gdzie goście mają dostęp do energii elektrycznej, np. restauracji, w której można usiąść przy stoliku z laptopem i podłączyć się do prądu. Aplikacja miała być klientem do niezależnie rozwijanego serwera z bazą danych i oferować możliwość wyświetlania zebranych w niej danych oraz umożliwiać operowanie na nich w przystępny i szybki dla użytkownika sposób.
+Celem tej pracy jest opracowanie aplikacji na urządzenia z systemem Android umożliwiającej użytkownikom na łatwiejsze znajdywanie miejsc użyteczności publicznej, gdzie goście mają dostęp do energii elektrycznej, np. restauracji, w której można usiąść przy stoliku z laptopem i podłączyć się do prądu. Aplikacja będzie klientem do niezależnie rozwijanego serwera z bazą danych i zaoferuje ona możliwość wyświetlania zebranych w niej danych oraz umożliwi operowanie na nich w przystępny i szybki dla użytkownika sposób.
 
-Program ten miał być pisany, wykorzystując najlepsze wzorce projektowe oraz odpowiednią warstwę abstrakcji, tak by jego dalszy rozwój był łatwy, nawet dla innej osoby. Dodatkowo miało to umożliwić łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości byłaby taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia aplikacji podobnego typu.
+Program ten będzie pisany, wykorzystując najlepsze wzorce projektowe oraz odpowiednią warstwę abstrakcji, tak aby jego dalszy rozwój był łatwy, również dla innych osób. Dodatkowo umożliwi to łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości będzie taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia innej aplikacji podobnego typu.
 
-% TODO: nie wspominac o wstepie
-Rozdział \ref{preface} stanowi wstęp do problemu. Rozdział \ref{concept} bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to, co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszono podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych w pracy rycin i listingów.
+Praca jest podzielona w następujący spsób. Rozdział \ref{concept} w bardziej szczegółowy spsób opisuje koncepcję aplikacji, jej zastosowanie i to, co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszone jest podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych rycin i listingów.
 
 \section{Opis koncepcji}\label{concept}
 	\subsection{Aplikacja mobilna}
@@ -286,12 +284,11 @@ defaultConfig {
 	\subsection{Struktura}
 		\subsubsection{Podział plików w projekcie}
 
-		Nawet prosty projekt na platformę Android ma dość skomplikowaną strukturę plików i wymaga chwili do zapoznania się z nią. Aplikacje na ten system pisane są w formie modułowej, jednak ten projekt posiada tylko jeden moduł o nazwie \texttt{app}.
-		% TODO: przepisac zdanie
+		Nawet prosty projekt na platformę Android ma dość skomplikowaną strukturę plików i wymaga chwili do zapoznania się z nią.
 
-		W głównym folderze projektu znajduje się kilka plików konfiguracyjnych dla narzędzia \textit{Gradle}, które służy do automatyzacji procesu budowania.
+		Aplikacje na ten system pisane są w formie modułowej. Ten projekt posiada tylko jeden moduł, który nazywa się \texttt{app}.
 
-		Folder \texttt{.idea/} zawiera pliki konfiguracyjne środowiska IDE — Android Studio.
+		W głównym folderze projektu znajduje się kilka plików konfiguracyjnych dla narzędzia \textit{Gradle}, które służy do automatyzacji procesu budowania. Folder \texttt{.idea/} zawiera pliki konfiguracyjne środowiska IDE — Android Studio.
 
 		Wszystkie pliki w folderze \texttt{app/} to pliki należące do tego modułu, folder \texttt{app/src/} zawiera 5 podfolderów, które wprowadzają podstawowy podział kodu aplikacji:
 
@@ -321,8 +318,7 @@ defaultConfig {
 
 		Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze. Została ona przedstawiona na Ryc. \ref{fig:architecture}.
 
-		Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe, by aktualizować zawartość bazy. Dostęp do repozytorium wykonywany jest z poziomu klas typu \texttt{ViewModel}, w których starano się zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi, tak aby kodu w klasach aktywności i fragmentów było jak najmniej. Zostawiono tam tylko kod odpowiedzialny za obsługę interfejsu użytkownika. ViewModel odświeża dane wyświetlane na ekranie korzystając ze zmiennych typu \texttt{LiveData} i technologii data binding.
-		% TODO: poprawic opis repo
+		Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe, by aktualizować dane znajdujące się w niej. Dostęp do repozytorium wykonywany jest z poziomu klas typu \texttt{ViewModel}. Starano się w nich zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi. W klasach aktywności i fragmentów starano się zostawić tylko kod odpowiedzialny za obsługę interfejsu użytkownika. Odświeżanie danych wyświetlanych na ekranie wykonywane jest z poziomu klas \texttt{ViewModel} korzystając ze zmiennych typu \texttt{LiveData} i technologii data binding.
 
 		\begin{listing}[H]
 			\caption{Lista plików z kodem źródłowym (\textit{Pliki są wyświetlone w ręcznie ustalonej kolejności})}
@@ -638,16 +634,13 @@ Program posiada zaimplementowany interfejs użytkownika w dwóch językach — a
 
 \section{Podsumowanie}\label{summary}
 
-% TODO: nie pisac udalo sie
-W ramach pracy dyplomowej udało się zaimplementować podstawowe funkcjonalności opisane w koncepcie aplikacji, umożliwiające korzystanie z niej w założonych celach. Korzystając z programu da się oczywiście odczuć, że to nie jest jeszcze finalna wersja, jednak podstawowy zasób funkcji jest już dostępny. W pracy opisano metody realizacji każdej z tej funkcjonalności, na poziomie koncepcyjnym, jak i bardziej szczegółowym poziomie kodu.
+W ramach pracy dyplomowej zostały zaimplementowane podstawowe funkcjonalności opisane w koncepcie aplikacji, umożliwiające korzystanie z niej w założonych celach. Korzystając z programu da się oczywiście odczuć, że to nie jest jeszcze finalna wersja, jednak podstawowy zasób funkcji jest już dostępny. W dokumencie opisano metody realizacji każdej z tej funkcjonalności, na poziomie koncepcyjnym, jak i bardziej szczegółowym poziomie kodu.
 
-% TODO: nie wpsominac o tym
 Duża część czasu tworzenia tej pracy została poświęcona na zapoznanie się z językiem Kotlin oraz \texttt{Android Framework}. Podchodząc do realizacji pracy autor nie miał żadnego doświadczenia w obu tych dziedzinach, więc potrzebna była nauka od zera. Wykonanie tej pracy dało jej autorowi solidny zasób podstawowej znajomości tych technologii oraz poszerzyło jego umiejętności w programowaniu ogółem.
 
-% TODO: nie tluamczyc sie z uzycia bibliotek
-Wykorzystanie gotowych bibliotek wchodzących w skład frameworku danej platformy nie powinno wymagać żadnych wyjaśnień, ponieważ naturalnie domyślna implementacja dla danej platformy jest z reguły najbardziej optymalna do ogólnych zastosowań. W projekcie wykorzystano natomiast dwie zewnętrzne biblioteki — Timber i Moshi. Wykorzystanie biblioteki Timber było spowodowane chęcią zachowania bardziej przejrzystego kodu, ponieważ w zakresie, w którym ona została wykorzystana w projekcie spowodowało ona bardziej czytelny kod odpowiedzialny za korzystanie z logów systemowych. Biblioteka Moshi natomiast zaoszczędziła autorowi pracy sporo czasu wymaganego na ręczną implementacje metod konwersji \texttt{JSON} na reprezentacje modelu danych i odwrotnie. Wykorzystanie zewnętrznej biblioteki gwarantuje, że dana funkcjonalność będzie poprawnie zaimplementowana i pozwala na skupienie się na implementacji funkcjonalności na wyższym poziomie. Dodatkowo zewnętrzna biblioteka została przez wiele osób już przetestowana i sprawdzona.
+Aplikacja została zaprojektowana tak by wykorzystać jak najwięcej gotowych bibliotek wchodzących w skład frameworku Androida, ponieważ naturalnie domyślna implementacja dla danej platformy jest z reguły najbardziej optymalna do ogólnych zastosowań. W projekcie wykorzystano również dwie zewnętrzne biblioteki — Timber i Moshi. Wykorzystanie biblioteki Timber było spowodowane chęcią zachowania bardziej przejrzystego kodu. Zakres, w którym została ona wykorzystana pozwolił na bardziej czytelny kod odpowiedzialny za korzystanie z logów systemowych. Biblioteka Moshi natomiast zaoszczędziła autorowi pracy sporo czasu wymaganego na ręczną implementacje metod konwersji \texttt{JSON} na reprezentacje modelu danych i odwrotnie. Wykorzystanie zewnętrznej biblioteki gwarantuje, że dana funkcjonalność będzie poprawnie zaimplementowana i pozwala na skupienie się na implementacji funkcjonalności na wyższym poziomie. Dodatkowo zewnętrzna biblioteka została przez wiele osób już przetestowana i sprawdzona.
 
-Dalszy rozwój projektu powinien skupić się na implementacji kolejnych funkcjonalności opisanych w rozdziale \ref{concept}, głównie na implementacji obsługi kont użytkownika oraz poprawieniu dość ascetycznego interfejsu użytkownika. Warto by również przeanalizować, jakie dokładnie dane powinny być przechowywane na temat poszczególnych punktów na mapie oraz poszerzona powinna zostać integracja z usługą \textit{Google Maps Services}. Rozwój ten wymaga oczywiście pewnej dozy współpracy na poziomie planowania pomiędzy osobami odpowiedzialnymi za rozwój aplikacji i serwera internetowego.
+Dalszy rozwój projektu powinien skupić się na implementacji kolejnych funkcjonalności opisanych w rozdziale \ref{concept}, głównie na implementacji obsługi kont użytkownika oraz poprawieniu dość ascetycznego interfejsu użytkownika. Warto by również przeanalizować, jakie dokładnie dane powinny być przechowywane na temat poszczególnych punktów na mapie oraz poszerzona powinna zostać integracja z usługą \textit{Google Maps Services}. Rozwój tej aplikacji wymaga oczywiście pewnej dozy współpracy na poziomie planowania pomiędzy osobami odpowiedzialnymi za rozwój klienta oraz serwera internetowego.
 
 \printbibliography[heading=bibintoc,title={Literatura}]
 
