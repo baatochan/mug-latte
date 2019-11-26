@@ -1,5 +1,8 @@
 \documentclass[polish,polish,a4paper,12pt]{article}
 
+\usepackage[unicode]{hyperref}
+\usepackage[polish]{babel}
+\usepackage[T1,plmath]{polski}
 \usepackage{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -12,6 +15,10 @@
 \usepackage{siunitx}
 \usepackage{multicol}
 \usepackage{printlen}
+\usepackage{indentfirst}
+\frenchspacing
+%\usepackage{lmodern}
+\selectlanguage{polish}
 
 \usepackage[
 	backend=biber,
@@ -118,46 +125,46 @@
 
 \section{Wstęp}
 
-W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich jest wyposażona w, najczęściej stałe, połączenie z Internetem. Pozwoliło to na wykształcenie się na rynku wielu aplikacji, których celem jest pomoc użytkownikowi w znalezieniu konkretnych informacji, w tym również geolokalizacyjnych. Istnieje wiele serwisów oferujących dostęp do map, ułatwiających znajdywanie firm, wyświetlających aktualne położenie autobusów komunikacji miejskiej czy umożliwiających zlokalizowanie publicznych toalet w okolicy.
+W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich jest wyposażona w najczęściej stałe połączenie z Internetem. Pozwoliło to na wykształcenie się na rynku wielu aplikacji, których celem jest pomoc użytkownikowi w znalezieniu konkretnych informacji, w tym również geolokalizacyjnych. Istnieje wiele serwisów oferujących dostęp do map, ułatwiających znajdywanie firm, wyświetlających aktualne położenie autobusów komunikacji miejskiej, czy umożliwiających zlokalizowanie publicznych toalet w okolicy.
 
-Celem tej pracy jest opracowanie aplikacji na urządzenia z systemem Android umożliwiającej użytkownikom na łatwiejsze znajdywanie miejsc użyteczności publicznej, gdzie goście mają dostęp do energii elektrycznej, np. restauracji, w której można usiąść przy stoliku z laptopem i podłączyć się do prądu. Aplikacja będzie klientem do niezależnie rozwijanego serwera z bazą danych i zaoferuje ona możliwość wyświetlania zebranych w niej danych oraz umożliwi operowanie na nich w przystępny i szybki dla użytkownika sposób.
+Celem tej pracy jest opracowanie aplikacji na urządzenia z systemem Android umożliwiającej użytkownikom na łatwiejsze znajdywanie miejsc użyteczności publicznej, gdzie goście mają dostęp do energii elektrycznej, np. restauracji, w której można usiąść przy stoliku z laptopem i podłączyć się do prądu. Aplikacja będzie klientem do niezależnie rozwijanego serwera z bazą danych. Zaoferuje ona możliwość wyświetlania zebranych w niej danych, oraz umożliwi operowanie na nich w przystępny i szybki dla użytkownika sposób.
 
 Program ten będzie pisany, wykorzystując najlepsze wzorce projektowe oraz odpowiednią warstwę abstrakcji, tak aby jego dalszy rozwój był łatwy, również dla innych osób. Dodatkowo umożliwi to łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości będzie taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia innej aplikacji podobnego typu.
 
-Praca jest podzielona w następujący spsób. Rozdział \ref{concept} w bardziej szczegółowy spsób opisuje koncepcję aplikacji, jej zastosowanie i to, co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszone jest podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych rycin i listingów.
+Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to, co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszone jest podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych rycin i listingów.
 
 \section{Opis koncepcji}\label{concept}
 	\subsection{Aplikacja mobilna}
 
-	Pomysł na aplikację powstał obserwując inne aplikacje użytkowe, jak te wymienione we wstępie. Głównie była ona bazowano na dwóch aplikacjach — aplikacji do wyszukiwania publicznych toalet (Flush) oraz publicznych sieci Wi-Fi (WiFi Map). W obu przypadkach głównym punktem wokół którego kręci się cała idea jest mapa ze społecznie zbieranymi danymi przez użytkowników, którzy w założeniu sami dbają o poprawność i aktualność danych.
+	Pomysł na aplikację powstał obserwując inne aplikacje użytkowe, które są bardzo popularne na rynku. Głównie była ona bazowana na dwóch serwisach — aplikacji do wyszukiwania publicznych toalet (Flush), oraz publicznych sieci Wi-Fi (WiFi Map). W obu przypadkach, głównym punktem wokół którego kręci się cała idea, jest mapa ze społecznie zbieranymi danymi przez użytkowników, którzy w założeniu sami dbają o poprawność i aktualność danych.
 
 	Tutaj też głównym miejscem miał być widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo dane miały być możliwe do wyświetlenia w formie listy, sortowanej rosnąco odległością od użytkownika.
 
-	Aby zmniejszyć obciążenie urządzenia oraz umożliwić pracę na dużej bazie danych klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika, oraz te znajdujące się w zakresie widoku mapy, przeglądanej przez użytkownika. Z uwagi na to, że aplikacja prezentuje rzadko zmieniające się dane, zmniejszenie zapytań do serwera miało być wykorzystane przez zapewnienie metody na buforowanie wyników na urządzeniu na jakiś czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Aplikacja miała również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie na urządzeniu, aby umożliwić dostęp do danych w trybie offline.
+	Aby zmniejszyć obciążenie urządzenia, oraz umożliwić pracę na dużej bazie danych, klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika, oraz te znajdujące się w zakresie widoku mapy, wyświetlanej na ekranie. Aby zmniejszyć ilość zapytań do serwera aplkacja miała zapewniać metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się dane. Dane przechowywane miały być przez z góry zdefiniowany czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Klient miał również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie, aby umożliwić dostęp do danych w trybie offline.
 
-	Baza miała przechowywać podstawowe dane o miejscu, jak jego lokalizacja czy nazwa oraz bardziej specyficzne dla tego zastosowania informacje, takie jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi gniazdkami na planie budynku (co np. w przypadku restauracji ułatwiłoby klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi). Planowana była też szersza integracja z Google Maps, aby miejsca w aplikacji można było przypisać do punktów POI (\textit{Points of interests}) znajdujących się w tym serwisie.
+	Baza miała przechowywać podstawowe dane o miejscu, jak jego lokalizacja czy nazwa, oraz bardziej specyficzne dla tego zastosowania informacje, takie jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi punktami na planie budynku (co np. w przypadku restauracji ułatwiłoby klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi). Planowana była też szersza integracja z Google Maps, aby miejsca w aplikacji można było przypisać do punktów POI (\textit{Points of interests}) znajdujących się w tym serwisie.
 
-	W aplikacji miał być dostępny widok szczegółowy danego miejsca umożliwiający podejrzenie dodatkowych informacji o nim oraz historię jego ostatnich modyfikacji. Widok dodawania nowego miejsca miał umożliwić podanie wszystkich szczegółów dotyczących tego punktu oraz miał ułatwiać naszkicowanie planu budynku ręcznie bądź poprzez wgranie zdjęcia fizycznie wykonanego planu.
+	W aplikacji miał być dostępny widok szczegółowy danego miejsca, umożliwiający podejrzenie dodatkowych informacji o nim oraz historię jego ostatnich modyfikacji. Widok dodawania nowego miejsca miał umożliwić podanie wszystkich szczegółów dotyczących tego punktu, oraz miał ułatwiać naszkicowanie planu budynku ręcznie, bądź poprzez wgranie zdjęcia fizycznie wykonanego planu.
 
-	Klient miał oczywiście pozwalać również na edycje istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić, kto dokonuje modyfikacji oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
+	Klient miał oczywiście pozwalać również na edycje istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji, oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
 
 	\subsection{Serwer}
 
-	Do działania aplikacja potrzebowałaby również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji na połączenie się z nim oraz wykorzystywać odpowiednią warstwę abstrakcji, by w przyszłości możliwe było stworzenie klientów na inne platformy (klient webowy, na system iOS itp.)
+	Do działania aplikacja potrzebowałaby również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji, na połączenie się z nim, oraz wykorzystywać odpowiednią warstwę abstrakcji, by w przyszłości możliwe było stworzenie klientów na inne platformy (klient webowy, na system iOS itp.)
 
 	\subsection{Zakres realizacji}
 
-	Oczywiście powyższy opis konceptu przekracza to, co było planowane w zakresie tej pracy, oraz przekracza to, co udało się zrealizować. W trakcie realizacji pracy udało się stworzyć następujące funkcjonalności:
+	Oczywiście powyższy opis konceptu przekracza to, co było planowane w zakresie tej pracy, oraz to, co udało się zrealizować. W trakcie wykonywania pracy stworzone zostały następujące funkcjonalności:
 
 	\begin{itemize}
-		\item Możliwość przeglądania punktów w formie mapy i listy
-		\item Możliwość dodawania, edycji i usuwania punktów
-		\item Możliwość przeszukiwania bazy danych
-		\item Połączenie z serwerem i synchronizacja danych
-		\item Zapisywanie danych z serwera na urządzeniu, aby zminimalizować ilość zapytań
+		\item przeglądanie punktów w formie mapy i listy,
+		\item dodawanie, edycja i usuwanie punktów,
+		\item przeszukiwanie bazy danych,
+		\item połączenie z serwerem i synchronizacja danych,
+		\item zapisywanie danych z serwera na urządzeniu, aby zminimalizować ilość zapytań.
 	\end{itemize}
 
-	Jest to całkiem solidny zakres podstawowych funkcji umożliwiający na używanie aplikacji w założonych celach i jej dalszy rozwój.
+	Jest to całkiem solidny zakres podstawowych funkcji, umożliwiający na używanie aplikacji w założonych celach i jej dalszy rozwój.
 
 \section{Wybrane technologie}\label{technology}
 	\subsection{Platforma}
@@ -339,7 +346,7 @@ defaultConfig {
 │   ├── PowerMug.kt
 │   └── PowerMugWithDistance.kt
 ├── repository
-│   └── PowerMugRepository.kt
+│   └── PowerMugRepository.kt
 ├── database
 │   ├── DbPowerMug.kt
 │   ├── PowerMugDatabase.kt
