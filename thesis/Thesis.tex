@@ -16,6 +16,12 @@
 \usepackage{multicol}
 \usepackage{printlen}
 \usepackage{indentfirst}
+\usepackage{svg}
+
+\setsvg{
+	inkscape = inkscape -z -D,
+	svgpath = img/
+}
 
 \usepackage{perpage}
 \MakePerPage{footnote}
@@ -323,7 +329,7 @@ defaultConfig {
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width = \textwidth]{architecture}
+			\includesvg[width = \textwidth]{architecture}
 			\caption{Schemat architektury}
 			\label{fig:architecture}
 		\end{figure}
@@ -380,7 +386,9 @@ defaultConfig {
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width = \textwidth]{navigation}
+			{\scriptsize
+				\includesvg[width = 0.5\textwidth]{navigation}
+			}
 			\caption{Diagram nawigacji pomiędzy fragmentami}
 			\label{fig:navigation}
 		\end{figure}
@@ -580,7 +588,7 @@ Program posiada zaimplementowany interfejs użytkownika w dwóch językach — a
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width = \textwidth]{screenshot-main}
+		\includegraphics[width = 0.7\textwidth]{screenshot-main}
 		\caption{Dwa główne widoki programu}
 		\label{fig:screenshotmain}
 	\end{figure}
