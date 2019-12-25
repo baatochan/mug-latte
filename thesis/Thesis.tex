@@ -16,6 +16,10 @@
 \usepackage{multicol}
 \usepackage{printlen}
 \usepackage{indentfirst}
+
+\usepackage{perpage}
+\MakePerPage{footnote}
+
 \frenchspacing
 %\usepackage{lmodern}
 \selectlanguage{polish}
@@ -38,11 +42,12 @@
 }
 \setlength{\columnsep}{-2cm}
 \setlength{\baselineskip}{1.5em}
-
-\renewcommand{\figurename}{Ryc.}
-\renewcommand*{\contentsname}{Spis treści}
-\renewcommand{\listfigurename}{Indeks rycin}
-\renewcommand{\listoflistingscaption}{Indeks listingów}
+\addto\captionspolish{
+	\renewcommand{\figurename}{Ryc.}
+	\renewcommand{\contentsname}{Spis treści}
+	\renewcommand{\listfigurename}{Indeks rycin}
+	\renewcommand{\listoflistingscaption}{Indeks listingów}
+}
 
 \let\sectioncmd\section
 \renewcommand{\section}{\clearpage\sectioncmd}
@@ -125,7 +130,7 @@
 
 \section{Wstęp}
 
-W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich jest wyposażona w najczęściej stałe połączenie z Internetem. Pozwoliło to na wykształcenie się na rynku wielu aplikacji, których celem jest pomoc użytkownikowi w znalezieniu konkretnych informacji, w tym również geolokalizacyjnych. Istnieje wiele serwisów oferujących dostęp do map, ułatwiających znajdywanie firm, wyświetlających aktualne położenie autobusów komunikacji miejskiej, czy umożliwiających zlokalizowanie publicznych toalet w okolicy.
+W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich jest wyposażona w najczęściej stałe połączenie z Internetem. Pozwoliło to na wykształcenie się na rynku wielu aplikacji, których celem jest pomoc użytkownikowi w znalezieniu konkretnych informacji, w tym również geolokalizacyjnych. Istnieje wiele serwisów oferujących dostęp do map i ułatwiających znajdywanie firm (np. Google Maps\footnote{Google Maps by Google LLC — \url{https://www.google.com/maps}}, Here WeGo\footnote{Here WeGo by Here Global B.V. — \url{https://wego.here.com/}}, czy OpenStreetMaps\footnote{OpenStreetMap by OpenStreetMap Foundation — \url{https://www.openstreetmap.org/}}), wyświetlających aktualne położenie autobusów komunikacji miejskiej (np. BusLive\footnote{BusLive by BusLive Paweł Marek — \url{https://buslive.pl/}}), czy umożliwiających zlokalizowanie publicznych toalet w okolicy (np. Flush\footnote{Flush by Sam Ruston — \url{https://samruston.co.uk/}}).
 
 Celem tej pracy jest opracowanie aplikacji na urządzenia z systemem Android umożliwiającej użytkownikom na łatwiejsze znajdywanie miejsc użyteczności publicznej, gdzie goście mają dostęp do energii elektrycznej, np. restauracji, w której można usiąść przy stoliku z laptopem i podłączyć się do prądu. Aplikacja będzie klientem do niezależnie rozwijanego serwera z bazą danych. Zaoferuje ona możliwość wyświetlania zebranych w niej danych, oraz umożliwi operowanie na nich w przystępny i szybki dla użytkownika sposób.
 
@@ -136,11 +141,11 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 \section{Opis koncepcji}\label{concept}
 	\subsection{Aplikacja mobilna}
 
-	Pomysł na aplikację powstał obserwując inne aplikacje użytkowe, które są bardzo popularne na rynku. Głównie była ona bazowana na dwóch serwisach — aplikacji do wyszukiwania publicznych toalet (Flush), oraz publicznych sieci Wi-Fi (WiFi Map). W obu przypadkach, głównym punktem wokół którego kręci się cała idea, jest mapa ze społecznie zbieranymi danymi przez użytkowników, którzy w założeniu sami dbają o poprawność i aktualność danych.
+	Pomysł na aplikację powstał podczas obserwacji innych aplikacji użytkowych, które są bardzo popularne na rynku. Głównie była ona bazowana na dwóch serwisach — aplikacji do wyszukiwania publicznych toalet (Flush\footnote{Flush by Sam Ruston — \url{https://samruston.co.uk/}}), oraz publicznych sieci Wi-Fi (WiFi Map\footnote{WiFi Map by WiFi Map LLC — \url{https://www.wifimap.io/}}). W obu przypadkach, głównym aspektem programu jest mapa ze społecznie zbieranymi danymi. Taki model działania pozwala założyć, że użytkownicy sami będą dbać o poprawność i aktualność danych.
 
-	Tutaj też głównym miejscem miał być widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo dane miały być możliwe do wyświetlenia w formie listy, sortowanej rosnąco odległością od użytkownika.
+	Tutaj też głównym miejscem jest widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo jest możliwość wyświetlenia danych w formie listy, sortowanej rosnąco odległością od użytkownika.
 
-	Aby zmniejszyć obciążenie urządzenia, oraz umożliwić pracę na dużej bazie danych, klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika, oraz te znajdujące się w zakresie widoku mapy, wyświetlanej na ekranie. Aby zmniejszyć ilość zapytań do serwera aplkacja miała zapewniać metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane miały być przez z góry zdefiniowany czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Klient miał również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie, aby umożliwić dostęp do danych w trybie offline.
+	Aby zmniejszyć obciążenie urządzenia, oraz umożliwić pracę na dużej bazie danych, klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika, oraz te znajdujące się w zakresie widoku mapy, wyświetlanej na ekranie. Aby zmniejszyć liczbę zapytań do serwera aplkacja miała zapewniać metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane miały być przez z góry zdefiniowany czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Klient miał również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie, aby umożliwić dostęp do danych w trybie offline.
 
 	Baza miała przechowywać podstawowe dane o miejscu, jak jego lokalizacja czy nazwa, oraz bardziej specyficzne dla tego zastosowania informacje, takie jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi punktami na planie budynku (co np. w przypadku restauracji ułatwiłoby klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi). Planowana była też szersza integracja z Google Maps, aby miejsca w aplikacji można było przypisać do punktów POI (\textit{Points of interests}) znajdujących się w tym serwisie.
 
@@ -169,38 +174,38 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 \section{Wybrane technologie}\label{technology}
 	\subsection{Platforma}
 
-	Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które są potrzebne użytkownikom, gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google oraz iOS od firmy Apple, mających udziały w rynku odpowiednio 77\% i 22\% \cite{mobilemarketshare}. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników, należy wybrać platformę Android. Dodatkowym aspektem skłaniającym do wyboru tej platformy był fakt posiadania przez autora pracy urządzeń działających pod kontrolą tego systemu.
+	Z punktu widzenia projektu wybór platformy mobilnej był jedynym słusznym wyborem, ponieważ aplikacja dostarcza informacje, które są potrzebne użytkownikom, gdy są w biegu, a nie siedzą w zaciszu swojego domu przed komputerem. Na rynku platform mobilnych aktualnie istnieje jedynie dwójka graczy, czyli Android od firmy Google oraz iOS od firmy Apple, mających udziały w rynku odpowiednio 77\% i 22\% \cite{mobilemarketshare}. Z tych danych wychodzi jasny obraz, że aby dotrzeć do jak największej liczby użytkowników, należy wybrać platformę Android.
 
 	\subsection{Język programowania}
 
-	Wybór platformy w dużej mierze uwarunkował wybór języka programowania. Istnieją oczywiście różne metody, by pisać na Androida w wielu różnych językach (np. COBOL), jednak oficjalnie wspierane są następujące języki \cite{androiddevelopment}:
+	Wybór platformy w dużej mierze uwarunkował wybór języka programowania. Istnieją oczywiście różne metody, by tworzyć oprogramowanie pod ten system, w wielu różnych językach (np. COBOL), jednak oficjalnie wspierane są następujące języki \cite{androiddevelopment}:
 
 	\begin{itemize}
-		\item Kotlin — nowy język, działający w JVM i będący w pełni interoperacyjny z Javą, od niedawna zalecany przez Google jako główny język dla nowych aplikacji \cite{androidapi};
-		\item Java — standardowy język, w którym od dawna powstają aplikację na tę platformę;
-		\item C++ — istnieje możliwość wykorzystania bibliotek napisanych w C++ za pomocą NDK udostępnionego przez Google, przydatne przy oprogramowaniu, dla którego kluczowa jest wydajność, czyli np. gier;
-		\item HTML+CSS+JS — częściowo wspierane jest tworzenie nowoczesnych stron internetowych zachowujących się jako aplikacje wykorzystując PWA.
+		\item Kotlin\footnote{Kotlin by Kotlin Foundation — \url{https://kotlinlang.org/}} — nowy język, działający w JVM i będący w pełni interoperacyjny z Javą, od niedawna zalecany przez Google jako główny język dla nowych aplikacji \cite{kotlinfirst};
+		\item Java\footnote{Java by Oracle — \url{https://www.oracle.com/}} — standardowy język, w którym od dawna powstają aplikację na tę platformę;
+		\item C++ — istnieje możliwość wykorzystania bibliotek napisanych w C++ za pomocą NDK \cite{ndk} udostępnionego przez Google, przydatne przy oprogramowaniu, dla którego kluczowa jest wydajność, czyli np. gier;
+		\item HTML+CSS+JS — częściowo wspierane jest tworzenie nowoczesnych stron internetowych zachowujących się jako aplikacje wykorzystując PWA \cite{pwa}.
 	\end{itemize}
 
-	Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Javą. Mimo pewnego wcześniejszego doświadczenia autora pracy z Javą wybrany został język Kotlin, który jest traktowany przez Google jako przyszłość dla tej platformy. Zdecydowano się na ten język, aby poznać nową technologię, która zaczyna zdobywać coraz większą popularność na rynku oraz ułatwić w przyszłości dalszy rozwój tego projektu.
+	Taka sytuacja sprowadza się do wyboru pomiędzy dwoma językami: Kotlinem i Javą. Mimo pewnego wcześniejszego doświadczenia autora pracy z Javą wybrany został język Kotlin, który jest traktowany przez Google jako przyszłość dla tej platformy \cite{kotlinfirst}. Zdecydowano się na ten język, aby poznać nową technologię, która zaczyna zdobywać coraz większą popularność na rynku oraz ułatwić w przyszłości dalszy rozwój tego projektu.
 
 	\subsection{Zewnętrzne biblioteki}
 
 	Przy budowie projektu wykorzystano kilka zewnętrznych bibliotek, z których większość wchodzi w skład \textit{Android Framework}, czyli oficjalnych bibliotek wymaganych do tworzenia aplikacji na tę platformę.
 
-	Podstawową użytą biblioteką jest biblioteka języka Kotlin, pozwalająca na pisanie kodu w tym języku oraz biblioteka \textit{Core} z pakietu AndroidX, czyli główna biblioteka wymagana przez system, implementująca podstawowe definicje takich elementów jak aktywności czy widoki programu \cite{androidapi}. Większość widoków w aplikacji stworzono wykorzystując \texttt{ConstraintLayout}, którego podstawowa definicja znajduje się w bibliotece o tej samej nazwie.
+	Podstawową użytą biblioteką jest biblioteka języka Kotlin, pozwalająca na pisanie kodu w tym języku oraz biblioteka \textit{Core} z pakietu AndroidX\footnote{Android Extension Libraries by Google and Open Handset Alliance — \url{https://developer.android.com/jetpack/androidx}}, czyli główna biblioteka wymagana przez system, implementująca podstawowe definicje takich elementów jak aktywności czy widoki programu \cite{androidapi}. Większość widoków w aplikacji stworzono wykorzystując \texttt{ConstraintLayout}, którego podstawowa definicja znajduje się w bibliotece o tej samej nazwie.
 
 	Przy tworzeniu wykorzystano również bibliotekę \textit{AppCompat}, która pozwoliła na modyfikacje paska akcji na górze widoku aplikacji oraz implementację mechanizmu wyszukiwania miejsc.
 
-	Do wsparcia przy budowie nawigacji pomiędzy ekranami programu wykorzystano bibliotekę o nazwie \textit{Navigation}, ponieważ jest to zalecona metoda tworzenia przejść przez Google. Z tego samego powodu wykorzystano bibliotekę \textit{Lifecycle} do lepszego wsparcia zarządzania życiem poszczególnych elementów aplikacji.
+	Do wsparcia przy budowie nawigacji pomiędzy ekranami programu wykorzystano bibliotekę o nazwie \textit{Navigation}, ponieważ jest to zalecona metoda tworzenia przejść przez Google \cite{androiddevelopment}. Z tego samego powodu wykorzystano bibliotekę \textit{Lifecycle} do lepszego wsparcia zarządzania życiem poszczególnych elementów aplikacji.
 
 	W programie zaimplementowano bazę danych w technologii \texttt{SQLite} wykorzystując bibliotekę \textit{Room}, która pozwala w prosty sposób tworzyć bazy danych do aplikacji na platformę Android.
 
 	Do obsługi map oraz lokalizacji wykorzystano biblioteki \textit{Google Maps Services}, ponieważ jest to oficjalnie wspierana biblioteka do tych zastosowań.
 
-	Obsługa połączenia z serwerem została zaimplementowana z pomocą biblioteki \textit{Retrofit}, która pomaga w obsłudze zapytań HTTP wraz z biblioteką \textit{Moshi}, która służy do automatyzacji parsowania modelu programistycznego do \texttt{JSON} i w drugą stronę. Biblioteka \textit{Moshi} jest pierwszą użytą w projekcie biblioteką niewchodzącą w skład \textit{Android Framework}.
+	Obsługa połączenia z serwerem została zaimplementowana z pomocą biblioteki \textit{Retrofit}\footnote{Retrofit by Square — \url{https://square.github.io/retrofit}}, która pomaga w obsłudze zapytań HTTP wraz z biblioteką \textit{Moshi}\footnote{Moshi by Square — \url{https://github.com/square/moshi}}, która służy do automatyzacji parsowania modelu programistycznego do \texttt{JSON} i w drugą stronę. Biblioteki \textit{Retrofit} oraz \textit{Moshi} są pierwszymi użytymi w projekcie bibliotekami niebędącymi częścią \textit{Android Framework}.
 
-	Spoza \textit{Android Framework} wykorzystano jeszcze jedną bibliotekę — \textit{Timber}, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
+	Spoza \textit{Android Framework} wykorzystano jeszcze jedną bibliotekę — \textit{Timber}\footnote{Timber by Jake Wharton — \url{https://github.com/JakeWharton/timber}}, która znacząco ułatwia korzystanie z systemowych logów platformy Android.
 
 	\subsection{Komunikacja z serwerem}
 
@@ -248,7 +253,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	\subsection{System budowania}
 
-	Do automatyzacji procesu budowania wykorzystano narzędzie Gradle. Pozwalało ono, po sprecyzowaniu podstawowych ustawień, na w pełni automatyczne tworzenie pliku \texttt{apk}, gotowego do instalacji na urządzeniu.
+	Do automatyzacji procesu budowania wykorzystano narzędzie Gradle\footnote{Gradle by Gradle Inc. — \url{https://gradle.org/}}. Pozwalało ono, po sprecyzowaniu podstawowych ustawień, na w pełni automatyczne tworzenie pliku \texttt{apk}, gotowego do instalacji na urządzeniu.
 
 	W przypadku projektów na platformę Android konfiguracja Gradle podzielona jest na dwa osobne pliki — konfiguracja do całego projektu oraz poszczególnego modułu. Mimo, że projekt posiadał tylko jeden moduł, zachowany został ten podział, ponieważ uważany jest on za dobrą praktykę \cite{kotlin}.
 
@@ -279,7 +284,7 @@ defaultConfig {
 
 	W pliku konfiguracyjnym modułu programu znajdowały się podstawowe ustawienia, wymagane do budowy (listing \ref{listing:gradle}).
 
-	Zdefiniowana została wersja systemu Android, użyta do zbudowania binarki, minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem a definicją układu widoku oraz aktywowano eksperymentalne funkcjonalności \texttt{Android Framework}.
+	Zdefiniowana została wersja systemu Android, użyta do budowania pliku wykonywalnego (\texttt{apk}), minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem a definicją układu widoku oraz aktywowano eksperymentalne funkcjonalności \texttt{Android Framework}.
 
 	Ustalona została nazwa kodowa programu oraz jego wersja. Zgodnie z konwencją systemu Android zalecane jest użycie jako nazwy kodowej odwrotności domeny przeznaczonej dla danej aplikacji. Z uwagi, że do projektu nie została zarejestrowana jeszcze żadna domena, na czas realizacji pracy zdecydowano się użyć domeny \texttt{test}, która przeznaczona jest do użycia w testowaniu oprogramowania i gwarantuje pewność, że nigdy nie nastąpi konflikt z żadną istniejącą domeną, ponieważ zablokowana jest możliwość jej rejestracji \cite{testdomainwiki}.
 
@@ -291,7 +296,7 @@ defaultConfig {
 	\subsection{Struktura}
 		\subsubsection{Podział plików w projekcie}
 
-		Nawet prosty projekt na platformę Android ma dość skomplikowaną strukturę plików i wymaga chwili do zapoznania się z nią.
+		Nawet prosty projekt na platformę Android ma dość skomplikowaną strukturę plików i wymaga chwili na zapoznanie się z nią.
 
 		Aplikacje na ten system pisane są w formie modułowej. Ten projekt posiada tylko jeden moduł, który nazywa się \texttt{app}.
 
@@ -375,7 +380,7 @@ defaultConfig {
 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width = \textwidth]{navigation}repozytorium
+			\includegraphics[width = \textwidth]{navigation}
 			\caption{Diagram nawigacji pomiędzy fragmentami}
 			\label{fig:navigation}
 		\end{figure}
@@ -414,9 +419,9 @@ defaultConfig {
 
 	Wyszukiwanie polega na wykonaniu \texttt{queryTextListener.onQueryTextSubmit(String)} \cite{androidapi}, czyli wysłaniu do repozytorium tekstu z pola wyszukiwania i czekaniu na wyniki. Repozytorium odpytuje bazę danych i zwraca do ViewModelu listę znalezionych miejsc.
 
-	Po pojawieniu się wyników mapa jest czyszczona i pokazywane są na niej tylko znalezione miejsca, oraz widok automatycznie przechodzi na pierwsze znaleziony punkt. W przypadku braku wyników pojawia się stosowny komunikat.
+	Po pojawieniu się wyników mapa jest czyszczona i pokazywane są na niej tylko znalezione miejsca, oraz widok automatycznie przechodzi na pierwszy znaleziony punkt. W przypadku braku wyników pojawia się stosowny komunikat.
 
-	Powrót do wyświetlania wszystkich miejsc jest możliwy wychodząc z wyszukiwania przyciskiem na górnym pasku aplikacji. Następuje wtedy wywołanie metody \texttt{closeListener}, która czyści mapę i ponownie ustawia obserwatora na domyślną zmienną \texttt{LiveData} z listą wszystkich miejsc.
+	Powrót do wyświetlania wszystkich miejsc jest możliwy poprzez wyjście z wyszukiwania przyciskiem na górnym pasku aplikacji. Następuje wtedy wywołanie metody \texttt{closeListener}, która czyści mapę i ponownie ustawia obserwatora na domyślną zmienną \texttt{LiveData} z listą wszystkich miejsc.
 
 	\subsection{Przejście z użyciem data binding}\label{navigation}
 
@@ -654,10 +659,10 @@ Dalszy rozwój projektu powinien skupić się na implementacji kolejnych funkcjo
 \renewcommand{\section}{\sectioncmd}
 \clearpage
 
-\addcontentsline{toc}{section}{Indeks rycin}
 \listoffigures
+\addcontentsline{toc}{section}{Indeks rycin}
 
-\addcontentsline{toc}{section}{Indeks listingów}
 \listoflistings
+\addcontentsline{toc}{section}{Indeks listingów}
 
 \end{document}
