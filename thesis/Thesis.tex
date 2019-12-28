@@ -146,23 +146,21 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	Pomysł na aplikację powstał podczas obserwacji innych aplikacji użytkowych, które są bardzo popularne na rynku. Głównie była ona bazowana na dwóch serwisach — aplikacji do wyszukiwania publicznych toalet (Flush\footnote{Flush by Sam Ruston — \url{https://samruston.co.uk/}}), oraz publicznych sieci Wi-Fi (WiFi Map\footnote{WiFi Map by WiFi Map LLC — \url{https://www.wifimap.io/}}). W obu przypadkach, głównym aspektem programu jest mapa ze społecznie zbieranymi danymi. Taki model działania pozwala założyć, że użytkownicy sami będą dbać o poprawność i aktualność danych.
 
-	Tutaj też głównym miejscem powinien być widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo powinna być możliwość wyświetlenia danych w formie listy, sortowanej rosnąco odległością od użytkownika.
+	Tutaj też głównym miejscem jest widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo jest możliwość wyświetlenia danych w formie listy, sortowanej rosnąco odległością od użytkownika.
 
-	Aby zmniejszyć obciążenie urządzenia, oraz umożliwić pracę na dużej bazie danych, klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika, oraz te znajdujące się w zakresie widoku mapy, wyświetlanej na ekranie. Aby zmniejszyć liczbę zapytań do serwera aplkacja miała zapewniać metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane miały być przez z góry zdefiniowany czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Klient miał również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie, aby umożliwić dostęp do danych w trybie offline.
+	Przy uruchomieniu klient pobiera dane o wszystkich miejscach z bazy danych. Aby zmniejszyć liczbę późniejszych zapytań do serwera aplkacja zapewnia metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane są do następnego uruchomienia, gdzie baza danych jest aktualizowana o najnowsze dane z serwera.
 
-	Baza miała przechowywać podstawowe dane o miejscu, jak jego lokalizacja czy nazwa, oraz bardziej specyficzne dla tego zastosowania informacje, takie jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi punktami na planie budynku (co np. w przypadku restauracji ułatwiłoby klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi). Planowana była też szersza integracja z Google Maps, aby miejsca w aplikacji można było przypisać do punktów POI (\textit{Points of interests}) znajdujących się w tym serwisie.
+	Baza przechowuje podstawowe dane o miejscu, jak jego lokalizacja czy nazwa, oraz bardziej specyficzne dla tego zastosowania informacje, takie jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi punktami na planie budynku (co np. w przypadku restauracji umożliwia klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi).
 
-	W aplikacji miał być dostępny widok szczegółowy danego miejsca, umożliwiający podejrzenie dodatkowych informacji o nim oraz historię jego ostatnich modyfikacji. Widok dodawania nowego miejsca miał umożliwić podanie wszystkich szczegółów dotyczących tego punktu, oraz miał ułatwiać dodanie planu budynku naszkicowanego ręcznie, bądź poprzez wgranie zdjęcia fizycznie wykonanego planu.
+	W aplikacji jest dostępny widok szczegółowy danego miejsca, umożliwiający podejrzenie dodatkowych informacji o nim. Widok dodawania nowego miejsca umożliwia podanie wszystkich szczegółów dotyczących tego punktu, oraz miał ułatwiać dodanie planu budynku naszkicowanego ręcznie, bądź poprzez wgranie zdjęcia fizycznie wykonanego planu.
 
-	Klient miał oczywiście pozwalać również na edycje istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji, oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
+	Klient oczywiście pozwala również na edycje istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji, oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
 
 	\subsection{Serwer}
 
-	Do działania aplikacja potrzebowałaby również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji, na połączenie się z nim, oraz wykorzystywać odpowiednią warstwę abstrakcji, by w przyszłości możliwe było stworzenie klientów na inne platformy (klient webowy, na system iOS itp.)
+	Do działania aplikacja potrzebuje również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer jest napisany w sposób umożliwiający tej aplikacji, na połączenie się z nim, oraz wykorzystuje odpowiednią warstwę abstrakcji, by w przyszłości możliwe było stworzenie klientów na inne platformy (klient webowy, na system iOS itp.)
 
 	\subsection{Wymagania funkcjonalne i niefunkcjonalne}
-
-	Powyższy opis konceptu opisuje cały pomysł autora pracy na tą aplikację. Z uwagi na konkretne ograniczenia czasowe na wykonanie pracy inżynierskiej zdecydowano się ograniczyć zakres pracy, aby zmieścić się w tym terminie. Wtedy powstała następująca lista wymagań funkcjonalnych i niefunkcjonalnych do realizacji w trakcie tworzenia pracy inżynierskiej.
 
 		\subsubsection{Wymagania funkcjonalne}
 
@@ -251,8 +249,6 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 	Wszystkie zapytania wykorzystują to samo URI, jednak różnią się typem i zawartością swojego ciała.
 
 	\subsection{Środowisko deweloperskie}
-
-	Projekt realizowany był z użyciem komputera wyposażonego w procesor Intel Pentium G3258@4.4GHz, 16GB pamięci RAM DDR3-1333 oraz układ graficzny AMD Pitcairn XT na karcie Radeon HD 7870 z 2 GB pamięci, pracujący pod kontrolą systemu operacyjnego Microsoft Windows 10 Pro w wersji 1903 (Build 18362.476).
 
 	Główny telefon wykorzystany do projektu to OnePlus 5T posiadający układ Snapdragon 835 i 6GB pamięci operacyjnej działający pod kontrolą systemu Android w wersji 9 Pie z nakładką OxygenOS w wersji 9.0.9.
 
