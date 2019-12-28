@@ -16,12 +16,8 @@
 \usepackage{multicol}
 \usepackage{printlen}
 \usepackage{indentfirst}
-\usepackage{svg}
-
-\setsvg{
-	inkscape = inkscape -z -D,
-	svgpath = img/
-}
+\usepackage[inkscapeopt=-z -D]{svg}
+\usepackage{csquotes}
 
 \usepackage{perpage}
 \MakePerPage{footnote}
@@ -38,6 +34,7 @@
 \addbibresource{thesis.bib}
 
 \graphicspath{ {./img/} }
+\svgpath{ {./img/} }
 
 \geometry{
 	a4paper,
@@ -191,7 +188,16 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	\subsection{Zakres realizacji}
 
-	W trakcie realizacji pracy wykonano większość z założonych wymagań funkcjonalnych i niefunkcjonalnych. Nie udało się jedynie zrealizować wymagań funkcjonalnych nr \ref{accounts-req} i \ref{drawing-req}, ponieważ realizacja innych wymagań zajeła więcej czasu niż było szacowane na początku pracy. Dodatkowo realizacja tych dwóch wymagań okazała się bardziej skomplikowana niż planowano. Mimo to zrealizowano całkiem solidny zakres podstawowych funkcji, umożliwiający na używanie aplikacji w założonych celach i jej dalszy rozwój.
+	W trakcie realizacji pracy wykonano większość z założonych wymagań funkcjonalnych i niefunkcjonalnych. Nie udało się jedynie zrealizować wymagań funkcjonalnych nr \ref{accounts-req} i \ref{drawing-req}, ponieważ realizacja innych wymagań zajeła więcej czasu niż było szacowane na początku pracy. Dodatkowo realizacja tych dwóch wymagań okazała się bardziej skomplikowana niż planowano. Mimo to zrealizowano całkiem solidny zakres podstawowych funkcji, który został przedstawiony na schemacie przypadków użycia na Ryc. \ref{fig:usecasediagram}. Umożliwiają one na użytkowanie programu w założonych celach oraz na jego dalszy rozwój.
+
+	\begin{figure}[H]
+		\centering
+		{\scriptsize
+			\includesvg[width = \textwidth]{usecasediagram}
+		}
+		\caption{Schemat przypadków użycia}
+		\label{fig:usecasediagram}
+	\end{figure}
 
 \section{Wybrane technologie}\label{technology}
 	\subsection{Platforma}
