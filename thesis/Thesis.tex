@@ -149,7 +149,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	Pomysł na aplikację powstał podczas obserwacji innych aplikacji użytkowych, które są bardzo popularne na rynku. Głównie była ona bazowana na dwóch serwisach — aplikacji do wyszukiwania publicznych toalet (Flush\footnote{Flush by Sam Ruston — \url{https://samruston.co.uk/}}), oraz publicznych sieci Wi-Fi (WiFi Map\footnote{WiFi Map by WiFi Map LLC — \url{https://www.wifimap.io/}}). W obu przypadkach, głównym aspektem programu jest mapa ze społecznie zbieranymi danymi. Taki model działania pozwala założyć, że użytkownicy sami będą dbać o poprawność i aktualność danych.
 
-	Tutaj też głównym miejscem jest widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo jest możliwość wyświetlenia danych w formie listy, sortowanej rosnąco odległością od użytkownika.
+	Tutaj też głównym miejscem powinien być widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo powinna być możliwość wyświetlenia danych w formie listy, sortowanej rosnąco odległością od użytkownika.
 
 	Aby zmniejszyć obciążenie urządzenia, oraz umożliwić pracę na dużej bazie danych, klient miał pobierać punkty znajdujące się blisko lokalizacji użytkownika, oraz te znajdujące się w zakresie widoku mapy, wyświetlanej na ekranie. Aby zmniejszyć liczbę zapytań do serwera aplkacja miała zapewniać metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane miały być przez z góry zdefiniowany czas, bądź do sytuacji, gdy aplikacja przekroczy dozwolony rozmiar pamięci buforu. Klient miał również oferować ręczne sterowanie, który obszar będzie zapisany lokalnie, aby umożliwić dostęp do danych w trybie offline.
 
@@ -163,19 +163,35 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	Do działania aplikacja potrzebowałaby również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer miał być napisany w sposób umożliwiający tej aplikacji, na połączenie się z nim, oraz wykorzystywać odpowiednią warstwę abstrakcji, by w przyszłości możliwe było stworzenie klientów na inne platformy (klient webowy, na system iOS itp.)
 
+	\subsection{Wymagania funkcjonalne i niefunkcjonalne}
+
+	Powyższy opis konceptu opisuje cały pomysł autora pracy na tą aplikację. Z uwagi na konkretne ograniczenia czasowe na wykonanie pracy inżynierskiej zdecydowano się ograniczyć zakres pracy, aby zmieścić się w tym terminie. Wtedy powstała następująca lista wymagań funkcjonalnych i niefunkcjonalnych do realizacji w trakcie tworzenia pracy inżynierskiej.
+
+		\subsubsection{Wymagania funkcjonalne}
+
+		\begin{enumerate}
+			\item Przeglądanie punktów w formie mapy.
+			\item Przeglądanie punktów w formie listy.
+			\item Dodawanie punktów.
+			\item Edycja punktów.
+			\item Usuwanie punktów.
+			\item Przeszukiwanie bazy punktów.
+			\item Połączenie z serwerem i synchronizacja danych wykorzystując zapytania w stylu REST.
+			\item Buforowanie danych z serwera na urządzeniu.
+			\item\label{accounts-req} System kont użytkowników.
+			\item\label{drawing-req} System umożliwiający szkicowanie planów obiektów.
+		\end{enumerate}
+
+		\subsubsection{Wymagania niefunkcjonalne}
+
+		\begin{enumerate}
+			\item Aplikacja powinna być przygotowana na system Android.
+			\item Aplikacja powinna posiadać prosty interfejs użytkownika zgodny z obowiązującymi standardami wybranej platformy.
+		\end{enumerate}
+
 	\subsection{Zakres realizacji}
 
-	Oczywiście powyższy opis konceptu przekracza to, co było planowane w zakresie tej pracy, oraz to, co udało się zrealizować. W trakcie wykonywania pracy stworzone zostały następujące funkcjonalności:
-
-	\begin{itemize}
-		\item przeglądanie punktów w formie mapy i listy,
-		\item dodawanie, edycja i usuwanie punktów,
-		\item przeszukiwanie bazy danych,
-		\item połączenie z serwerem i synchronizacja danych,
-		\item zapisywanie danych z serwera na urządzeniu, aby zminimalizować ilość zapytań.
-	\end{itemize}
-
-	Jest to całkiem solidny zakres podstawowych funkcji, umożliwiający na używanie aplikacji w założonych celach i jej dalszy rozwój.
+	W trakcie realizacji pracy wykonano większość z założonych wymagań funkcjonalnych i niefunkcjonalnych. Nie udało się jedynie zrealizować wymagań funkcjonalnych nr \ref{accounts-req} i \ref{drawing-req}, ponieważ realizacja innych wymagań zajeła więcej czasu niż było szacowane na początku pracy. Dodatkowo realizacja tych dwóch wymagań okazała się bardziej skomplikowana niż planowano. Mimo to zrealizowano całkiem solidny zakres podstawowych funkcji, umożliwiający na używanie aplikacji w założonych celach i jej dalszy rozwój.
 
 \section{Wybrane technologie}\label{technology}
 	\subsection{Platforma}
