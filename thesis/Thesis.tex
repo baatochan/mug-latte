@@ -237,7 +237,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	\subsection{Komunikacja z serwerem}
 
-	Aplikacja do kontaktu z serwerem wykorzystuje jego publiczne API oparte o zapytania HTTP i architekturę typu REST \cite{restwiki}. Serwer nie posiada jeszcze domeny, więc aby się z nim połączyć konieczne jest uruchomienie go w sieci lokalnej i zmiana kodu aplikacji mobilnej podając jej poprawny adres działającego serwera. Serwer jednak nie był tematem tej pracy i został on stworzony przez inną osobę.
+	Aplikacja do kontaktu z serwerem wykorzystuje jego publiczne API oparte o zapytania HTTP i architekturę typu REST \cite{restrfc}. Serwer nie posiada jeszcze domeny, więc aby się z nim połączyć konieczne jest uruchomienie go w sieci lokalnej i zmiana kodu aplikacji mobilnej podając jej poprawny adres działającego serwera. Serwer jednak nie był tematem tej pracy i został on stworzony przez inną osobę.
 
 	Aplikacja implementuje następujące zapytania do serwera:
 
@@ -271,7 +271,19 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 		\item Nexus 4 — Android 5.0 Lollipop (\textit{maszyna wirtualna})
 	\end{itemize}
 
-	Na każdym z wymienionych urządzeń aplikacja działała w pełni poprawnie. Na maszynach wirtualnych nie została przetestowana funkcjonalność połączenia z serwerem z uwagi na problem z konfiguracją połączenia maszyny z siecią lokalną.
+	Procedura testowania polegała na:
+
+	\begin{itemize}
+		\item zainstalowaniu aplikacji na urządzeniu,
+		\item sprawdzeniu czy zostały pobrane wpisy z serwera,
+		\item wyświetlenia tych miejsc w formie mapy i listy,
+		\item przeszukaniu miejsc używając losowej nazwy punktu,
+		\item dodaniu tymczasowego miejsca,
+		\item edycja tego miejsca,
+		\item oraz jego usunięciu.
+	\end{itemize}
+
+	Na każdym z wymienionych urządzeń aplikacja działała w pełni poprawnie. Na maszynach wirtualnych testowana była okrojona wersja aplikacji nie posiadająca funkcjonalności połączenia z serwerem z uwagi na problemy z połączeniem maszyn z serwerem znajdującym się w sieci lokalnej.
 
 	\subsection{Kontrola wersji}
 
@@ -314,7 +326,7 @@ defaultConfig {
 
 	Zdefiniowana została wersja systemu Android, użyta do budowania pliku wykonywalnego (\texttt{apk}), minimalna wersja wymagana do działania programu oraz wersja narzędzia używanego do budowania. Aktywowano technologię data binding, która w prosty sposób umożliwia tworzenie powiązań pomiędzy kodem a definicją układu widoku oraz aktywowano eksperymentalne funkcjonalności \texttt{Android Framework}.
 
-	Ustalona została nazwa kodowa programu oraz jego wersja. Zgodnie z konwencją systemu Android zalecane jest użycie jako nazwy kodowej odwrotności domeny przeznaczonej dla danej aplikacji. Z uwagi, że do projektu nie została zarejestrowana jeszcze żadna domena, na czas realizacji pracy zdecydowano się użyć domeny \texttt{test}, która przeznaczona jest do użycia w testowaniu oprogramowania i gwarantuje pewność, że nigdy nie nastąpi konflikt z żadną istniejącą domeną, ponieważ zablokowana jest możliwość jej rejestracji \cite{testdomainwiki}.
+	Ustalona została nazwa kodowa programu oraz jego wersja. Zgodnie z konwencją systemu Android zalecane jest użycie jako nazwy kodowej odwrotności domeny przeznaczonej dla danej aplikacji. Z uwagi, że do projektu nie została zarejestrowana jeszcze żadna domena, na czas realizacji pracy zdecydowano się użyć domeny \texttt{test}, która przeznaczona jest do użycia w testowaniu oprogramowania i gwarantuje pewność, że nigdy nie nastąpi konflikt z żadną istniejącą domeną, ponieważ zablokowana jest możliwość jej rejestracji \cite{testdomainrfc}.
 
 	\subsection{Testy jednostkowe}
 
@@ -356,7 +368,7 @@ defaultConfig {
 			\label{fig:architecture}
 		\end{figure}
 
-		Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze \cite{googlearch}\cite{kotlin}. Została ona przedstawiona na Ryc. \ref{fig:architecture}.
+		Z perspektywy obsługi danych architektura aplikacji była pisana wzorując się na sugerowanej przez Google strukturze \cite{googlearch}\cite{kotlin}. Została ona przedstawiona na Ryc. \ref{fig:architecture}. Polega ona na tym, że klasa reprezentująca Aktywność bądź Fragment posiada członka będącego ViewModelem, ViewModel zawiera członka klasy Repozytorium, a Repozytorium członków klas Bazy Danych i klasy do obsługi połączeń sieciowych. Relacja zawierania jest na schemacie przedstawiona ciągłą linią. Aby jednak w takim układzie ViewModel mógł wpływać na kod w Aktyności/Fragmencie wykorzystywane są zmienne typu LiveData z ustawionymi obserwatorami w klasie Aktywności/Fragmentu. Zmiana wartości zmiennej powoduje poinformowanie obserwatorów i wykonanie kodu obserwatora. Ten rodzaj niebezpośredniego oddziaływania jest na schemacie przedstawiony linią przerywaną.
 
 		Stworzona została klasa pełniąca funkcję repozytorium, które jest pośrednikiem w dostępie do danych z bazy oraz obsługuje zapytania sieciowe, by aktualizować dane znajdujące się w niej. Dostęp do repozytorium wykonywany jest z poziomu klas typu \texttt{ViewModel}. Starano się w nich zawrzeć jak największą część kodu odpowiedzialnego za manipulowanie danymi. W klasach aktywności i fragmentów starano się zostawić tylko kod odpowiedzialny za obsługę interfejsu użytkownika. Odświeżanie danych wyświetlanych na ekranie wykonywane jest z poziomu klas \texttt{ViewModel} korzystając ze zmiennych typu \texttt{LiveData} i technologii data binding.
 
@@ -415,13 +427,13 @@ defaultConfig {
 			\label{fig:navigation}
 		\end{figure}
 
-		Aplikacja posiada jedną aktywność i cztery widoki, w tym dwa główne. Aktywność przy tworzeniu aktywuje szablon nawigacji (znajdujący się w \texttt{res/navigation/}), który pomaga w bezproblemowym zarządzaniu przechodzeniem pomiędzy fragmentami. Schematyczny diagram tego szablonu został przedstawiony na Ryc. \ref{fig:navigation}.
+		Aplikacja posiada jedną aktywność i cztery widoki, w tym dwa główne. Aktywność przy tworzeniu aktywuje szablon nawigacji (znajdujący się w \texttt{res/navigation/}), który pomaga w bezproblemowym zarządzaniu przechodzeniem pomiędzy fragmentami. Schematyczny diagram tego szablonu został przedstawiony na Ryc. \ref{fig:navigation}. Przedstawia on wszystkie fragmenty stworzone w aplikacji i możliwe przejścia pomiędzy nimi. Dokładny opis tych widoków z punktu widzenia użytkownika znajduje się w rozdziale \ref{ui}. Ten rozdział opisuje je z perspektywy nawigacji w aplikacji i przejść pomiędzy nimi.
 
-		Głównym i domyślnym widokiem jest widok mapy. Uruchamia się on zaraz po starcie aplikacji. Umożliwia przeglądanie danych w postaci punktów na mapie zajmującej cały ekran. Kliknięcie w punkt powoduje wyświetlenie szczegółów danego miejsca.
+		Głównym i domyślnym widokiem jest widok mapy. Jego wygląd dla użytkownika znajduje się na lewej połowie Ryc. \ref{fig:screenshotmain}. Uruchamia się on zaraz po starcie aplikacji. Umożliwia przeglądanie danych w postaci punktów na mapie zajmującej cały ekran. Kliknięcie w punkt powoduje wyświetlenie szczegółów danego miejsca.
 
-		Drugim głównym widokiem jest widok pozwalający na wyświetlenie miejsc w formie sortowanej listy. Przejście do niego jest możliwe z ekranu mapy za pomocą przycisku na dole. Kliknięcie pozycji reprezentującej konkretne miejsce powoduje wyświetlenie się jego szczegółów.
+		Drugim głównym widokiem jest widok pozwalający na wyświetlenie miejsc w formie sortowanej listy. Jego wygląd znajduje się na prawej połowie Ryc. \ref{fig:screenshotmain}. Przejście do niego jest możliwe z ekranu mapy za pomocą przycisku na dole. Kliknięcie pozycji reprezentującej konkretne miejsce powoduje wyświetlenie się jego szczegółów. Ten widok znajduje się na Ryc. \ref{fig:screenshotdetail}.
 
-		Oba widoki główne posiadają przycisk do dodania nowego miejsca, który przenosi do widoku dodawania. Po dodaniu następuje przejście do ekranu mapy. Ekran ze szczegółami poza wyświetlaniem dodatkowych informacji o miejscu pozwala na usunięcie miejsca z bazy. Po usunięciu następuje przejście do widoku mapy.
+		Oba widoki główne posiadają przycisk do dodania nowego miejsca, który przenosi do widoku dodawania. Ten widok znajduje się na Ryc. \ref{fig:screenshotaddedit}. Po dodaniu następuje przejście do ekranu mapy. Ekran ze szczegółami poza wyświetlaniem dodatkowych informacji o miejscu pozwala na usunięcie miejsca z bazy. Po usunięciu następuje przejście do widoku mapy.
 
 		Android oferuje dwa rodzaje przejść pomiędzy ekranami \cite{androiddevelopment} — te opisane wyżej to przejścia w przód, które wykonywane są poprzez interakcje użytkownika z aplikacją. Drugim typem przejść są przejścia w tył wykonywane przez użycie przycisku wstecz. Tego typu przejścia powracają do poprzedniego ekranu. Aby nawigacja w aplikacji działała poprawnie i intuicyjnie dla użytkownika wszystkie przejścia "w przód" powracające do ekranu mapy powodują wyczyszczenie kolejki wcześniejszych widoków, aby kliknięcie przycisku wstecz na widoku mapy powodowało opuszczenie aplikacji.
 
@@ -439,7 +451,7 @@ defaultConfig {
 
 	Po poprawnej inicjalizacji mapy następuje stworzenie obserwatora listy punktów i wypełnienie mapy punktami. Następuje też przypisanie działania, które ma się wykonać po kliknięciu na dany punkt. Widok mapy przechodzi na aktualną pozycję użytkownika.
 
-	Obecność elementu mapy zaburza poprawną implementację wzorca projektowego MVVM (Model-View-ViewModel) \cite{mvvmwiki}, ponieważ zgodnie z nim część kodu odpowiedzialnego za obsługę map powinna zostać przeniesiona do ViewModela. Nie udało się tego jednak dokonać podczas realizacji tego projektu.
+	Obecność elementu mapy zaburza poprawną implementację wzorca projektowego MVVM (Model-View-ViewModel) \cite{mvvmarticle}, ponieważ zgodnie z nim część kodu odpowiedzialnego za obsługę map powinna zostać przeniesiona do ViewModela. Nie udało się tego jednak dokonać podczas realizacji tego projektu, z uwagi na poziom skomplikowania kodu wymaganego do obsługi tego elementu.
 
 	\subsection{Wyszukiwanie punktów}
 
@@ -505,7 +517,7 @@ viewModel.navigateToSecondView.observe(viewLifecycleOwner, Observer {
 
 	Z uwagi na brak konieczności ładowania mapy już na tym etapie ustawiani są obserwatorzy na zmienne wykorzystywane do nawigacji, jak i zmienne z listą punktów. Ten widok z uwagi na konieczność sortowania listy po odległości wykorzystuje jednak inną listę niż widok mapy. Lista potrzebna do tego widoku jest zdefiniowana w ViewModelu i jest tworzona w formie transformacji podstawowej listy wykorzystując dodatkowo aktualną lokalizację użytkownika.
 
-	Do obliczenia odległości pomiędzy lokalizacją użytkownika a punktem wykorzystywany jest wzór \ref{eq:1}, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej \cite{haversineformulawiki}.
+	Do obliczenia odległości pomiędzy lokalizacją użytkownika a punktem wykorzystywany jest wzór \ref{eq:1}, który zabezpiecza przed błędami zaokrągleń wynikających z precyzji arytmetyki zmiennoprzecinkowej \cite{haversineformulaarticle}.
 
 	\begin{equation}
 d = 2r\arcsin(\sqrt{\sin^2(\frac{\varphi_1-\varphi_2}{2})+\cos(\varphi_1)\cos(\varphi_2)\sin^2(\frac{\lambda_1-\lambda_2}{2})}),\label{eq:1}
@@ -532,7 +544,7 @@ d = 2r\arcsin(\sqrt{\sin^2(\frac{\varphi_1-\varphi_2}{2})+\cos(\varphi_1)\cos(\v
 
 	\subsection{Usuwanie obiektu}
 
-	Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejścia opisanego w roździale \ref{navigation}.
+	Usunięcie wybranego obiektu jest możliwe poprzez opcję w menu na pasku akcji. Schemat wykorzystany do usuwania jest podobny do schematu przejścia opisanego w rozdziale \ref{navigation}.
 
 	W momencie wybrania opcji następuje wyświetlenie nieskończonego paska postępu oraz zapytanie do repozytorium o usunięcie obiektu. Z uwagi na wykonywanie zapytania do serwera oraz do lokalnej bazy działanie to musi być wykonane na osobnym wątku.
 
@@ -554,7 +566,7 @@ d = 2r\arcsin(\sqrt{\sin^2(\frac{\varphi_1-\varphi_2}{2})+\cos(\varphi_1)\cos(\v
 
 	\subsection{Implementacja repozytorium}
 
-	Model repozytorium w tym projekcie pełni funkcję warstwy abstrakcji pomiędzy zapytaniami do serwera i bazy oraz powoduje skupienie całego kodu odpowiedzialnego za te operacje w jednym miejscu. Repozytorium jest zaimplementowane w formie wzorca projektowego typu Singleton, zapewniającego, że w trakcie życia aplikacji będzie istniał tylko jeden obiekt repozytorium i bazy danych \cite{singletonwiki}.
+	Model repozytorium w tym projekcie pełni funkcję warstwy abstrakcji pomiędzy zapytaniami do serwera i bazy oraz powoduje skupienie całego kodu odpowiedzialnego za te operacje w jednym miejscu. Repozytorium jest zaimplementowane w formie wzorca projektowego typu Singleton, zapewniającego, że w trakcie życia aplikacji będzie istniał tylko jeden obiekt repozytorium i bazy danych \cite{designpatterns}.
 
 	\begin{listing}[H]
 		\caption{Publiczny interfejs repozytorium}
