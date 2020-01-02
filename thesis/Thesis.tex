@@ -137,52 +137,49 @@ W dzisiejszych czasach praktycznie każdy posiada smartfon. Większość z nich 
 
 Celem tej pracy jest opracowanie aplikacji na urządzenia z systemem Android umożliwiającej użytkownikom na łatwiejsze znajdywanie miejsc użyteczności publicznej, gdzie goście mają dostęp do energii elektrycznej, np. restauracji, w której można usiąść przy stoliku z laptopem i podłączyć się do prądu. Aplikacja będzie klientem do niezależnie rozwijanego serwera z bazą danych. Zaoferuje ona możliwość wyświetlania zebranych w niej danych, oraz umożliwi operowanie na nich w przystępny i szybki dla użytkownika sposób.
 
-Program ten będzie pisany, wykorzystując najlepsze wzorce projektowe oraz odpowiednią warstwę abstrakcji, tak aby jego dalszy rozwój był łatwy, również dla innych osób. Dodatkowo umożliwi to łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości będzie taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia innej aplikacji podobnego typu.
+Program ten będzie pisany, wykorzystując zalecane przez Google metody oraz odpowiednią warstwę abstrakcji, tak aby jego dalszy rozwój był łatwy, również dla innych osób. Dodatkowo umożliwi to łatwą zmianę przechowywanych danych w bazie, jeśli w przyszłości będzie taka konieczność bądź chciano by wykorzystać ten projekt do stworzenia innej aplikacji podobnego typu.
 
 Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej szczegółowo opisuje koncepcję aplikacji, jej zastosowanie i to, co zostało zrealizowane. Rozdział \ref{technology} przedstawia technologie wybrane do stworzenia programu. Rozdział \ref{implementation} opisuje aspekty implementacji kodu oraz stanowi jego dokumentację. Rozdział \ref{ui} został wykorzystany do prezentacji i opisania interfejsu użytkownika aplikacji. W rozdziale \ref{summary} zamieszone jest podsumowanie pracy. Na końcu dokumentu znajdują się odwołania do literatury, z której korzystano w trakcie przygotowywania tej pracy oraz indeks użytych rycin i listingów.
 
 \section{Opis koncepcji}\label{concept}
+	\subsection{Wymagania funkcjonalne i niefunkcjonalne}
+		\subsubsection{Wymagania funkcjonalne}
+
+			\begin{enumerate}
+				\item Przeglądanie punktów w formie mapy.
+				\item Przeglądanie punktów w formie listy.
+				\item Dodawanie punktów.
+				\item Edycja punktów.
+				\item Usuwanie punktów.
+				\item Przeszukiwanie bazy punktów.
+				\item Połączenie z serwerem i synchronizacja danych.
+				\item Buforowanie danych z serwera na urządzeniu.
+				\item\label{accounts-req} System kont użytkowników.
+				\item\label{drawing-req} System umożliwiający szkicowanie planów obiektów.
+			\end{enumerate}
+
+		\subsubsection{Wymagania niefunkcjonalne}
+
+			\begin{enumerate}
+				\item Aplikacja powinna być przygotowana na system Android.
+				\item Aplikacja powinna posiadać prosty interfejs użytkownika zgodny z obowiązującymi standardami wybranej platformy.
+			\end{enumerate}
+
 	\subsection{Aplikacja mobilna}
 
-	Pomysł na aplikację powstał podczas obserwacji innych aplikacji użytkowych, które są bardzo popularne na rynku. Głównie była ona bazowana na dwóch serwisach — aplikacji do wyszukiwania publicznych toalet (Flush\footnote{Flush by Sam Ruston — \url{https://samruston.co.uk/}}), oraz publicznych sieci Wi-Fi (WiFi Map\footnote{WiFi Map by WiFi Map LLC — \url{https://www.wifimap.io/}}). W obu przypadkach, głównym aspektem programu jest mapa ze społecznie zbieranymi danymi. Taki model działania pozwala założyć, że użytkownicy sami będą dbać o poprawność i aktualność danych.
+	Pomysł na aplikację powstał podczas obserwacji innych aplikacji użytkowych, które istnieją na rynku. Głównie była ona bazowana na dwóch serwisach — aplikacji do wyszukiwania publicznych toalet (Flush\footnote{Flush by Sam Ruston — \url{https://samruston.co.uk/}}), oraz publicznych sieci Wi-Fi (WiFi Map\footnote{WiFi Map by WiFi Map LLC — \url{https://www.wifimap.io/}}). W obu przypadkach, głównym aspektem programu jest mapa ze społecznie zbieranymi danymi. Taki model działania pozwala założyć, że użytkownicy sami będą dbać o poprawność i aktualność danych.
 
 	Tutaj też głównym miejscem jest widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo jest możliwość wyświetlenia danych w formie listy, sortowanej rosnąco odległością od użytkownika.
 
 	Przy uruchomieniu klient pobiera dane o wszystkich miejscach z bazy danych. Aby zmniejszyć liczbę późniejszych zapytań do serwera aplkacja zapewnia metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane są do następnego uruchomienia, gdzie baza danych jest aktualizowana o najnowsze dane z serwera.
 
-	Baza przechowuje podstawowe dane o miejscu, jak jego lokalizacja czy nazwa, oraz bardziej specyficzne dla tego zastosowania informacje, takie jak ilość publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi punktami na planie budynku (co np. w przypadku restauracji umożliwia klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi).
+	Baza przechowuje podstawowe dane o miejscu, jak jego lokalizacja czy nazwa, oraz bardziej specyficzne dla tego zastosowania informacje, takie jak liczba publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi punktami na planie budynku (co np. w przypadku restauracji umożliwia klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi).
 
-	W aplikacji jest dostępny widok szczegółowy danego miejsca, umożliwiający podejrzenie dodatkowych informacji o nim. Widok dodawania nowego miejsca umożliwia podanie wszystkich szczegółów dotyczących tego punktu, oraz miał ułatwiać dodanie planu budynku naszkicowanego ręcznie, bądź poprzez wgranie zdjęcia fizycznie wykonanego planu.
-
-	Klient oczywiście pozwala również na edycje istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących. Planowane było też wprowadzenie kont użytkownika, aby śledzić kto dokonuje modyfikacji, oraz zablokować tych, którzy pogarszają jakość danych w aplikacji.
+	W aplikacji jest dostępny widok szczegółowy danego miejsca, umożliwiający podejrzenie dodatkowych informacji o nim. Widok dodawania nowego miejsca umożliwia podanie wszystkich szczegółów dotyczących tego punktu, oraz miał ułatwiać dodanie planu budynku naszkicowanego ręcznie, bądź poprzez wgranie zdjęcia fizycznie wykonanego planu. Klient oczywiście pozwala również na edycje istniejących punktów, jak i usuwanie błędnie stworzonych, bądź już nieistniejących.
 
 	\subsection{Serwer}
 
 	Do działania aplikacja potrzebuje również internetowego serwera z bazą danych, jednak nie stanowi to przedmiotu tej pracy. Serwer jest napisany w sposób umożliwiający tej aplikacji, na połączenie się z nim, oraz wykorzystuje odpowiednią warstwę abstrakcji, by w przyszłości możliwe było stworzenie klientów na inne platformy (klient webowy, na system iOS itp.)
-
-	\subsection{Wymagania funkcjonalne i niefunkcjonalne}
-
-		\subsubsection{Wymagania funkcjonalne}
-
-		\begin{enumerate}
-			\item Przeglądanie punktów w formie mapy.
-			\item Przeglądanie punktów w formie listy.
-			\item Dodawanie punktów.
-			\item Edycja punktów.
-			\item Usuwanie punktów.
-			\item Przeszukiwanie bazy punktów.
-			\item Połączenie z serwerem i synchronizacja danych wykorzystując zapytania w stylu REST.
-			\item Buforowanie danych z serwera na urządzeniu.
-			\item\label{accounts-req} System kont użytkowników.
-			\item\label{drawing-req} System umożliwiający szkicowanie planów obiektów.
-		\end{enumerate}
-
-		\subsubsection{Wymagania niefunkcjonalne}
-
-		\begin{enumerate}
-			\item Aplikacja powinna być przygotowana na system Android.
-			\item Aplikacja powinna posiadać prosty interfejs użytkownika zgodny z obowiązującymi standardami wybranej platformy.
-		\end{enumerate}
 
 	\subsection{Zakres realizacji}
 
@@ -193,7 +190,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 		{\scriptsize
 			\includesvg[width = \textwidth]{usecasediagram}
 		}
-		\caption{Schemat przypadków użycia}
+		\caption{Diagram przypadków użycia}
 		\label{fig:usecasediagram}
 	\end{figure}
 
@@ -225,7 +222,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	Do wsparcia przy budowie nawigacji pomiędzy ekranami programu wykorzystano bibliotekę o nazwie \textit{Navigation}, ponieważ jest to zalecona metoda tworzenia przejść przez Google \cite{androiddevelopment}. Z tego samego powodu wykorzystano bibliotekę \textit{Lifecycle} do lepszego wsparcia zarządzania życiem poszczególnych elementów aplikacji.
 
-	W programie zaimplementowano bazę danych w technologii \texttt{SQLite} wykorzystując bibliotekę \textit{Room}, która pozwala w prosty sposób tworzyć bazy danych do aplikacji na platformę Android.
+	W programie zaimplementowano bazę danych w technologii \texttt{SQLite}\footnote{SQLite by SQLite Consortium — \url{https://www.sqlite.org/}} wykorzystując bibliotekę \textit{Room}, która pozwala w prosty sposób tworzyć bazy danych do aplikacji na platformę Android.
 
 	Do obsługi map oraz lokalizacji wykorzystano biblioteki \textit{Google Maps Services}, ponieważ jest to oficjalnie wspierana biblioteka do tych zastosowań.
 
@@ -241,7 +238,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	\begin{itemize}
 		\item pobranie wszystkich punktów z bazy danych — zapytanie typu \texttt{GET}, które zwraca listę punktów;
-		\item dodanie nowego punktu — zapytanie typu \texttt{PUT}, które w ciele przyjmuje obiekt z wszystkimi parametrami miejsca, jednak bez \texttt{Id}, zwraca dodany obiekt do bazy danych z poprawnym \texttt{Id};
+		\item dodanie nowego punktu — zapytanie typu \texttt{PUT}, które w ciele przyjmuje obiekt z wszystkimi parametrami miejsca (nazwa miejsca - \texttt{name}, współrzędne - \texttt{lat} i \texttt{lon}, adres - \texttt{address} oraz liczba gniazdek w lokalu - \texttt{num\_mugs}), jednak bez \texttt{Id}, zwraca dodany obiekt do bazy danych z poprawnym \texttt{Id};
 		\item edycja istniejącego punktu — zapytanie typu \texttt{PATCH}, które przyjmuje zmieniony obiekt i zwraca go;
 		\item usunięcie punktu — zapytanie typu \texttt{DELETE}, które przyjmuje obiekt do usunięcia i zwraca pustą odpowiedź z kodem HTTP \texttt{200}.
 	\end{itemize}
@@ -267,7 +264,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 		\item Nexus 4 — Android 5.0 Lollipop (\textit{maszyna wirtualna})
 	\end{itemize}
 
-	Procedura testowania polegała na:
+	Aplikacja była testowana ręcznie, a procedura testowania polegała na:
 
 	\begin{itemize}
 		\item zainstalowaniu aplikacji na urządzeniu,
