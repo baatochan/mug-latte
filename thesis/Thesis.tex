@@ -33,8 +33,12 @@
 ]{biblatex}
 \addbibresource{thesis.bib}
 
-\graphicspath{ {./img/} }
-\svgpath{ {./img/} }
+\graphicspath{ {img/} }
+% \setsvg{
+% 	svgpath = img/
+% }
+% version below can't be used on linux (or more likely i couldn't make it work), leaves `/"filename.svg"` in pdf above all svg graphics. had to use the version above.
+\svgpath{ {img/} }
 
 \geometry{
 	a4paper,
@@ -147,15 +151,45 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 			\begin{enumerate}
 				\item Przeglądanie punktów w formie mapy.
+
+					Klient oferuje możliwość przeglądania punktów w formie znaczników na mapie.
+
 				\item Przeglądanie punktów w formie listy.
+
+					Klient oferuje możliwość przeglądania punktów w formie listy sortowanej aktualną odległością użytkownika od punktu.
+
 				\item Dodawanie punktów.
+
+					Użytkownik ma możliwość dodania nowego wpisu do bazy danych.
+
 				\item Edycja punktów.
+
+					Użytkownik ma możliwość edycji dowolnego wpisu w bazie danych.
+
 				\item Usuwanie punktów.
+
+					Użytkownik ma możliwość usunięcia dowolnego wpisu w bazie danych.
+
 				\item Przeszukiwanie bazy punktów.
+
+					Klient oferuje możliwość ograniczenia wyświetlanych punktów na mapie do punktów spełniających określone kryteria - zawierających podany przez użytkownika ciąg znaków w polu nazwy bądź adresu.
+
 				\item Połączenie z serwerem i synchronizacja danych.
+
+					Aplikacja łączy się z serwerem celem synchronizacji danych. Umożliwia to użytkownikom wspólną pracę na jednej bazie danych, aktualizowanej przez każdego.
+
 				\item Buforowanie danych z serwera na urządzeniu.
+
+					Klient zapisuje na urządzeniu kopie bazy danych z serwera, aby umożliwić szybszy dostęp do niej oraz ograniczyć liczbę zapytań sieciowych.
+
 				\item\label{accounts-req} System kont użytkowników.
+
+					Aplikacja umożliwia użytkownikom założenie konta oraz zalogowanie się do niego. Dzięki temu użytkownik przestaje być anonimowy i możliwe jest zapisywanie kto dokonał jakich modyfikacji w bazie. Te informacje mogą posłużyć do zablokowania niektórym osobom możliwości edytowania danych o punktach.
+
 				\item\label{drawing-req} System umożliwiający szkicowanie planów obiektów.
+
+					Klient pozwala użytkownikowi dodać szkic planu budynku jako informacji o danym punkcie. Możliwe jest wgranie zdjęcia z aparatu (użytkownik robi zdjęcie planu naszkicowanego metodą tradycyjną) lub naszkicowanie cyfrowego planu w specjalnym widoku aplikacji. Widok ten ułatwia użytkownikowi szkicowanie planu poprzez możliwość układania go z gotowych kształtów poza oczywistym rysowaniem linii za pomocą palca na ekranie.
+
 			\end{enumerate}
 
 		\subsubsection{Wymagania niefunkcjonalne}
@@ -171,7 +205,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	Tutaj też głównym miejscem jest widok mapy, umożliwiający na przeglądanie danych w łatwy dla użytkownika sposób. Dodatkowo jest możliwość wyświetlenia danych w formie listy, sortowanej rosnąco odległością od użytkownika.
 
-	Przy uruchomieniu klient pobiera dane o wszystkich miejscach z bazy danych. Aby zmniejszyć liczbę późniejszych zapytań do serwera aplkacja zapewnia metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane są do następnego uruchomienia, gdzie baza danych jest aktualizowana o najnowsze dane z serwera.
+	Przy uruchomieniu klient pobiera dane o wszystkich miejscach z bazy danych. Aby zmniejszyć liczbę późniejszych zapytań do serwera aplikacja zapewnia metodę na buforowanie danych na urządzeniu. Wprowadzenie takiego rozwiązania jest możliwe, ponieważ program wyświetla rzadko zmieniające się informacje. Dane przechowywane są do następnego uruchomienia, gdzie baza danych jest aktualizowana o najnowsze dane z serwera.
 
 	Baza przechowuje podstawowe dane o miejscu, jak jego lokalizacja czy nazwa, oraz bardziej specyficzne dla tego zastosowania informacje, takie jak liczba publicznie dostępnych gniazdek, czy szkic poglądowy z zaznaczonymi punktami na planie budynku (co np. w przypadku restauracji umożliwia klientowi wybranie odpowiedniego stolika, bez konieczności pytania obsługi).
 
@@ -183,7 +217,7 @@ Praca jest podzielona w następujący sposób. Rozdział \ref{concept} bardziej 
 
 	\subsection{Zakres realizacji}
 
-	W trakcie realizacji pracy wykonano większość z założonych wymagań funkcjonalnych i niefunkcjonalnych. Nie udało się jedynie zrealizować wymagań funkcjonalnych nr \ref{accounts-req} i \ref{drawing-req}, ponieważ realizacja innych wymagań zajeła więcej czasu niż było szacowane na początku pracy. Dodatkowo realizacja tych dwóch wymagań okazała się bardziej skomplikowana niż planowano. Mimo to zrealizowano całkiem solidny zakres podstawowych funkcji, który został przedstawiony na schemacie przypadków użycia na Ryc. \ref{fig:usecasediagram}. Umożliwiają one na użytkowanie programu w założonych celach oraz na jego dalszy rozwój.
+	W trakcie realizacji pracy wykonano większość z założonych wymagań funkcjonalnych i niefunkcjonalnych. Nie udało się jedynie zrealizować wymagań funkcjonalnych nr \ref{accounts-req} i \ref{drawing-req}, ponieważ realizacja innych wymagań zajęła więcej czasu niż było szacowane na początku pracy. Dodatkowo realizacja tych dwóch wymagań okazała się bardziej skomplikowana niż planowano. Mimo to zrealizowano całkiem solidny zakres podstawowych funkcji, który został przedstawiony na schemacie przypadków użycia na Ryc. \ref{fig:usecasediagram}. Umożliwiają one na użytkowanie programu w założonych celach oraz na jego dalszy rozwój.
 
 	\begin{figure}[H]
 		\centering
