@@ -1,0 +1,15 @@
+# Latex
+thesis.*
+!thesis.md
+!thesis.pdf
+!thesis.tex
+!thesis.bib
+
+Thesis.*
+!Thesis.md
+!Thesis.pdf
+!Thesis.tex
+!thesis.bib
+
+_minted*/
+svg-inkscape/
