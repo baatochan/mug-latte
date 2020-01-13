@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="178.22116mm"
+   height="129.91042mm"
+   viewBox="0 0 178.22116 129.91042"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="drawing.svg">
+  <defs
+     id="defs2">
+    <style
+       id="style10"
+       type="text/css">ul { margin-top: 0px; margin-bottom: 10px } 
+ol { margin-top: 0px; margin-bottom: 10px } 
+ul { margin-top: 0px; margin-bottom: 10px } 
+ol { margin-top: 0px; margin-bottom: 10px } 
+ul { margin-top: 0px; margin-bottom: 10px } 
+ol { margin-top: 0px; margin-bottom: 10px } 
+</style>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-543.29808"
+     inkscape:cy="-29.665603"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g387"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="3352"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-2.6950366,-2.7226005)">
+    <g
+       id="g387"
+       transform="matrix(0.26458333,0,0,0.26458333,14.430608,29.581846)">
+      <g
+         id="g248"
+         transform="translate(-44.446713,-101.01526)">
+        <circle
+           id="ellipse14"
+           pointer-events="none"
+           cy="225.5"
+           cx="30"
+           r="7.5"
+           style="fill:#7acff5;stroke:none" />
+        <rect
+           id="rect16"
+           pointer-events="none"
+           height="60"
+           width="30"
+           y="218"
+           x="15"
+           style="fill:#7acff5;fill-opacity:0;stroke:none" />
+        <circle
+           id="ellipse18"
+           pointer-events="none"
+           cy="225.5"
+           cx="30"
+           r="7.5"
+           style="fill:none;stroke:#000000" />
+        <path
+           id="path20"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 30,233 v 25"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path22"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 15,242 H 45"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path24"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 30,258 15,278"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path26"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 30,258 15,20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g30"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text28"
+             y="296.5"
+             x="29.5">Użytkownik</text>
+        </g>
+        <rect
+           id="rect32"
+           pointer-events="none"
+           height="490"
+           width="493"
+           y="0"
+           x="97"
+           style="fill:#91ead2;stroke:#64b19c" />
+        <g
+           id="g36"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text34"
+             y="18.5"
+             x="343">Aplikacja mobilna</text>
+        </g>
+        <ellipse
+           id="ellipse38"
+           pointer-events="none"
+           ry="20"
+           rx="95"
+           cy="76"
+           cx="235"
+           style="fill:#ffdc8c;stroke:#ddab38" />
+        <g
+           id="g42"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text40"
+             y="79.5"
+             x="234.5">Przeglądanie punktów</text>
+        </g>
+        <ellipse
+           id="ellipse44"
+           pointer-events="none"
+           ry="20"
+           rx="95"
+           cy="168"
+           cx="474"
+           style="fill:#ffdc8c;stroke:#ddab38" />
+        <g
+           id="g48"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text46"
+             y="171.5"
+             x="473.5">Zapytanie do serwera</text>
+        </g>
+        <path
+           id="path50"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,76 h 15 q 10,0 10,10 v 72 q 0,10 10,10 h 11.76"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path52"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g56"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text54"
+             y="125"
+             x="354.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <ellipse
+           id="ellipse58"
+           pointer-events="none"
+           ry="20"
+           rx="95"
+           cy="162"
+           cx="235"
+           style="fill:#efb9aa;stroke:#d77d63" />
+        <g
+           id="g62"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text60"
+             y="165.5"
+             x="234.5">Przeszukiwanie punktów</text>
+        </g>
+        <path
+           id="path64"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 235,98.24 V 142"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path66"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 241,109.12 -6,-12 -6,12"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g70"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text68"
+             y="122"
+             x="234.5">&lt;&lt;Extend&gt;&gt;</text>
+        </g>
+        <ellipse
+           id="ellipse72"
+           pointer-events="none"
+           ry="20"
+           rx="95"
+           cy="248"
+           cx="235"
+           style="fill:#ffdc8c;stroke:#ddab38" />
+        <g
+           id="g76"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text74"
+             y="251.5"
+             x="234.5">Dodawanie punktów</text>
+        </g>
+        <path
+           id="path78"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,248 h 9.5 q 9.5,0 9.5,-10 v -60 q 0,-10 10,-10 h 17.76"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path80"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g84"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text82"
+             y="205"
+             x="348.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <ellipse
+           id="ellipse86"
+           pointer-events="none"
+           ry="20"
+           rx="95"
+           cy="334"
+           cx="235"
+           style="fill:#ffdc8c;stroke:#ddab38" />
+        <g
+           id="g90"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text88"
+             y="337.5"
+             x="234.5">Edycja punktów</text>
+        </g>
+        <path
+           id="path92"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,334 h 15 q 10,0 10,-10 V 178 q 0,-10 10,-10 h 11.76"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path94"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g98"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text96"
+             y="292"
+             x="354.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <ellipse
+           id="ellipse100"
+           pointer-events="none"
+           ry="20"
+           rx="95"
+           cy="420"
+           cx="235"
+           style="fill:#ffdc8c;stroke:#ddab38" />
+        <g
+           id="g104"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text102"
+             y="423.5"
+             x="234.5">Usuwanie punktów</text>
+        </g>
+        <path
+           id="path106"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,420 h 20 q 10,0 10,-10 V 178 q 0,-10 8.38,-10 h 8.38"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path108"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g112"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text110"
+             y="374"
+             x="359.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <ellipse
+           id="ellipse114"
+           pointer-events="none"
+           ry="25"
+           rx="95"
+           cy="81"
+           cx="474"
+           style="fill:#efb9aa;stroke:#d77d63" />
+        <g
+           id="g120"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text116"
+             y="77.5"
+             x="473.5">Pomijanie zapytania, gdy</text>
+          <text
+             id="text118"
+             y="91.5"
+             x="473.5">dane są zbuforowane</text>
+        </g>
+        <path
+           id="path122"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 474,145.76 V 106"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path124"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 468,134.88 6,12 6,-12"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g128"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text126"
+             y="130"
+             x="473.5">&lt;&lt;Extend&gt;&gt;</text>
+        </g>
+        <ellipse
+           id="ellipse130"
+           pointer-events="none"
+           ry="20"
+           rx="95"
+           cy="245"
+           cx="474"
+           style="fill:#efb9aa;stroke:#d77d63" />
+        <g
+           id="g136"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text132"
+             y="241.5"
+             x="473.5">Obsługa braku połączenia</text>
+          <text
+             id="text134"
+             y="255.5"
+             x="473.5">z internetem</text>
+        </g>
+        <path
+           id="path138"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 474,190.24 V 225"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path140"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 480,201.12 -6,-12 -6,12"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g144"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text142"
+             y="210"
+             x="473.5">&lt;&lt;Extend&gt;&gt;</text>
+        </g>
+        <circle
+           id="ellipse146"
+           pointer-events="none"
+           cy="145.5"
+           cx="655"
+           r="7.5"
+           style="fill:#7acff5;stroke:none" />
+        <rect
+           id="rect148"
+           pointer-events="none"
+           height="60"
+           width="30"
+           y="138"
+           x="640"
+           style="fill:#7acff5;fill-opacity:0;stroke:none" />
+        <circle
+           id="ellipse150"
+           pointer-events="none"
+           cy="145.5"
+           cx="655"
+           r="7.5"
+           style="fill:none;stroke:#000000" />
+        <path
+           id="path152"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 655,153 v 25"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path154"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 640,162 h 30"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path156"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 655,178 -15,20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path158"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 655,178 15,20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g162"
+           font-size="12px"
+           style="font-size:12px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text160"
+             y="216.5"
+             x="654.5">Serwer</text>
+        </g>
+        <path
+           id="path164"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,-10 V 86 q 0,-10 10,-10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path166"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,-10 v -66 q 0,-10 10,-10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path168"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 95"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path170"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 95"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path172"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,10 v 66 q 0,10 10,10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path174"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 640,168 H 569"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path176"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,10 v 152 q 0,10 10,10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path178"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,76 h 15 q 10,0 10,10 v 72 q 0,10 10,10 h 11.76"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path180"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g184"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text182"
+             y="125"
+             x="354.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <path
+           id="path186"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 235,98.24 V 142"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path188"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 241,109.12 -6,-12 -6,12"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g192"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text190"
+             y="122"
+             x="234.5">&lt;&lt;Extend&gt;&gt;</text>
+        </g>
+        <path
+           id="path194"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,248 h 9.5 q 9.5,0 9.5,-10 v -60 q 0,-10 10,-10 h 17.76"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path196"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g200"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text198"
+             y="205"
+             x="348.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <path
+           id="path202"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,334 h 15 q 10,0 10,-10 V 178 q 0,-10 10,-10 h 11.76"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path204"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g208"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text206"
+             y="292"
+             x="354.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <path
+           id="path210"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 330,420 h 20 q 10,0 10,-10 V 178 q 0,-10 8.38,-10 h 8.38"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path212"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 365.88,174 12,-6 -12,-6"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g216"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text214"
+             y="374"
+             x="359.5">&lt;&lt;Include&gt;&gt;</text>
+        </g>
+        <path
+           id="path218"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 474,145.76 V 106"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path220"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 468,134.88 6,12 6,-12"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g224"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text222"
+             y="130"
+             x="473.5">&lt;&lt;Extend&gt;&gt;</text>
+        </g>
+        <path
+           id="path226"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 474,190.24 V 225"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10;stroke-dasharray:3, 3" />
+        <path
+           id="path228"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 480,201.12 -6,-12 -6,12"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <g
+           id="g232"
+           font-size="11px"
+           style="font-size:11px;font-family:Helvetica;text-anchor:middle;fill:#000000">
+          <text
+             id="text230"
+             y="210"
+             x="473.5">&lt;&lt;Extend&gt;&gt;</text>
+        </g>
+        <path
+           id="path234"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,-10 V 86 q 0,-10 10,-10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path236"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,-10 v -66 q 0,-10 10,-10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path238"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 95"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path240"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 95"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path242"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,10 v 66 q 0,10 10,10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path244"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="M 640,168 H 569"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+        <path
+           id="path246"
+           pointer-events="none"
+           stroke-miterlimit="10"
+           d="m 45,248 h 55 q 10,0 10,10 v 152 q 0,10 10,10 h 20"
+           inkscape:connector-curvature="0"
+           style="fill:none;stroke:#000000;stroke-miterlimit:10" />
+      </g>
+      <g
+         id="g252"
+         font-size="12px"
+         style="font-size:12px;font-family:Arial, Helvetica;fill:#787878" />
+      <g
+         id="g256"
+         font-size="12px"
+         style="font-size:12px;font-family:Arial, Helvetica;text-anchor:end;fill:#787878" />
+    </g>
+  </g>
+</svg>
