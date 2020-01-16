@@ -23,6 +23,11 @@
 \usepackage{perpage}
 \MakePerPage{footnote}
 
+\usepackage{fancyhdr}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[LE,RO]{\thepage}
+
 \frenchspacing
 %\usepackage{lmodern}
 \selectlanguage{polish}
@@ -141,7 +146,7 @@
 
 \restoregeometry
 
-\pagestyle{plain}
+\pagestyle{fancy}
 \cleardoublepage
 
 \tableofcontents
